@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+  <title>Kimo Error</title>
+  <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
+  <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
+  <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/angular.js"></script>
+  <script src="/javascripts/angular-route.js"></script>
+  <script src="/sb-admin/js/bootstrap.js"></script>
+  <script src="/sb-admin/js/sb-admin-2.js"></script>
+  <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
+  <script src="/kimoApp.js"></script>
+  <script src="/controllers/signInController.js"></script>
+</head>
+<html>
+<body >
+<div class="row" style = "align: center">
+  <div class="col-lg-4" style="margin: 20% 30% 20% 30%">
+    <div class="bs-component">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Status <%= status %></h3>
+        </div>
+        <div class="panel-body">
+          <%= message %>
+        </div>
+      </div>
+      <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div></div>
+
+  </div>
+</div>
+</body>
+</html>
+
