@@ -6,7 +6,12 @@ kimoApp.config(function($routeProvider){
         .when("/signIn",{
             controller: "SignInController",
             templateUrl: "signIn.html"
+        })
+        .when("/signUp",{
+            controller: "SignUpController",
+            templateUrl: "signUp.html"
         });
 
     $routeProvider.otherwise({"redirectTo": "/signIn"});  //.otherwise("/"); //does not work
 });
+

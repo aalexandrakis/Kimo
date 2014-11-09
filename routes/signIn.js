@@ -15,12 +15,14 @@ router.post('/', function(req, res) {
   			postResult += result;
   		}, function(result){
   			postResult = JSON.parse(postResult);
-  			if (postResult.userName){
+  			if (Object.keys(postResult).length === 0){
+  				res.send({message: "User Name or password error. Please try again", status: "900"});
+  			} else if (postResult.userName){
   				res.send(postResult);
   			} else if (postResult.responseCode){
-  				res.render('error',  {message: postResult.responseDescr, status: postResult.responseCode});
+  				res.send({message: postResult.responseDescr, status: postResult.responseCode});
   			} else {
-  			    res.render('error',  {message: "The request could not reach the server. Please try later", status: "408"});
+  			    res.send({message: "The request could not reach the server. Please try later", status: "408"});
   			}
 
   		});

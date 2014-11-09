@@ -23,7 +23,8 @@ module.exports = {
 		    });
 		});
 		newReq.on('error', function(error){
-			res.redirect('/error/408');
+//			res.redirect('/error/408');
+			res.send({"status":"408", "message":"The request could not reach the server. Please try again later"});
 		});
 		newReq.write(data);
 		newReq.end();
@@ -54,7 +55,8 @@ httpGet: function(req, res, url, data, dataCallBack, endCallBack){
 
 		});
 		newReq.on('error', function(error){
-			res.redirect('/error/408');
+//			res.redirect('/error/408');
+			res.send({"status":"408", "message":"The request could not reach the server. Please try again later"});
 		});
 		newReq.write(data);
 		newReq.end();

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-  <title>Kimo Sign In</title>
+  <title>Kimo Sign Up</title>
   <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
   <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
   <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
@@ -11,11 +11,11 @@
   <script src="/sb-admin/js/sb-admin-2.js"></script>
   <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
   <script src="/kimoApp.js"></script>
-  <script src="/controllers/signInController.js"></script>
+  <script src="/controllers/signUpController.js"></script>
 </head>
 <html ng-app="kimoApp">
 <body >
-<div class="container" ng-controller="SignInController">
+<div class="container" ng-controller="SignUpController">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <div class="login-panel panel panel-default">
@@ -33,17 +33,32 @@
                 </div>
               </div>
 
+              <div ng-class="emailGroup">
+                <label class="col-lg-2 control-label"> E-mail </label>
+                <div class="col-lg-10">
+                  <input class="form-control" placeholder="E-mail" type="text" ng-model="email">
+                  <label class="control-label">{{emailError}}</label>
+                </div>
+              </div>
+
               <div ng-class="passwordGroup">
-                <label class="col-lg-2 control-label"> User Name </label>
+                <label class="col-lg-2 control-label"> Password </label>
                 <div class="col-lg-10">
                   <input class="form-control"  placeholder="Password" type="password" ng-model="password">
                   <label class="control-label">{{passwordError}}</label>
                 </div>
               </div>
 
+              <div ng-class="confirmPasswordGroup">
+                <label class="col-lg-2 control-label"> Confirm Password </label>
+                <div class="col-lg-10">
+                  <input class="form-control"  placeholder="Confirm Password" type="password" ng-model="confirmPassword">
+                  <label class="control-label">{{confirmPasswordError}}</label>
+                </div>
+              </div>
+
               <div>
-                <input type="button" class="btn btn-lg btn-block btn-success"  value="Sign In" ng-click="login(userName, password)"/>
-                <a  class="btn btn-lg btn-block btn-primary"  href="/signUp.html">Sign Up</a>
+                <input type="button" class="btn btn-lg btn-block btn-primary"  value="Sign Up" ng-click="signUp()"/>
               </div>
             </fieldset>
           </form>
@@ -62,6 +77,18 @@
       </div>
     </div>
   </div>
+  <div class="row" ng-style="successMessageGroup">
+    <div class="col-lg-6" style="margin-left: 25%;">
+      <div class="bs-component">
+        <div class="alert alert-dismissable alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>Your registration completed successfully. Click <a href="/signIn.html">here</a> to Sign In</strong>
+        </div>
+        <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div>
+      </div>
+    </div>
+  </div>
 </div>
+
 </body>
 </html>

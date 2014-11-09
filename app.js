@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var signIn = require('./routes/signIn');
+var signUp = require('./routes/signUp');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 
 app.use('/signIn', signIn);
+app.use('/signUp', signUp);
 
 app.get('/', function(req, res){
     res.redirect('signIn.html');
