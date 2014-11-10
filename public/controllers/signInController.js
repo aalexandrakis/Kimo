@@ -1,4 +1,4 @@
-kimoApp.controller("SignInController", function signInController($scope, $http){
+kimoApp.controller("SignInController", function signInController($scope, $http, $cookieStore, SessionService){
      $scope.title="KiMo SignIn";
      $scope.formHeader = "Sign In";
 
@@ -13,13 +13,14 @@ kimoApp.controller("SignInController", function signInController($scope, $http){
      $scope.errorMessageGroup = {"display":"none"};
 
      $scope.login = function(){
+
           $scope.errorMessageGroup = {"display":"none"};
           if(!check()){
 
               $http({
                   url: '/signIn',
                   method: "POST",
-                  data: { 'userName' : $scope.userName , "password": $scope.password}
+                  data: { 'userName' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
               })
               .then(function(response) {
                         if (response.data.message){
@@ -30,7 +31,10 @@ kimoApp.controller("SignInController", function signInController($scope, $http){
                             $scope.errorMessage = response.data;
                         } else {
                             $scope.errorMessageGroup = {"display":"block"};
-                            $scope.errorMessage = response.data.userName;
+//                            SessionService.setUserAuthenticated(true);
+//                            console.log(response.data);
+//                            SessionService.setUser(response.data);
+                              $cookieStore.put("user" , response.data);
                         }
 
                   },

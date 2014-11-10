@@ -29,7 +29,7 @@ kimoApp.controller("SignUpController", function signUpController($scope, $http){
               $http({
                   url: '/signUp',
                   method: "POST",
-                  data: { 'userName' : $scope.userName , "email": $scope.email, "password": $scope.password}
+                  data: { 'userName' : $scope.userName , "email": $scope.email, "password": CryptoJS.SHA1($scope.password).toString()}
               })
               .then(function(response) {
                         console.log(response.data);

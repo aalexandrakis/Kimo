@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var signIn = require('./routes/signIn');
 var signUp = require('./routes/signUp');
+var myAccount = require('./routes/myAccount');
 
 var app = express();
 
@@ -26,13 +27,12 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/signIn', signIn);
 app.use('/signUp', signUp);
+app.use('/myAccount', myAccount);
 
 app.get('/', function(req, res){
     res.redirect('signIn.html');
 });
-app.get('/signIn', function(req, res){
-    res.redirect('signIn.html');
-});
+
 //catch 404 and forward to error handler
 app.get('*', function(req, res, next) {
   var err = new Error();

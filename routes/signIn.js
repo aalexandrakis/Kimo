@@ -5,12 +5,12 @@ var functions = require('../public/javascripts/functions');
 router.post('/', function(req, res) {
         /////////////////////////////////////////
   		querystring = require('querystring');
-  		crypto = require('crypto');
-      	shasum = crypto.createHash('sha1');
-  		shasum.update(req.body.password);
+//  		crypto = require('crypto');
+//      	shasum = crypto.createHash('sha1');
+//  		shasum.update(req.body.password);
   		postResult = "";
   		url = '/KimoWebServices/rest/KimoRest/login';
-  		data = querystring.stringify({'userName' : req.body.userName, 'password' : shasum.digest('hex'), 'regId': ''});
+  		data = querystring.stringify({'userName' : req.body.userName, 'password' : req.body.password, 'regId': ''});
   		functions.httpPost(req, res, url, data, function(result){
   			postResult += result;
   		}, function(result){
@@ -28,4 +28,9 @@ router.post('/', function(req, res) {
   		});
       }
 );
+
+router.post('/', function(req, res){
+    res.redirect('signIn.html');
+});
+
 module.exports = router;

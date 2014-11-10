@@ -8,7 +8,7 @@ router.post('/', function(req, res) {
 //		shasum.update(req.body.password);
 
 		url = '/KimoWebServices/rest/KimoRest/saveUser';
-		data = querystring.stringify({'userIdString': '0', 'userName' : req.body.userName, 'userEmail': req.body.email, 'userPassword' : req.body.password, 'regId': ''});
+		data = querystring.stringify({'userIdString': req.body.userId, 'userName' : req.body.userName, 'userEmail': req.body.email, 'userPassword' : req.body.password, 'regId': ''});
 		postResult = "";
 		functions.httpPost(req, res, url, data,
 		function(result){
@@ -18,7 +18,7 @@ router.post('/', function(req, res) {
 			console.log(postResult);
 			postResult = JSON.parse(postResult);
 			if (postResult.responseCode == "00"){
-				res.send({"responseCode":postResult.responseCode, "responseMessage":"Your registration completed successfuly. Good Luck!"});
+				res.send({"responseCode":postResult.responseCode, "responseMessage":"Your account updated successfully."});
 			} else {
 				res.send({"responseCode":postResult.responseCode, "responseMessage":postResult.responseDescr});
 			}
@@ -28,6 +28,6 @@ router.post('/', function(req, res) {
 });
 
 router.post('/', function(req, res){
-    res.redirect('signUp.html');
+    res.redirect('myAccount.html');
 });
 module.exports = router;
