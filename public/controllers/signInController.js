@@ -1,4 +1,4 @@
-kimoApp.controller("SignInController", function signInController($scope, $http, $cookieStore, SessionService){
+kimoApp.controller("SignInController", function signInController($scope, $http, $cookieStore){
      $scope.title="KiMo SignIn";
      $scope.formHeader = "Sign In";
 
@@ -31,10 +31,8 @@ kimoApp.controller("SignInController", function signInController($scope, $http, 
                             $scope.errorMessage = response.data;
                         } else {
                             $scope.errorMessageGroup = {"display":"block"};
-//                            SessionService.setUserAuthenticated(true);
-//                            console.log(response.data);
-//                            SessionService.setUser(response.data);
                               $cookieStore.put("user" , response.data);
+                              // TODO redirect to index.html
                         }
 
                   },

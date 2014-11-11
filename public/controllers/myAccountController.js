@@ -1,4 +1,4 @@
-kimoApp.controller("MyAccountController",  function myAccountController($scope, $http, $cookieStore, SessionService){
+kimoApp.controller("MyAccountController",  function myAccountController($scope, $http, $cookieStore){
      $scope.title="KiMo My Account";
      $scope.formHeader = "My account";
 
@@ -38,10 +38,9 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
               $http({
                   url: '/myAccount',
                   method: "POST",
-                  data: { 'userId': $cookies.user.userId ,'userName' : $scope.userName , "email": $scope.email, "password": password}
+                  data: { 'userId': $cookieStore.get("user").userId ,'userName' : $scope.userName , "email": $scope.email, "password": password}
               })
               .then(function(response) {
-                        console.log(response.data);
                         if (!response.data.responseCode){
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data;
@@ -94,15 +93,14 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
         }
 
         //password myst be the same as session password
-        console.log("password" + $cookieStore.get("user").userPassword);
-//        if (CryptoJS.SHA1($scope.oldPassword).toString() != $cookieStore.get("user").userPassword){
-//           $scope.oldPasswordError = "Please re-type the correct password";
-//           $scope.oldPasswordGroup = ["form-group", "has-error"];
-//           isError = true;
-//        } else {
-//           $scope.oldPasswordError = "";
-//           $scope.oldPasswordGroup = ["form-group"];
-//        }
+        if (CryptoJS.SHA1($scope.oldPassword).toString() != $cookieStore.get("user").userPassword){
+           $scope.oldPasswordError = "Please re-type the correct password";
+           $scope.oldPasswordGroup = ["form-group", "has-error"];
+           isError = true;
+        } else {
+           $scope.oldPasswordError = "";
+           $scope.oldPasswordGroup = ["form-group"];
+        }
 
         if ($scope.newPassword != ""){
             if ($scope.confirmPassword == ""){
