@@ -1,5 +1,6 @@
 kimoApp.controller("MyAccountController",  function myAccountController($scope, $http, $cookieStore){
-     $scope.title="KiMo My Account";
+
+     console.log($cookieStore.get("user"));
      $scope.formHeader = "My account";
 
      $scope.userNameGroup = ["form-group"];
@@ -124,7 +125,19 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
 
         return isError;
      };
+}).directive('headerDirective', function() {
+             return {
+               templateUrl: "header.html",
+               controller: 'HeadersController'
+             };
+}).directive('infoDirective', function() {
+             return {
+               templateUrl: "info.html",
+               controller: 'InfoController'
+             };
 });
+
+
 
 
 

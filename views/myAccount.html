@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html ng-app="kimoApp">
 <head>
   <title>Kimo My Account</title>
   <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
@@ -14,90 +15,97 @@
   <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
   <script src="/kimoApp.js"></script>
   <script src="/controllers/myAccountController.js"></script>
+  <script src="/controllers/headersController.js"></script>
 </head>
-<html ng-app="kimoApp">
+
 <body >
-<div class="container" ng-controller="MyAccountController">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="login-panel panel panel-default">
-        <div class="panel-heading">
-          {{formHeader}}
+  <div id="wrapper">
+    <div header-directive></div>
+      <div id="page-wrapper" style="min-height: 369px">
+      <div info-directive></div>
+      <div class="container" ng-controller="MyAccountController">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-1">
+            <div class="login-panel panel panel-default">
+              <div class="panel-heading">
+                {{formHeader}}
+              </div>
+              <div class=panel-body>
+                <form class="form-horizontal">
+                  <fieldset>
+                    <div ng-class="userNameGroup">
+                      <label class="col-lg-2 control-label"> User Name </label>
+                      <div class="col-lg-10">
+                        <input class="form-control" placeholder="User Name" type="text" ng-model="userName">
+                        <label class="control-label">{{userNameError}}</label>
+                      </div>
+                    </div>
+
+                    <div ng-class="emailGroup">
+                      <label class="col-lg-2 control-label"> E-mail </label>
+                      <div class="col-lg-10">
+                        <input class="form-control" placeholder="E-mail" type="text" ng-model="email">
+                        <label class="control-label">{{emailError}}</label>
+                      </div>
+                    </div>
+
+                    <div ng-class="oldPasswordGroup">
+                      <label class="col-lg-2 control-label"> Password </label>
+                      <div class="col-lg-10">
+                        <input class="form-control"  placeholder="Old Password" type="password" ng-model="oldPassword">
+                        <label class="control-label">{{oldPasswordError}}</label>
+                      </div>
+                    </div>
+
+                    <div ng-class="newPasswordGroup">
+                      <label class="col-lg-2 control-label"> Password </label>
+                      <div class="col-lg-10">
+                        <input class="form-control"  placeholder="New Password" type="password" ng-model="newPassword">
+                        <label class="control-label">{{newPasswordError}}</label>
+                      </div>
+                    </div>
+
+                    <div ng-class="confirmPasswordGroup">
+                      <label class="col-lg-2 control-label"> Confirm Password </label>
+                      <div class="col-lg-10">
+                        <input class="form-control"  placeholder="Confirm Password" type="password" ng-model="confirmPassword">
+                        <label class="control-label">{{confirmPasswordError}}</label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <input type="button" class="btn btn-lg btn-block btn-primary"  value="Update" ng-click="update()"/>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class=panel-body>
-          <form class="form-horizontal">
-            <fieldset>
-              <div ng-class="userNameGroup">
-                <label class="col-lg-2 control-label"> User Name </label>
-                <div class="col-lg-10">
-                  <input class="form-control" placeholder="User Name" type="text" ng-model="userName">
-                  <label class="control-label">{{userNameError}}</label>
-                </div>
+        <div class="row" ng-style="errorMessageGroup">
+          <div class="col-lg-6" style="margin-left: 25%;">
+            <div class="bs-component">
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{errorMessage}}</strong>
               </div>
-
-              <div ng-class="emailGroup">
-                <label class="col-lg-2 control-label"> E-mail </label>
-                <div class="col-lg-10">
-                  <input class="form-control" placeholder="E-mail" type="text" ng-model="email">
-                  <label class="control-label">{{emailError}}</label>
-                </div>
+              <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" ng-style="successMessageGroup">
+          <div class="col-lg-6" style="margin-left: 25%;">
+            <div class="bs-component">
+              <div class="alert alert-dismissable alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Your account updated successfully. Click <a href="/signIn.html">here</a> to go to Home Page.</strong>
               </div>
-
-              <div ng-class="oldPasswordGroup">
-                <label class="col-lg-2 control-label"> Password </label>
-                <div class="col-lg-10">
-                  <input class="form-control"  placeholder="Old Password" type="password" ng-model="oldPassword">
-                  <label class="control-label">{{oldPasswordError}}</label>
-                </div>
-              </div>
-
-              <div ng-class="newPasswordGroup">
-                <label class="col-lg-2 control-label"> Password </label>
-                <div class="col-lg-10">
-                  <input class="form-control"  placeholder="New Password" type="password" ng-model="newPassword">
-                  <label class="control-label">{{newPasswordError}}</label>
-                </div>
-              </div>
-
-              <div ng-class="confirmPasswordGroup">
-                <label class="col-lg-2 control-label"> Confirm Password </label>
-                <div class="col-lg-10">
-                  <input class="form-control"  placeholder="Confirm Password" type="password" ng-model="confirmPassword">
-                  <label class="control-label">{{confirmPasswordError}}</label>
-                </div>
-              </div>
-
-              <div>
-                <input type="button" class="btn btn-lg btn-block btn-primary"  value="Update" ng-click="update()"/>
-              </div>
-            </fieldset>
-          </form>
+              <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row" ng-style="errorMessageGroup">
-    <div class="col-lg-6" style="margin-left: 25%;">
-      <div class="bs-component">
-        <div class="alert alert-dismissable alert-danger">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>{{errorMessage}}</strong>
-        </div>
-        <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div>
-      </div>
-    </div>
-  </div>
-  <div class="row" ng-style="successMessageGroup">
-    <div class="col-lg-6" style="margin-left: 25%;">
-      <div class="bs-component">
-        <div class="alert alert-dismissable alert-success">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>Your account updated successfully. Click <a href="/signIn.html">here</a> to go to Home Page.</strong>
-        </div>
-        <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>

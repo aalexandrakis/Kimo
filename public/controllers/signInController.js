@@ -1,5 +1,4 @@
-kimoApp.controller("SignInController", function signInController($scope, $http, $cookieStore){
-     $scope.title="KiMo SignIn";
+kimoApp.controller("SignInController", function signInController($scope, $cookieStore, $window, $http){
      $scope.formHeader = "Sign In";
 
      $scope.userNameGroup = ["form-group"];
@@ -17,12 +16,12 @@ kimoApp.controller("SignInController", function signInController($scope, $http, 
           $scope.errorMessageGroup = {"display":"none"};
           if(!check()){
 
-              $http({
-                  url: '/signIn',
-                  method: "POST",
-                  data: { 'userName' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
-              })
-              .then(function(response) {
+               $http({
+                 url: '/signIn',
+                 method: "POST",
+                 data: {'userName' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
+               })
+               .then(function(response) {
                         if (response.data.message){
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
@@ -30,9 +29,9 @@ kimoApp.controller("SignInController", function signInController($scope, $http, 
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data;
                         } else {
-                            $scope.errorMessageGroup = {"display":"block"};
-                              $cookieStore.put("user" , response.data);
-                              // TODO redirect to index.html
+                            $scope.errorMessageGroup = {"display":"none"};
+                            $cookieStore.put("user" , response.data);
+                             $window.location.href = '/index';
                         }
 
                   },
@@ -42,8 +41,6 @@ kimoApp.controller("SignInController", function signInController($scope, $http, 
                     $scope.errorMessage = "The request could not reach the server. Please try again later";
                   }
               );
-//            $scope.errorMessageGroup = {"display":"block"};
-//            $scope.errorMessage = "check ok";
           }
      };
 
@@ -69,7 +66,17 @@ kimoApp.controller("SignInController", function signInController($scope, $http, 
 
         return isError;
      };
-});
+}).directive('headerDirective', function() {
+             return {
+               templateUrl: "header.html",
+               controller: 'HeadersController'
+             };
+  }).directive('infoDirective', function() {
+             return {
+               templateUrl: "info.html",
+               controller: 'InfoController'
+             };
+  });
 
 
 

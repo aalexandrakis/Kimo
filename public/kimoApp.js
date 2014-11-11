@@ -1,35 +1,17 @@
 var kimoApp = angular.module("kimoApp", ['ngRoute', 'ngCookies']);
 
-kimoApp.factory('SessionService', function(){
-       console.log("New instance of Session service");
-       var userIsAuthenticated = false;
-       var user = {};
-
-       setUserAuthenticated = function(value){
-           userIsAuthenticated = value;
-       };
-
-       getUserAuthenticated = function(){
-           return userIsAuthenticated;
-       };
-
-       setUser = function(value){
-           console.log(value);
-           user = value;
-       };
-
-       getUser = function(){
-           console.log("getUser " + user);
-           return user;
-       };
-
-       return {
-           setUserAuthenticated: setUserAuthenticated,
-           getUserAuthenticated: getUserAuthenticated,
-           getUser: getUser,
-           setUser: setUser
-         };
-});
+//kimoApp.factory('http', function($http){
+//
+//       getHttpResult =  function(method, route, data) {
+//                         return $http({
+//                          url: route,
+//                          method: method,
+//                          data: data
+//                        })
+//                    };
+//
+//       return getHttpResult;
+//});
 
 
 //Do configuration and routing here
@@ -52,6 +34,6 @@ kimoApp.config(function($routeProvider){
             templateUrl: "test.html"
         });
 
-    $routeProvider.otherwise({"redirectTo": "/signIn"});  //.otherwise("/"); //does not work
+    $routeProvider.otherwise({"redirectTo": "/index"});  //.otherwise("/"); //does not work
 });
 

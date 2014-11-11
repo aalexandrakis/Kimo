@@ -1,5 +1,4 @@
 kimoApp.controller("SignUpController", function signUpController($scope, $http){
-     $scope.title="KiMo SignUp";
      $scope.formHeader = "Sign Up";
 
      $scope.userNameGroup = ["form-group"];
@@ -104,7 +103,17 @@ kimoApp.controller("SignUpController", function signUpController($scope, $http){
         }
         return isError;
      };
-});
+}).directive('headerDirective', function() {
+             return {
+               templateUrl: "header.html",
+               controller: 'HeadersController'
+             };
+  }).directive('infoDirective', function() {
+             return {
+               templateUrl: "info.html",
+               controller: 'InfoController'
+             };
+  });
 
 
 

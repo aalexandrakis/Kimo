@@ -1,0 +1,50 @@
+        <div class="row">
+        <div class="col-lg-3" >
+            <div class="well">
+                <h2 >Next Draw At</h2>
+                <h4 ><%= nextDrawAt %></h4>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="well">
+                <h2 >Last Draw
+
+                    <% if (lastDraw != '') { %>
+                    <%= lastDraw.drawDateTime %>
+                    <% } %>
+                </h2>
+                <% if (lastDraw != '') { %>
+                <p >
+                    <%= lastDraw.drawNumber1 %>,
+                    <%= lastDraw.drawNumber2 %>,
+                    <%= lastDraw.drawNumber3 %>,
+                    <%= lastDraw.drawNumber4 %>,
+                    <%= lastDraw.drawNumber5 %>,
+                    <%= lastDraw.drawNumber6 %>,
+                    <%= lastDraw.drawNumber7 %>,
+                    <%= lastDraw.drawNumber8 %>,
+                    <%= lastDraw.drawNumber9 %>,
+                    <%= lastDraw.drawNumber10 %>,
+                    <%= lastDraw.drawNumber11 %>,
+                    <%= lastDraw.drawNumber12 %>,
+                    <%= lastDraw.drawNumber13 %>,
+                    <%= lastDraw.drawNumber14 %>,
+                    <%= lastDraw.drawNumber15 %>,
+                    <%= lastDraw.drawNumber16 %>,
+                    <%= lastDraw.drawNumber17 %>,
+                    <%= lastDraw.drawNumber18 %>,
+                    <%= lastDraw.drawNumber19 %>,
+                    <%= lastDraw.drawNumber20 %>
+                </p>
+                <% } %>
+
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="well">
+                <h2 >Your Coins</h2>
+                <h4 ><% if (user != '') { %> <%= user.userCoins %> <%} else {  %>  <% }%></h4>
+            </div>
+        </div>
+

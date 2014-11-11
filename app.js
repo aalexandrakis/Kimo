@@ -6,15 +6,11 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 
-var signIn = require('./routes/signIn');
-var signUp = require('./routes/signUp');
-var myAccount = require('./routes/myAccount');
-
 var app = express();
 
 //check if the route needs authorization
 var noNeedsAutorization = function(url){
-	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error'];
+	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index'];
 	for (var i = 0; i < noNeedAuthotizationUrls.length ; i++) {
         if (url.slice(0, noNeedAuthotizationUrls[i].length) == noNeedAuthotizationUrls[i]){
      	  return true;
@@ -48,9 +44,19 @@ app.use(function (req, res, next) {
   	}
 });
 
-app.use('/signIn', signIn);
-app.use('/signUp', signUp);
-app.use('/myAccount', myAccount);
+require('./routes/routes.js')(app);
+//var signIn = require('./routes/signIn');
+//var signUp = require('./routes/signUp');
+//var myAccount = require('./routes/myAccount');
+//var index = require('./routes/index');
+//var signOut = require('./routes/signOut');
+//
+//
+//app.use('/signIn', signIn);
+//app.use('/signUp', signUp);
+//app.use('/myAccount', myAccount);
+//app.use('/index', index);
+//app.use('/signOut', signOut);
 
 app.get('/', function(req, res){
     res.redirect('signIn.html');

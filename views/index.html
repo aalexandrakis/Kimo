@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="kimoApp">
+<head>
+  <title>Kimo Home Page</title>
+  <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
+  <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
+  <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/angular.js"></script>
+  <script src="/javascripts/angular-route.js"></script>
+  <script src="/javascripts/angular-cookies.js"></script>
+  <script src="/javascripts/cryptoJs.js"></script>
+  <script src="/sb-admin/js/bootstrap.js"></script>
+  <script src="/sb-admin/js/sb-admin-2.js"></script>
+  <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
+  <script src="/kimoApp.js"></script>
+  <script src="/controllers/indexController.js"></script>
+  <script src="/controllers/headersController.js"></script>
+</head>
+
+<body>
+  <div class="container" ng-controller="IndexController">
+    <div id="wrapper">
+      <div header-directive></div>
+      <div id="page-wrapper" style="min-height: 369px">
+        <div info-directive></div>
+        TEST INDEX PAGE
+      </div>
+    </div>
+  </div>
+</body>
+</html>
