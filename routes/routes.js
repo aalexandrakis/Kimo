@@ -5,6 +5,8 @@ module.exports = function(app) {
     var index = require('./index');
     var signOut = require('./signOut');
     var info = require('./info');
+    var viewDraws = require('./viewDraws');
+
     var test = require('./test');
 
     app.use('/signIn', signIn);
@@ -13,5 +15,7 @@ module.exports = function(app) {
     app.use('/index', index);
     app.use('/signOut', signOut);
     app.use('/info', info);
+    app.use('/viewDraws', viewDraws);
+
     app.use('/test', test);
 }

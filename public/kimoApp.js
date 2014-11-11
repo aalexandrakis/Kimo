@@ -29,6 +29,10 @@ kimoApp.config(function($routeProvider){
                     controller: "MyAccountController",
                     templateUrl: "myAccount.html"
                 })
+        .when("/viewDraws",{
+            controller: "ViewDrawscontroller",
+            templateUrl: "viewDraws.html"
+        })
         .when("/test",{
             controller: "MainController",
             templateUrl: "test.html"

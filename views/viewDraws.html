@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html ng-app="kimoApp">
+<head>
+  <title>Kimo View Draws</title>
+  <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
+  <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
+  <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap-datetimepicker.css' />
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/angular.js"></script>
+  <script src="/javascripts/angular-route.js"></script>
+  <script src="/javascripts/angular-cookies.js"></script>
+  <script src="/javascripts/cryptoJs.js"></script>
+  <script src="/sb-admin/js/bootstrap.js"></script>
+  <script src="/sb-admin/js/sb-admin-2.js"></script>
+  <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
+  <script src="/kimoApp.js"></script>
+  <script src="/controllers/viewDrawsController.js"></script>
+  <script src="/controllers/headersController.js"></script>
+  <script src="/controllers/infoController.js"></script>
+  <script src="/javascripts/bootstrap-datetimepicker.js"></script>
+  <link rel='stylesheet' href='/stylesheets/bootstrap-datetimepicker.css' />
+
+</head>
+
+<body>
+    <div id="wrapper" ng-controller="ViewDrawsController">
+      <div header-directive></div>
+      <div id="page-wrapper" style="min-height: 369px">
+        <div info-directive></div>
+        <div class="container">
+          <div class="bs-docs-section">
+            <div class="row">
+                <div class="col-lg-10">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      {{header}}
+                    </div>
+                    <div class="panel-body">
+                      <div class="container">
+                        <div class="col-sm-6" style="height:75px;">
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <div class="input-group date" id="datetimepickerfrom" >
+                                <!--<label >Date From</label>-->
+                                <input name="dateFrom" placeholder="Date From" class="form-control" type="text"  ng-model="dateFrom" readonly>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="form-group">
+                              <div class=" input-group date" id="datetimepickerto">
+                                <!--<label>Date To</label>-->
+                                <input name="dateTo" placeholder="Date To" class="form-control" type="text" ng-model="dateTo" readonly>
+                                <span class="input-group-addon"><i class="glyphicon  glyphicon-calendar"></i></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-2">
+                            <input type="button" class="btn btn-primary" value="Search" ng-click="getDraws()"/>
+                          </div>
+                        </div>
+                        <script type="text/javascript">
+                              $('#datetimepickerfrom').datetimepicker({
+                                  format: "dd-mm-yyyy hh:ii",
+                                  todayBtn: true
+                              });
+                              $('#datetimepickerto').datetimepicker({
+                                  format: "dd-mm-yyyy hh:ii",
+                                  todayBtn: true
+                              });
+                        </script>
+                      </div>
+                      <table class="table table-striped" ng-style="tableStyle">
+                        <thead>
+                        <tr>
+                          <th>Date / Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="draw in draws">
+                          <td> {{draw.drawDateTime}} </td>
+                          <td>{{draw.drawNumber1}}</td>
+                          <td>{{draw.drawNumber2}}</td>
+                          <td>{{draw.drawNumber3}}</td>
+                          <td>{{draw.drawNumber4}}</td>
+                          <td>{{draw.drawNumber5}}</td>
+                          <td>{{draw.drawNumber6}}</td>
+                          <td>{{draw.drawNumber7}}</td>
+                          <td>{{draw.drawNumber8}}</td>
+                          <td>{{draw.drawNumber9}}</td>
+                          <td>{{draw.drawNumber10}}</td>
+                          <td>{{draw.drawNumber11}}</td>
+                          <td>{{draw.drawNumber12}}</td>
+                          <td>{{draw.drawNumber13}}</td>
+                          <td>{{draw.drawNumber14}}</td>
+                          <td>{{draw.drawNumber15}}</td>
+                          <td>{{draw.drawNumber16}}</td>
+                          <td>{{draw.drawNumber17}}</td>
+                          <td>{{draw.drawNumber18}}</td>
+                          <td>{{draw.drawNumber19}}</td>
+                          <td>{{draw.drawNumber20}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <br/><br/>
+                      <div class="row" ng-style="errorStyle">
+                        <div class="col-lg-12">
+                          <div class="alert alert-danger">
+                            {{errorMessage}}
+                          </div>
+                          <div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

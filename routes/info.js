@@ -35,7 +35,7 @@ router.post('/', function(req, res) {
 							if (req.session.user){
 								req.session.user.userCoins = postResult.userCoins;
 							}
-							console.log(postResult);
+//							console.log(postResult);
 							res.send(postResult);
 						});
 
