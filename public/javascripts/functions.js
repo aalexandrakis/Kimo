@@ -5,7 +5,7 @@ module.exports = {
 		http = require('http');
 		options = {
 		    host: 'localhost',
-		    port: 8080,
+		    port: 9090,
 		    path: url,
 		    method: 'POST',
 		    headers: {
@@ -36,7 +36,7 @@ httpGet: function(req, res, url, data, dataCallBack, endCallBack){
 		http = require('http');
 		options = {
 		    host: 'localhost',
-		    port: 8080,
+		    port: 9090,
 		    path: url,
 		    method: 'GET',
 		    headers: {

@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 
 var signIn = require('./routes/signIn');
@@ -10,6 +11,18 @@ var signUp = require('./routes/signUp');
 var myAccount = require('./routes/myAccount');
 
 var app = express();
+
+//check if the route needs authorization
+var noNeedsAutorization = function(url){
+	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error'];
+	for (var i = 0; i < noNeedAuthotizationUrls.length ; i++) {
+        if (url.slice(0, noNeedAuthotizationUrls[i].length) == noNeedAuthotizationUrls[i]){
+     	  return true;
+        }
+    }
+    return false;
+};
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,9 +34,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cookieSession({secret: '9834306712alexik'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
+//if the route needs authorization and is not authorized redirects him to signIn route
+app.use(function (req, res, next) {
+    console.log("In check authorization middlewre " + (!req.session.user ? "NOT AUTHORIZED" : "AUTHORIZED USER " + req.session.user.userName))
+    if (noNeedsAutorization(req.url) == false && !req.session.user) {
+        res.redirect('signIn.html');
+  	} else {
+         next();
+  	}
+});
 
 app.use('/signIn', signIn);
 app.use('/signUp', signUp);

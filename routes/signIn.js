@@ -18,6 +18,7 @@ router.post('/', function(req, res) {
   			if (Object.keys(postResult).length === 0){
   				res.send({message: "User Name or password error. Please try again", status: "900"});
   			} else if (postResult.userName){
+			    req.session.user = postResult;
   				res.send(postResult);
   			} else if (postResult.responseCode){
   				res.send({message: postResult.responseDescr, status: postResult.responseCode});
@@ -29,7 +30,7 @@ router.post('/', function(req, res) {
       }
 );
 
-router.post('/', function(req, res){
+router.get('/', function(req, res){
     res.redirect('signIn.html');
 });
 
