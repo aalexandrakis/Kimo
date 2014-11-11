@@ -10,7 +10,7 @@ var app = express();
 
 //check if the route needs authorization
 var noNeedsAutorization = function(url){
-	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index'];
+	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index', '/info'];
 	for (var i = 0; i < noNeedAuthotizationUrls.length ; i++) {
         if (url.slice(0, noNeedAuthotizationUrls[i].length) == noNeedAuthotizationUrls[i]){
      	  return true;
@@ -38,25 +38,14 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(function (req, res, next) {
     console.log("In check authorization middlewre " + (!req.session.user ? "NOT AUTHORIZED" : "AUTHORIZED USER " + req.session.user.userName))
     if (noNeedsAutorization(req.url) == false && !req.session.user) {
-        res.redirect('signIn.html');
+        res.render('error', {status: "401", message: "You do not have the authority to visit this page."});
   	} else {
+  	     console.log("In check authorization middlewre next");
          next();
   	}
 });
 
 require('./routes/routes.js')(app);
-//var signIn = require('./routes/signIn');
-//var signUp = require('./routes/signUp');
-//var myAccount = require('./routes/myAccount');
-//var index = require('./routes/index');
-//var signOut = require('./routes/signOut');
-//
-//
-//app.use('/signIn', signIn);
-//app.use('/signUp', signUp);
-//app.use('/myAccount', myAccount);
-//app.use('/index', index);
-//app.use('/signOut', signOut);
 
 app.get('/', function(req, res){
     res.redirect('signIn.html');

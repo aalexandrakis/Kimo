@@ -1,22 +1,23 @@
-kimoApp.controller("HeadersController", function headersController($scope, $http, $cookieStore){
-      $scope.signOut = function(){
-          if ($cookieStore.remove("user")){
-             console.log("user logged out");
-             $http({
-               url: '/signOut',
-               method: "GET",
-               data: {}
-           });
+kimoApp.controller("HeadersController", function headersController($scope, $http, $cookieStore, $window){
+      $scope.isLoggedOn = function(){
+          if ($cookieStore.get("user")){
+             return true;
+          } else {
+             return false;
           }
       };
 
-      $scope.isLoggedOn = function(){
-          if ($cookieStore.get("user")){
-             console.log("is logged on");
-             return true;
-          } else {
-             console.log("is not logged on");
-             return false;
+      $scope.signOut = function(){
+          if ($scope.isLoggedOn()){
+             $http({
+               url: '/signOut',
+               method: "POST"
+           }).then(function(response){
+               $cookieStore.remove("user");
+               $window.location.href="/index.html";
+           }, function(response){
+                console.log("log out failed");
+           });
           }
       };
 

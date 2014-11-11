@@ -16,18 +16,17 @@
   <script src="/kimoApp.js"></script>
   <script src="/controllers/signInController.js"></script>
   <script src="/controllers/headersController.js"></script>
+  <script src="/controllers/infoController.js"></script>
 </head>
 
 <body>
-  <div class="container" ng-controller="SignInController">
-    <div id="wrapper">
+    <div id="wrapper" ng-controller="SignInController">
       <div header-directive></div>
       <div id="page-wrapper" style="min-height: 369px">
         <div info-directive></div>
-        <div class="container" ng-controller="SignInController">
-          <div class="row">
-            <div class="col-md-6 col-md-offset-1">
-              <div class="login-panel panel panel-default">
+          <div class="row" >
+            <div class="col-md-6 col-md-offset-3">
+              <div class="login-panel panel panel-default" style="margin-top: 0">
                 <div class="panel-heading">
                   {{formHeader}}
                 </div>
@@ -59,9 +58,8 @@
                 </div>
               </div>
             </div>
-          </div>
           <div class="row" ng-style="errorMessageGroup">
-            <div class="col-lg-6" style="margin-left: 25%;">
+            <div class="col-lg-6 col-md-offset-3">
               <div class="bs-component">
                 <div class="alert alert-dismissable alert-danger">
                   <button type="button" class="close" data-dismiss="alert">×</button>
@@ -74,6 +72,6 @@
         </div>
       </div>
     </div>
-  </div>
+
 </body>
 </html>
