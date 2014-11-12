@@ -10,8 +10,8 @@ kimoApp.controller("InfoController", function infoController($scope, $http, $coo
   $scope.lastDrawNumbers = [];
 
   $http({
-         url: '/info',
-         method: "POST"
+         url: '/info/1',
+         method: "GET"
        })
        .then(function(response) {
                 if (response.data.message){
@@ -41,6 +41,9 @@ kimoApp.controller("InfoController", function infoController($scope, $http, $coo
                     $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber18);
                     $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber19);
                     $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber20);
+
+                    $scope.lastDrawDate = $scope.lastDrawDate.replace("T", " ").replace("Z", " ").replace(".000", "");
+                    $scope.nextDraw = $scope.nextDraw.replace("T", " ").replace("Z", " ").replace(".000", "");
                     if ($cookieStore.get("user")){
                         $cookieStore.get("user").userCoins = response.data.userCoins;
                         console.log($cookieStore.get("user"));

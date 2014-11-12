@@ -1,52 +1,46 @@
 var express = require('express');
 var router = express.Router();
 var functions = require('../public/javascripts/functions');
-/*  */
-router.post('/', function(req, res) {
-		/////////////////////////////////////////
-  		queryString = require('querystring');
-  		postResult = "";
-  		url = '/KimoWebServices/rest/KimoRest/getNextDrawAndUserCoins';
-  		if (req.session.user){
-  			data = queryString.stringify({'userId' : req.session.user.userId});
-		 } else {
-		 	data = queryString.stringify({'userId' : "0"});
-		 }
-		 functions.httpPost(req, res, url, data,
-		 		function(result){
-           			postResult += result;
-           		},
-           		function(result){
-					postResult = JSON.parse(postResult);
-					if (Object.keys(postResult).length === 0){
-						res.send({message: "No info found", status: "100"});
-					} else if (postResult.nextDraw){
-						getResult = "";
-						url = '/KimoWebServices/rest/KimoRest/getLastDraw';
-						functions.httpGet(req, res, url, data,
-						function(result){
-						   getResult += result;
-						}, function(result){
-							getResult = JSON.parse(getResult);
-							// res.send(result.draws);
-							if (getResult.draws){
-							  postResult.lastDraw = getResult.draws[0];
-							}
-							if (req.session.user){
-								req.session.user.userCoins = postResult.userCoins;
-							}
-//							console.log(postResult);
-							res.send(postResult);
-						});
 
-					} else if (postResult.responseCode){
-						res.send({message: postResult.responseDescr, status: postResult.responseCode});
-					} else {
-						res.send({message: "The request could not reach the server. Please try later", status: "408"});
-					}
+router.get('/:getValues', function(req, res) {
 
-  				});
-      }
-);
+    req.getConnection(function(err,connection){
+		result = {};
+        //get next draw
+        query = "SELECT nextDraw from next_draw";
+        connection.query(query ,function(err,nextDrawRow)     {
+        if(err)
+            res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+            result.nextDraw = nextDrawRow[0].nextDraw;
+			//get last draw
+			query = "SELECT * from draw order by drawDateTime DESC LIMIT 1";
+			connection.query(query ,function(err,lastDrawRow)     {
+			if(err)
+				res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+				result.lastDraw = lastDrawRow[0];
+				//get user info if user is logged in
+				if (req.session.user){
+					query = "SELECT * from users where userId = " + req.session.user.userId;
+					connection.query(query ,function(err,userRow)     {
+					if(err)
+						res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+						req.session.user = userRow[0];
+						result.userCoins = userRow[0].userCoins;
+						console.log(result);
+						res.send(result);
+					});
+				} else {
+					result.userCoins = 0;
+					res.send(result);
+				}
+			});
 
+        });
+    });
+});
+
+//to prevent send a json to the users browser
+router.get('/', function(req, res) {
+	res.redirect('index.html')
+});
 module.exports = router;
