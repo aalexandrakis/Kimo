@@ -5,9 +5,18 @@ kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scop
     $scope.errorMessage = "";
     $scope.errorStyle = {"display" : "none"};
     $scope.lazyLoadStyle = {"display" : "none"};
-//    for (i=0; i < 12; i++){
-//        $scope.numHeaders.push("No" + (i+1));
-//    };
+
+    $scope.matched = function(betNumber, drawNumbers){
+         if (betNumber == 0){
+            return {};
+         }
+         for (i = 0; i < drawNumbers.length; i++){
+            if (betNumber == drawNumbers[i]){
+                return {'background-color': 'green', 'color': 'white'};
+            }
+         }
+         return {};
+    }
 
     check = function(){
             console.log("in check function");
