@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="kimoApp">
+<head>
+  <title>Kimo Play Now</title>
+  <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
+  <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
+  <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/angular.js"></script>
+  <script src="/javascripts/angular-route.js"></script>
+  <script src="/javascripts/angular-cookies.js"></script>
+  <script src="/javascripts/cryptoJs.js"></script>
+  <script src="/sb-admin/js/bootstrap.js"></script>
+  <script src="/sb-admin/js/sb-admin-2.js"></script>
+  <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
+  <script src="/kimoApp.js"></script>
+  <script src="/controllers/playNowController.js"></script>
+  <script src="/controllers/headersController.js"></script>
+  <script src="/controllers/infoController.js"></script>
+</head>
+
+<body>
+    <div id="wrapper" ng-controller="PlayNowController">
+      <div header-directive></div>
+      <div id="page-wrapper" style="min-height: 369px">
+        <div info-directive></div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      Play now
+                    </div>
+                    <div class="panel-body">
+                      <div class="col-md-offset-1">
+                         <button ng-repeat="number in numbers" ng-class="checkIfSelected(number)" ng-click="clicked(number)">
+                           {{number}}
+                         </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div ng-class="repeatedDrawsGroup">
+                  <label class="col-lg-2 control-label"> Repeated Draws </label>
+                  <div class="col-lg-10">
+                    <input class="form-control"  type="number" ng-change="repeatedDrawsKeyUp()" ng-model="repeatedDraws" min="1" max="20">
+                    <label class="control-label">{{repeatedDrawsError}}</label>
+                  </div>
+                </div>
+                <div ng-class="multiplierGroup">
+                  <label class="col-lg-2 control-label"> Multiplier </label>
+                  <div class="col-lg-10">
+                    <input class="form-control"  type="number" ng-change="multiplierKeyUp()" ng-model="multiplier" min="1" max="20">
+                    <label class="control-label">{{multiplierError}}</label>
+                  </div>
+                </div>
+                <div ng-class="gameTypeGroup">
+                  <label class="col-lg-2 control-label"> Game Type </label>
+                  <div class="col-lg-10">
+                    <input class="form-control"  type="number" ng-change="gameTypeKeyUp()" ng-model="gameType" min="1" max="12">
+                    <label class="control-label">{{gameTypeError}}</label>
+                  </div>
+                </div>
+                <input type="button" class="btn btn-lg btn-block btn-primary"  value="Play Now" ng-click="play"/>
+              </div>
+          </div>
+      </div>
+    </div>
+</body>
+</html>
