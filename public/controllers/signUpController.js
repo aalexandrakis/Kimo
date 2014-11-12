@@ -32,10 +32,10 @@ kimoApp.controller("SignUpController", function signUpController($scope, $http){
               })
               .then(function(response) {
                         console.log(response.data);
-                        if (!response.data.responseCode){
+                        if (!response.data.status){
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data;
-                        } else if (response.data.responseCode != "00"){
+                        } else if (response.data.status != "00"){
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.responseMessage;
                         } else {

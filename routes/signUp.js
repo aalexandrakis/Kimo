@@ -2,29 +2,50 @@ var express = require('express');
 var router = express.Router();
 var functions = require('../public/javascripts/functions');
 router.post('/', function(req, res) {
-		querystring = require('querystring');
-//		crypto = require('crypto');
-//    	shasum = crypto.createHash('sha1');
-//		shasum.update(req.body.password);
-
-		url = '/KimoWebServices/rest/KimoRest/saveUser';
-		data = querystring.stringify({'userIdString': '0', 'userName' : req.body.userName, 'userEmail': req.body.email, 'userPassword' : req.body.password, 'regId': ''});
-		postResult = "";
-		functions.httpPost(req, res, url, data,
-		function(result){
-			postResult += result;
-		},
-		function(result){
-			console.log(postResult);
-			postResult = JSON.parse(postResult);
-			if (postResult.responseCode == "00"){
-				res.send({"responseCode":postResult.responseCode, "responseMessage":"Your registration completed successfuly. Good Luck!"});
-			} else {
-				res.send({"responseCode":postResult.responseCode, "responseMessage":postResult.responseDescr});
+	   errorExists = false;
+	   req.getConnection(function(err,connection){
+	   		//check if user name exists
+	   		query = "SELECT * from users where userName = '" + req.body.userName + "'";
+	   		console.log(query);
+    		connection.query(query ,function(err,userRow)     {
+    			if(err) {
+    				res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+    			} else if(userRow.length > 0){
+    				errorExists = true;
+    				res.send({message: "User Name already exists. Please try again", status: "900"});
+				}
+    		});
+    		//check if email exists
+    		query = "SELECT * from users where userEmail = '" + req.body.email + "'";
+    		console.log(query);
+			connection.query(query ,function(err,userRow)     {
+				if(err) {
+					res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+				} else if(userRow.length > 0){
+					errorExists = true;
+					res.send({message: "User Email already exists. Please try again", status: "900"});
+				}
+			});
+			if (!errorExists){
+				//insert user
+				newValuePairs = {
+								 userName: req.body.userName,
+								 userEmail: req.body.email,
+								 userPassword: req.body.password
+								};
+				if (req.body.regId) {
+					newValuePairs.regId= req.body.regId;
+				}
+				query = "INSERT INTO users SET ?";
+				console.log(query);
+				connection.query(query , newValuePairs, function(err,userRow)     {
+					if(err) {
+						res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+					}
+					res.send({message: "User added successfully", status: "00"});
+				});
 			}
-		});
-		/////////////////////////////////////
-		
+    	});
 });
 
 router.get('/', function(req, res){
