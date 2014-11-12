@@ -6,11 +6,14 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 
+var connection  = require('express-myconnection');
+var mysql = require('mysql');
+
 var app = express();
 
 //check if the route needs authorization
 var noNeedsAutorization = function(url){
-	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index', '/info'];
+	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index', '/info', '/test'];
 	for (var i = 0; i < noNeedAuthotizationUrls.length ; i++) {
         if (url.slice(0, noNeedAuthotizationUrls[i].length) == noNeedAuthotizationUrls[i]){
      	  return true;
@@ -44,6 +47,18 @@ app.use(function (req, res, next) {
          next();
   	}
 });
+
+app.use(
+
+    connection(mysql,{
+
+        host: 'localhost',
+        user: 'kimo',
+        password : 'kimo',
+        port : 3306, //port mysql
+        database:'kimo'
+    },'request')
+);//route index, hello world
 
 require('./routes/routes.js')(app);
 

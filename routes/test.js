@@ -2,8 +2,19 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-	console.log("test route");
-	res.send(req.session.user ? req.session.user : "you are not logged in");
+
+req.getConnection(function(err,connection){
+
+     connection.query('SELECT * FROM users',function(err,rows)     {
+
+        if(err)
+           console.log("Error Selecting : %s " + err );
+
+            res.send(rows);
+
+         });
+
+});
 });
 
 module.exports = router;
