@@ -6,6 +6,7 @@ module.exports = function(app) {
     var signOut = require('./signOut');
     var info = require('./info');
     var viewDraws = require('./viewDraws');
+    var viewOldBets = require('./viewOldBets');
 
     var test = require('./test');
 
@@ -16,6 +17,8 @@ module.exports = function(app) {
     app.use('/signOut', signOut);
     app.use('/info', info);
     app.use('/viewDraws', viewDraws);
+    app.use('/viewOldBets', viewOldBets);
 
     app.use('/test', test);
+    app.use('/test/:params', test);
 }

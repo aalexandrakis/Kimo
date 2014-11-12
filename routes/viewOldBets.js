@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var functions = require('../public/javascripts/functions');
@@ -7,7 +6,7 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
     console.log("From ", req.params["dateFrom"], " To ", req.params["dateTo"]);
 
     req.getConnection(function(err,connection){
-        query = 'SELECT * FROM draw where drawDateTime between \"'+
+        query = 'SELECT * FROM bets_archive where betDateTime between \"'+
                 functions.fromEuroToIso(req.params["dateFrom"])+':00\" and \"'+
                 functions.fromEuroToIso(req.params["dateTo"])+':59\"';
         console.log(query);
@@ -22,9 +21,7 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
 
 });
 
-router.get('/', function(req, res){
-    res.redirect('viewDraws.html');
+router.get('/', function(req, res) {
+    res.redirect('viewOldBets.html');
 });
-
 module.exports = router;
-

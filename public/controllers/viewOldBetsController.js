@@ -1,11 +1,11 @@
-kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $http, $cookieStore){
-    $scope.header = "View Draws";
+kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scope, $http, $cookieStore){
+    $scope.header = "View Old Bets";
     $scope.tableStyle = {"display" : "none"};
     $scope.numHeaders = [];
     $scope.errorMessage = "";
     $scope.errorStyle = {"display" : "none"};
     $scope.lazyLoadStyle = {"display" : "none"};
-//    for (i=0; i < 20; i++){
+//    for (i=0; i < 12; i++){
 //        $scope.numHeaders.push("No" + (i+1));
 //    };
 
@@ -22,14 +22,14 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
             }
     };
 
-    $scope.getDraws = function(){
-        console.log("in getdraws function" + $scope.dateFrom + " - " + $scope.dateTo);
+    $scope.getOldBets = function(){
         $scope.tableStyle = {"display":"none"};
         $scope.errorStyle = {"display":"none"};
 
         if (check()){
             $scope.lazyLoadStyle = {"display" : "block"};
-            url = '/viewDraws/' + $scope.dateFrom.replace(/-/g, "").replace(/:/g, "").replace(/ /g, "") + "/" + $scope.dateTo.replace(/-/g, "").replace(/:/g, "").replace(/ /, "");
+            url = '/viewOldBets/' + $scope.dateFrom.replace(/-/g, "").replace(/:/g, "").replace(/ /g, "") + "/" + $scope.dateTo.replace(/-/g, "").replace(/:/g, "").replace(/ /, "");
+            console.log(url);
             $http({
                  url: url,
                  method: "GET"
@@ -43,7 +43,7 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
                         } else {
                             $scope.tableStyle = {"display":"block"};
                             console.log(response.data);
-                            $scope.draws = response.data;
+                            $scope.bets = response.data;
                         }
 
                   },
