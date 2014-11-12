@@ -26,7 +26,7 @@ router.get('/:getValues', function(req, res) {
 						res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
 						req.session.user = userRow[0];
 						result.userCoins = userRow[0].userCoins;
-						console.log(result);
+//						console.log(result);
 						res.send(result);
 					});
 				} else {
