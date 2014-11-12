@@ -13,7 +13,7 @@ var app = express();
 
 //check if the route needs authorization
 var noNeedsAutorization = function(url){
-	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index', '/info', '/test'];
+	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index', '/info', '/favicon.ico', '/test'];
 	for (var i = 0; i < noNeedAuthotizationUrls.length ; i++) {
         if (url.slice(0, noNeedAuthotizationUrls[i].length) == noNeedAuthotizationUrls[i]){
      	  return true;
@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -37,7 +37,7 @@ kimoApp.controller("SignUpController", function signUpController($scope, $http){
                             $scope.errorMessage = response.data;
                         } else if (response.data.status != "00"){
                             $scope.errorMessageGroup = {"display":"block"};
-                            $scope.errorMessage = response.data.responseMessage;
+                            $scope.errorMessage = response.data.message;
                         } else {
                             $scope.successMessageGroup = {"display":"block"};
                         }
