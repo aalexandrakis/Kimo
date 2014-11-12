@@ -14,20 +14,19 @@ router.post('/', function(req, res) {
 checkUserName = function(req, res, connection){
 	//check if user name exists
 	query = "SELECT * from users where userName = '" + req.body.userName + "'";
-	console.log(query);
 	connection.query(query ,function(err,userRow)     {
 		if(err) {
 			errorExists = true;
 			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
 		} else if(userRow.length > 0){
 			errorExists = true;
-			console.log("user name exists " + errorExists);
 			res.send({message: "User Name already exists. Please try again", status: "900"});
 		} else {
 			checkMail(req, res, connection);
 		}
 	});
 }
+
 checkMail = function(req, res, connection){
 	//check if email exists
 	query = "SELECT * from users where userEmail = '" + req.body.email + "'";
@@ -37,7 +36,7 @@ checkMail = function(req, res, connection){
 			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
 		} else if(userRow.length > 0){
 			errorExists = true;
-			res.send({message: "User Email already exists. Please try again", status: "900"});
+			res.send({message: "User Email already exists.", status: "900"});
 		} else {
 			insertUser(req, res, connection);
 		}
@@ -55,17 +54,15 @@ insertUser = function(req, res, connection){
 			newValuePairs.regId= req.body.regId;
 		}
 		query = "INSERT INTO users SET ?";
-		console.log(query);
 		connection.query(query , newValuePairs, function(err,userRow)     {
 			if(err) {
-				console.log(err);
 				res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
 			} else {
-				console.log("completed");
 				res.send({message: "User added successfully", status: "00"});
 			}
 		});
 }
+
 router.get('/', function(req, res){
     res.redirect('signUp.html');
 });
