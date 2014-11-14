@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var functions = require('../public/javascripts/functions');
+
 
 router.get('/:userName/:userEmail', function(req, res) {
 	   errorExists = false;
+	   res.setHeader("content-type", "text/plain");
 	   req.getConnection(function(err,connection){
 	   		if(err){
 	   			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
@@ -23,7 +24,7 @@ checkUserName = function(req, res, connection){
 			errorExists = true;
 			res.status(500).send(req.params["userName"] + " found\n");
 		} else {
-		    res.write(req.params["userName"] + "not  found\n");
+		    res.write(req.params["userName"] + " not  found\n");
 			checkMail(req, res, connection);
 		}
 	});
@@ -40,16 +41,13 @@ checkMail = function(req, res, connection){
 			errorExists = true;
 			res.status(500).send(req.params["userEmail"]);
 		} else {
-		    res.write(req.params["userEmail"] + "not  found\n");
+		    res.write(req.params["userEmail"] + " not  found\n");
+		    res.write("combintaion is valid\n");
 			res.status(200).send();
 		}
 	});
 }
 
 
-router.get('/:paramvalue', function(req, res) {
-    console.log("test with parameters");
-    res.send("you are in test page with " + req.params["paramvalue"]);
-//      res.send(req.param);
-});
+
 module.exports = router;

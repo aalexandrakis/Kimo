@@ -25,15 +25,18 @@ module.exports = function(app) {
 
 
 
-    //tests
+    //tests && examples
     var test = require('./test');
-    var promise = require('./promise');
-    var callback = require('./callback');
+    var promise = require('../public/examples/promise');
+    var callback = require('../public/examples/callback');
+    var nested_chained_promises = require('../public/examples/nested_chained_promises');
 
     app.use('/test', test);
     app.use('/test/:params', test);
     app.use('/promise', promise);
     app.use('/promise/:userName/:userEmail', promise);
+    app.use('/callback', callback);
     app.use('/callback/:userName/:userEmail', callback);
+    app.use('/nested_chained_promises', nested_chained_promises);
 
 }

@@ -5,14 +5,17 @@ var connection;
 
 
 router.get('/:userName/:userEmail', function(req, res) {
-        function getUserName(connection, userName) {
+        function getUserName1(connection, userName) {
+                res.setHeader("Content-type", "text/plain");
                 var deferred = Q.defer();
                 query = "SELECT * from users where userName = '" + userName + "'";
                 connection.query(query ,function(err,row)     {
                     if(err) {
-                        deferred.reject(err);
+                        deferred.reject(new Error(err));
+                        console.log("user name error");
                     } else if (row.length > 0){
-                        deferred.reject(userName + " found\n");
+                        deferred.reject(new Error(userName + " found\n"));
+                        console.log("user name exists");
                     } else {
                         deferred.resolve(userName + " not found\n");
                     }
@@ -20,19 +23,20 @@ router.get('/:userName/:userEmail', function(req, res) {
                  return deferred.promise;
         }
 
-        function getUserEmail(connection, userEmail, result) {
+        function getUserEmail1(connection, userEmail, result) {
                             if (result){
                                 res.write(result);
                             }
-                            console.log(userEmail);
                             var deferred = Q.defer();
                             query = "SELECT * from users where userEmail = '" + userEmail + "'";
                             console.log(query);
                             connection.query(query ,function(err,row )     {
                                 if(err) {
-                                    deferred.reject(err.toString());
+                                    deferred.reject(new Error(err));
+                                    console.log("user email error");
                                 } else if (row.length > 0){
-                                    deferred.reject(userEmail + " found\n");
+                                    deferred.reject(new Error(userEmail + " found\n"));
+                                    console.log("mail exists");
                                 } else {
                                     deferred.resolve(userEmail + " not found\n");
                                 }
@@ -40,27 +44,33 @@ router.get('/:userName/:userEmail', function(req, res) {
                             return deferred.promise;
         }
 
+        function result(result){
+           console.log("resolved " + result);
+           res.write(result);
+           res.write("combination is valid");
+           res.status(200).send();
+           deferred.resolve("OK");
+        }
+
+
         req.getConnection(function(err,connection){
                 if (err) {
                     res.status(500).send(err);
                 } else {
                       //promises
-                      res.setHeader("Content-type", "text/plain");
-                      getUserName(connection, req.params["userName"]).then(function(result){
-                        getUserEmail(connection, req.params["userEmail"], result).then(function(result){
-                                res.write(result);
-                                res.write("combination is valid");
-                                res.status(200).send();
-                            }).fail(function(error){
-                                res.write(error);
-                                res.write("no further validations");
-                                res.status(500).send();
-                              })
-                        }).fail(function(error){
-                                res.write(error);
-                                res.write("no further validations");
-                                res.status(500).send();
-                        });
+                      Q().then(function(result){
+                            return getUserName1(connection, req.params["userName"])
+                          })
+                          .then(function(result){
+                                    return getUserEmail1(connection, req.params["userEmail"], result)
+                                })
+                          .then(result
+                          )
+                          .catch(function(error){
+                                 res.write(error.message);
+                                 res.write("no further validations");
+                                 res.status(500).send();
+                          }).done();
                 }
         });
 });
