@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var functions = require('../public/javascripts/functions');
 
-router.post('/', function(req, res) {
+router.put('/', function(req, res) {
 	   errorExists = false;
 	   req.getConnection(function(err,connection){
 	   		if(err){

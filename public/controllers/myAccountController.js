@@ -38,7 +38,7 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
               }
               $http({
                   url: '/myAccount',
-                  method: "POST",
+                  method: "PUT",
                   data: { 'userId': $cookieStore.get("user").userId ,'userName' : $scope.userName , "email": $scope.email, "password": password}
               })
               .then(function(response) {
