@@ -13,7 +13,7 @@ var app = express();
 
 //check if the route needs authorization
 var noNeedsAutorization = function(url){
-	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index', '/info', '/favicon.ico', '/test', '/forgotPassword'];
+	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/error', '/index', '/info', '/favicon.ico', '/test', '/forgotPassword', '/compare-with-callback'];
 	for (var i = 0; i < noNeedAuthotizationUrls.length ; i++) {
         if (url.slice(0, noNeedAuthotizationUrls[i].length) == noNeedAuthotizationUrls[i]){
      	  return true;

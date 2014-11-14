@@ -25,4 +25,8 @@ module.exports = function(app) {
 
     app.use('/test', test);
     app.use('/test/:params', test);
+
+    app.get('/compare-with-callback', function(req, res){
+        res.send(200);
+    });
 }
