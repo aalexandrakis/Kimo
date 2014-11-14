@@ -10,7 +10,7 @@ module.exports = function(app) {
     var forgotPassword = require('./forgotPassword');
     var playNow = require('./playNow');
 
-    var test = require('./test');
+
 
     app.use('/signIn', signIn);
     app.use('/signUp', signUp);
@@ -23,10 +23,17 @@ module.exports = function(app) {
     app.use('/forgotPassword', forgotPassword);
     app.use('/playNow', playNow);
 
+
+
+    //tests
+    var test = require('./test');
+    var promise = require('./promise');
+    var callback = require('./callback');
+
     app.use('/test', test);
     app.use('/test/:params', test);
+    app.use('/promise', promise);
+    app.use('/promise/:userName/:userEmail', promise);
+    app.use('/callback/:userName/:userEmail', callback);
 
-    app.get('/compare-with-callback', function(req, res){
-        res.send(200);
-    });
 }
