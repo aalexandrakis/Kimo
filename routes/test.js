@@ -7,9 +7,10 @@ var connection;
 router.get('/', function(req, res) {
 
 
-var getDraws = function () {
-        		var deferred = Q.defer();
-        		req.getConnection(function(err,connection){
+function getDraws() {
+
+        		return req.getConnection(function(err,connection){
+        			var deferred = Q.defer();
         			query = "SELECT * from draw";
 					connection.query(query ,function(err,row)     {
 						if(err) {
@@ -18,14 +19,16 @@ var getDraws = function () {
 							console.log("here");
 							deferred.resolve(row.length + " draws found\n");
 						}
+						return deferred.promise;
 					});
+
 				});
-				return deferred.promise;
 }
 var getBets = function (result) {
 				console.log(result);
-        		var deferred = Q.defer();
-        		req.getConnection(function(err,connection){
+
+        		return req.getConnection(function(err,connection){
+					var deferred = Q.defer();
         			query = "SELECT * from bets_archive";
 					connection.query(query ,function(err,row )     {
 
@@ -34,14 +37,16 @@ var getBets = function (result) {
 						} else {
 							deferred.resolve(row.length + " bets found\n");
 						}
+						return deferred.promise;
 					});
+
 				});
-				return deferred.promise;
 }
 var getUsers = function (result) {
 				console.log(result);
-        		var deferred = Q.defer();
-        		req.getConnection(function(err,connection){
+
+        		return req.getConnection(function(err,connection){
+					var deferred = Q.defer();
         			query = "SELECT * from users";
 					connection.query(query ,function(err,row)     {
 						if(err) {
@@ -49,9 +54,10 @@ var getUsers = function (result) {
 						} else {
 	        			    deferred.resolve(row.length + " bets found\n");
 						}
+						return deferred.promise;
 					});
+
 				});
-				return deferred.promise;
 }
 
 //req.getConnection(function(err,connection){
@@ -60,11 +66,12 @@ var getUsers = function (result) {
 //
 //});
 
-getDraws().then(getBets.then(getUsers
-        .then(function(result){
-        	console.log(result);
-        	res.status(200).send("ok");
-        })));
+//getDraws().then(getBets().then(getUsers().then(function(result){
+//        	console.log(result);
+//        	res.status(200).send("ok");
+//        })));
+getDraws().then(console.log);
+res.send("ok");
 
 });
 
