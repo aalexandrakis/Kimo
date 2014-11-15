@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="kimoApp">
 <head>
-  <title>Kimo View Draws</title>
+  <title>Kimo View My Active Bets</title>
   <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
   <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
   <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
@@ -15,7 +15,7 @@
   <script src="/sb-admin/js/sb-admin-2.js"></script>
   <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
   <script src="/kimoApp.js"></script>
-  <script src="/controllers/viewDrawsController.js"></script>
+  <script src="/controllers/viewActiveBetsController.js"></script>
   <script src="/controllers/headersController.js"></script>
   <script src="/controllers/infoController.js"></script>
   <script src="/javascripts/bootstrap-datetimepicker.js"></script>
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <div id="wrapper" ng-controller="ViewDrawsController">
+    <div id="wrapper" ng-controller="ViewActiveBetsController">
       <div header-directive></div>
       <div id="page-wrapper" style="min-height: 369px;width:100%">
         <div info-directive></div>
@@ -58,7 +58,7 @@
                             </div>
                           </div>
                           <div class="col-lg-2">
-                            <input type="button" class="btn btn-primary" value="Search" ng-click="getDraws()"/>
+                            <input type="button" class="btn btn-primary" value="Search" ng-click="getActiveBets()"/>
                           </div>
                         </div>
                         <script type="text/javascript">
@@ -79,31 +79,47 @@
                         <thead>
                         <tr>
                           <th>Date/Time</th>
+                          <th>ID</th>
+                          <th>No1</th>
+                          <th>No2</th>
+                          <th>No3</th>
+                          <th>No4</th>
+                          <th>No5</th>
+                          <th>No6</th>
+                          <th>No7</th>
+                          <th>No8</th>
+                          <th>No9</th>
+                          <th>No10</th>
+                          <th>No11</th>
+                          <th>No12</th>
+                          <th>Game Type</th>
+                          <th>Multiplier</th>
+                          <th>Repeat</th>
+                          <th>Coins</th>
+                          <th>Rem. Draws</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="draw in draws">
-                          <td style="text-align: center">{{draw.drawDateTime.replace("T", " ").replace("Z", " ").replace(".000", "")}}</td>
-                          <td style="text-align: center">{{draw.drawNumber1}}</td>
-                          <td style="text-align: center">{{draw.drawNumber2}}</td>
-                          <td style="text-align: center">{{draw.drawNumber3}}</td>
-                          <td style="text-align: center">{{draw.drawNumber4}}</td>
-                          <td style="text-align: center">{{draw.drawNumber5}}</td>
-                          <td style="text-align: center">{{draw.drawNumber6}}</td>
-                          <td style="text-align: center">{{draw.drawNumber7}}</td>
-                          <td style="text-align: center">{{draw.drawNumber8}}</td>
-                          <td style="text-align: center">{{draw.drawNumber9}}</td>
-                          <td style="text-align: center">{{draw.drawNumber10}}</td>
-                          <td style="text-align: center">{{draw.drawNumber11}}</td>
-                          <td style="text-align: center">{{draw.drawNumber12}}</td>
-                          <td style="text-align: center">{{draw.drawNumber13}}</td>
-                          <td style="text-align: center">{{draw.drawNumber14}}</td>
-                          <td style="text-align: center">{{draw.drawNumber15}}</td>
-                          <td style="text-align: center">{{draw.drawNumber16}}</td>
-                          <td style="text-align: center">{{draw.drawNumber17}}</td>
-                          <td style="text-align: center">{{draw.drawNumber18}}</td>
-                          <td style="text-align: center">{{draw.drawNumber19}}</td>
-                          <td style="text-align: center">{{draw.drawNumber20}}</td>
+                        <tr ng-repeat="bet in bets">
+                          <td style="text-align: center">{{bet.betDateTime.replace("T", " ").replace("Z", " ").replace(".000", " ")}}</td>
+                          <td style="text-align: center">{{bet.betId}}</td>
+                          <td ng-style="matched(bet.betNumber1, bet.drawNumbers)">{{bet.betNumber1}}</td>
+                          <td ng-style="matched(bet.betNumber2, bet.drawNumbers)">{{bet.betNumber2}}</td>
+                          <td ng-style="matched(bet.betNumber3, bet.drawNumbers)">{{bet.betNumber3}}</td>
+                          <td ng-style="matched(bet.betNumber4, bet.drawNumbers)">{{bet.betNumber4}}</td>
+                          <td ng-style="matched(bet.betNumber5, bet.drawNumbers)">{{bet.betNumber5}}</td>
+                          <td ng-style="matched(bet.betNumber6, bet.drawNumbers)">{{bet.betNumber6}}</td>
+                          <td ng-style="matched(bet.betNumber7, bet.drawNumbers)">{{bet.betNumber7}}</td>
+                          <td ng-style="matched(bet.betNumber8, bet.drawNumbers)">{{bet.betNumber9}}</td>
+                          <td ng-style="matched(bet.betNumber9, bet.drawNumbers)">{{bet.betNumber8}}</td>
+                          <td ng-style="matched(bet.betNumber10, bet.drawNumbers)">{{bet.betNumber10}}</td>
+                          <td ng-style="matched(bet.betNumber11, bet.drawNumbers)">{{bet.betNumber11}}</td>
+                          <td ng-style="matched(bet.betNumber12, bet.drawNumbers)">{{bet.betNumber12}}</td>
+                          <td style="text-align: center">{{bet.gameType}}</td>
+                          <td style="text-align: center">{{bet.multiplier}}</td>
+                          <td style="text-align: center">{{bet.repeatedDraws}}</td>
+                          <td style="text-align: center">{{bet.betCoins}}</td>
+                          <td>{{bet.repeatedDraws - bet.draws}}</td>
                         </tr>
                         </tbody>
                       </table>

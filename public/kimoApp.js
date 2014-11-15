@@ -41,6 +41,10 @@ kimoApp.config(function($routeProvider){
             controller: "PlayNowController",
             templateUrl: "playNow.html"
         })
+        .when("/viewActiveBets",{
+            controller: "ViewActiveBetsController",
+            templateUrl: "viewActiveBets.html"
+        })
         .when("/test",{
             controller: "MainController",
             templateUrl: "test.html"
