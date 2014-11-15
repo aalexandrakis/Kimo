@@ -10,7 +10,7 @@ kimoApp.controller("InfoController", function infoController($scope, $http, $coo
   $scope.lastDrawNumbers = [];
 
   $http({
-         url: '/info/1',
+         url: '/info',
          method: "GET"
        })
        .then(function(response) {

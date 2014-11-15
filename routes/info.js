@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var functions = require('../public/javascripts/functions');
 
-router.get('/:getValues', function(req, res) {
+router.get('/', function(req, res) {
 
     req.getConnection(function(err,connection){
 		result = {};
@@ -42,8 +42,5 @@ router.get('/:getValues', function(req, res) {
 
 });
 
-//to prevent send a json to the users browser
-router.get('/', function(req, res) {
-	res.redirect('index.html')
-});
+
 module.exports = router;

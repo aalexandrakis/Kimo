@@ -20,11 +20,11 @@ kimoApp.run(function($rootScope, $location, $cookieStore){
             jError(
                  'You must be logged on to visit this page',
                  {
-                   autoHide : true, // added in v2.0
+                   autoHide : true,
                    TimeShown : 3000,
                    HorizontalPosition : 'right',
                    VerticalPosition : 'top',
-                   onCompleted : function(){ // added in v2.0
+                   onCompleted : function(){
                    window.location = '#/signIn';
                      window.setTimeout(function(){
 
