@@ -177,16 +177,6 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
         $scope.cost =  $scope.repeatedDraws * $scope.multiplier * 0.50;
         console.log($scope.cost);
     }
-}).directive('headerDirective', function() {
-           return {
-             templateUrl: "header.html",
-             controller: 'HeadersController'
-           };
-}).directive('infoDirective', function() {
-           return {
-             templateUrl: "info.html",
-             controller: 'InfoController'
-           };
 });
 
 

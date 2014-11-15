@@ -116,17 +116,7 @@ kimoApp.controller("SignUpController", function signUpController($scope, $http){
         }
         return isError;
      };
-}).directive('headerDirective', function() {
-             return {
-               templateUrl: "header.html",
-               controller: 'HeadersController'
-             };
-  }).directive('infoDirective', function() {
-             return {
-               templateUrl: "info.html",
-               controller: 'InfoController'
-             };
-  });
+});
 
 
 

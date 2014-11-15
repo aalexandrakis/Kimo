@@ -57,16 +57,6 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
         }
     };
 
-}).directive('headerDirective', function() {
-           return {
-             templateUrl: "header.html",
-             controller: 'HeadersController'
-           };
-}).directive('infoDirective', function() {
-           return {
-             templateUrl: "info.html",
-             controller: 'InfoController'
-           };
 });
 
 
