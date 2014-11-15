@@ -1,75 +1,111 @@
 var express = require('express');
 var router = express.Router();
-var functions = require('../public/javascripts/functions');
+var Q = require('q');
 
 router.put('/', function(req, res) {
 	   errorExists = false;
 	   req.getConnection(function(err,connection){
 	   		if(err){
 	   			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+	   		} else {
+				//check if user name exists
+	   			function checkUserName(){
+                	df = Q.defer();
+                	query = "SELECT * from users where userName = '" + req.body.userName + "'";
+                	connection.query(query ,function(err,userRow)     {
+                		if(err) {
+                			error = new Error();
+                			error.status = "DB-ERROR";
+                			error.message = "Error Selecting user name for duplicates: %s " + err ;
+                			df.reject(error);
+                		} else if(userRow.length > 0 && userRow[0].userId != req.session.user.userId){
+                			error = new Error();
+                			error.status = "900";
+                			error.message = "User Name already exists. Please try another.";
+                			df.reject(error);
+                		} else {
+                			df.resolve("User name accepted");
+                		}
+                	});
+                	return df.promise;
+                }
+
+				//check if email exists
+				function checkUserEmail(){
+					df = Q.defer()
+					query = "SELECT * from users where userEmail = '" + req.body.email + "'";
+					connection.query(query ,function(err,userRow)     {
+						if(err) {
+							error = new Error();
+							error.status = "DB-ERROR";
+							error.message = "Error Selecting : %s " + err;
+							df.reject(error);
+						} else if(userRow.length > 0 && userRow[0].userId != req.session.user.userId){
+							error = new Error();
+							error.status = "900";
+							error.message = "User Email already exists. Please try another";
+							df.reject(error);
+						} else {
+							df.resolve("Email accepted");
+						}
+					});
+					return df.promise;
+				}
+
+				//insert user
+				function updateUser(){
+					df = Q.defer();
+					newValuePairs = {
+									 userName: req.body.userName,
+									 userEmail: req.body.email,
+									 userPassword: req.body.password
+									};
+					if (req.body.regId) {
+						newValuePairs.regId= req.body.regId;
+					}
+					query = "UPDATE users SET ? where userId = " + req.session.user.userId;
+					connection.query(query , newValuePairs, function(err,userRow)     {
+						if(err) {
+							error = new Error();
+							error.status = "DB-ERROR";
+							error.message = "Error Selecting : %s " + err ;
+							df.reject(error);
+						} else {
+							query = "select * from users where userId = " + req.session.user.userId;
+									connection.query(query, function(err,userRow)     {
+										if(err) {
+											error = new Error();
+											error.status = "DB-ERROR";
+											error.message = "Error Selecting : %s " + err ;
+											df.reject(error);
+										} else {
+											df.resolve({user: userRow[0], status: "00"});
+										}
+									});
+
+						}
+					});
+					return df.promise;
+				}
+
+				Q().then(function(result){
+					return checkUserName(result);
+				}).then(function(result){
+					return checkUserEmail(result);
+				}).then(function(result){
+					return updateUser(result);
+				}).then(function(result){
+					res.send(result);
+				}).catch(function(error){
+					res.send({status: error.status, message: error.message});
+				});
 	   		}
-	   		checkUserName1(req, res, connection);
        });
 });
 
-checkUserName1 = function(req, res, connection){
-	//check if user name exists
-	query = "SELECT * from users where userName = '" + req.body.userName + "'";
-	connection.query(query ,function(err,userRow)     {
-		if(err) {
-			errorExists = true;
-			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
-		} else if(userRow.length > 0 && userRow[0].userId != req.session.user.userId){
-			errorExists = true;
-			res.send({message: "User Name already exists. Please try again", status: "900"});
-		} else {
-			checkMail1(req, res, connection);
-		}
-	});
-}
-checkMail1 = function(req, res, connection){
-	//check if email exists
-	query = "SELECT * from users where userEmail = '" + req.body.email + "'";
-	connection.query(query ,function(err,userRow)     {
-		if(err) {
-			errorExists = true;
-			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
-		} else if(userRow.length > 0 && userRow[0].userId != req.session.user.userId){
-			errorExists = true;
-			res.send({message: "User Email already exists. Please try again", status: "900"});
-		} else {
-			updateUser(req, res, connection);
-		}
-	});
-}
 
-updateUser = function(req, res, connection){
-		//insert user
-		newValuePairs = {
-						 userName: req.body.userName,
-						 userEmail: req.body.email,
-						 userPassword: req.body.password
-						};
-		if (req.body.regId) {
-			newValuePairs.regId= req.body.regId;
-		}
-		query = "UPDATE users SET ? where userId = " + req.session.user.userId;
-		connection.query(query , newValuePairs, function(err,userRow)     {
-			if(err) {
-				res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
-			} else {
-				query = "select * from users where userId = " + req.session.user.userId;
-                		connection.query(query , newValuePairs, function(err,userRow)     {
-                			if(err) {
-                				res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
-                			} else {
-                				res.send({user: userRow[0], status: "00"});
-                			}
-                		});
 
-			}
-		});
-}
+
 
 router.get('/', function(req, res){
     res.redirect('myAccount.html');
