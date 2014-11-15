@@ -1,4 +1,5 @@
 kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $http, $cookieStore){
+    $scope.title = "Kimo -  View Draws";
     $scope.header = "View Draws";
     $scope.tableStyle = {"display" : "none"};
     $scope.numHeaders = [];

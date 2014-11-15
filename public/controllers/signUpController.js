@@ -1,4 +1,5 @@
 kimoApp.controller("SignUpController", function signUpController($scope, $http){
+     $scope.title = "Kimo-Sign Up";
      $scope.formHeader = "Sign Up";
 
      $scope.userNameGroup = ["form-group"];
@@ -48,7 +49,7 @@ kimoApp.controller("SignUpController", function signUpController($scope, $http){
                                    VerticalPosition : 'top',
                                    onCompleted : function(){ // added in v2.0
                                      window.setTimeout(function(){
-                                         window.location = 'index.html';
+                                         window.location = '/#';
                                      }, 3000)
                                  }
                             });

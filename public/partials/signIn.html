@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html ng-app="kimoApp">
-<head>
-  <title>Kimo Sign In</title>
-  <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
-  <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
-  <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
-  <script src="/javascripts/jquery.js"></script>
-  <script src="/javascripts/angular.js"></script>
-  <script src="/javascripts/angular-route.js"></script>
-  <script src="/javascripts/angular-cookies.js"></script>
-  <script src="/javascripts/cryptoJs.js"></script>
-  <script src="/sb-admin/js/bootstrap.js"></script>
-  <script src="/sb-admin/js/sb-admin-2.js"></script>
-  <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
-  <script src="/kimoApp.js"></script>
-  <script src="/controllers/signInController.js"></script>
-  <script src="/controllers/headersController.js"></script>
-  <script src="/controllers/infoController.js"></script>
-</head>
-
-<body>
-    <div id="wrapper" ng-controller="SignInController">
-      <div header-directive></div>
-      <div id="page-wrapper" style="min-height: 369px">
-        <div info-directive></div>
           <div class="row" >
             <div class="col-md-6 col-md-offset-3">
               <div class="login-panel panel panel-default" style="margin-top: 0">
@@ -34,16 +8,16 @@
                   <form class="form-horizontal">
                     <fieldset>
                       <div ng-class="userNameGroup">
-                        <label class="col-lg-2 control-label"> User Name </label>
-                        <div class="col-lg-10">
+                        <label class="col-md-2 control-label"> User Name </label>
+                        <div class="col-md-10">
                           <input class="form-control" placeholder="User Name" type="text" ng-model="userName">
                           <label class="control-label">{{userNameError}}</label>
                         </div>
                       </div>
 
                       <div ng-class="passwordGroup">
-                        <label class="col-lg-2 control-label"> User Name </label>
-                        <div class="col-lg-10">
+                        <label class="col-md-2 control-label"> User Name </label>
+                        <div class="col-md-10">
                           <input class="form-control"  placeholder="Password" type="password" ng-model="password">
                           <label class="control-label">{{passwordError}}</label>
                         </div>
@@ -58,7 +32,7 @@
               </div>
             </div>
           <div class="row" ng-style="errorMessageGroup">
-            <div class="col-lg-6 col-md-offset-3">
+            <div class="col-md-6 col-md-offset-3">
               <div class="bs-component">
                 <div class="alert alert-dismissable alert-danger">
                   <strong>{{errorMessage}}</strong>
@@ -68,8 +42,3 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-</body>
-</html>

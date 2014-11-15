@@ -65,7 +65,7 @@ app.use(
 require('./routes/routes.js')(app);
 
 app.get('/', function(req, res){
-    res.redirect('signIn.html');
+    res.sendFile(path.resolve() +"/public/partials/index.html");
 });
 
 //catch 404 and forward to error handler

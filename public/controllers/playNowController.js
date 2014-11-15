@@ -1,7 +1,7 @@
 kimoApp.controller("PlayNowController", function playController($scope, $http, $cookieStore, $window){
-    $scope.title = "Play Now";
+    $scope.title = "Kimo - Play Now";
     $scope.numbers = [];
-    selectedNumbers = [];
+    $scope.selectedNumbers = [];
     selectedClass = ["btn", "btn-primary", "btn-circle", "btn-lg"];
     unSelectedClass = ["btn", "btn-default", "btn-circle", "btn-lg"];
     $scope.currentNumberClass = unSelectedClass;
@@ -25,7 +25,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
     }
 
     $scope.checkIfSelected = function(number){
-        if (selectedNumbers.indexOf(number) > -1){
+        if ($scope.selectedNumbers.indexOf(number) > -1){
             return selectedClass;
         } else {
             return unSelectedClass;
@@ -33,12 +33,12 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
     }
 
     $scope.clicked = function(number){
-        indexOf = selectedNumbers.indexOf(number);
+        indexOf = $scope.selectedNumbers.indexOf(number);
         if (indexOf > -1){
-            selectedNumbers.splice(indexOf, 1);
+            $scope.selectedNumbers.splice(indexOf, 1);
             $scope.currentNumberClass =  unSelectedClass;
         } else {
-            selectedNumbers.push(number);
+            $scope.selectedNumbers.push(number);
             $scope.currentNumberClass =  selectedClass;
         }
         $scope.calculateCost();
@@ -97,7 +97,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
             errorExists = true;
         }
 
-        if (selectedNumbers > 12){
+        if ($scope.selectedNumbers > 12){
             errorExists = true;
         }
 
@@ -107,7 +107,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
             $scope.errorMessageGroup = {"display":"block"};
 
         }
-        if ($scope.gameType != selectedNumbers.length){
+        if ($scope.gameType != $scope.selectedNumbers.length){
             errorExists = true;
             $scope.errorMessage = "Game Type must be the selected numbers counter";
             $scope.errorMessageGroup = {"display":"block"};
@@ -124,18 +124,18 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
                           'gameType'     :  $scope.gameType,
                           'betCoins'     :  $scope.cost,
                           'multiplier'   :  $scope.multiplier,
-                          'betNumber1'   :  selectedNumbers[0] != null ? selectedNumbers[0]  : 0 ,
-                          'betNumber2'   :  selectedNumbers[1] != null ? selectedNumbers[1]  : 0 ,
-                          'betNumber3'   :  selectedNumbers[2] != null ? selectedNumbers[2]  : 0 ,
-                          'betNumber4'   :  selectedNumbers[3] != null ? selectedNumbers[3]  : 0 ,
-                          'betNumber5'   :  selectedNumbers[4] != null ? selectedNumbers[4]  : 0 ,
-                          'betNumber6'   :  selectedNumbers[5] != null ? selectedNumbers[5]  : 0 ,
-                          'betNumber7'   :  selectedNumbers[6] != null ? selectedNumbers[6]  : 0 ,
-                          'betNumber8'   :  selectedNumbers[7] != null ? selectedNumbers[7]  : 0 ,
-                          'betNumber9'   :  selectedNumbers[8] != null ? selectedNumbers[8]  : 0 ,
-                          'betNumber10'  :  selectedNumbers[9] != null ? selectedNumbers[9]  : 0 ,
-                          'betNumber11'  :  selectedNumbers[10] != null ? selectedNumbers[10]  : 0 ,
-                          'betNumber12'  :  selectedNumbers[11] != null ? selectedNumbers[11]  : 0
+                          'betNumber1'   :  $scope.selectedNumbers[0] != null ? $scope.selectedNumbers[0]  : 0 ,
+                          'betNumber2'   :  $scope.selectedNumbers[1] != null ? $scope.selectedNumbers[1]  : 0 ,
+                          'betNumber3'   :  $scope.selectedNumbers[2] != null ? $scope.selectedNumbers[2]  : 0 ,
+                          'betNumber4'   :  $scope.selectedNumbers[3] != null ? $scope.selectedNumbers[3]  : 0 ,
+                          'betNumber5'   :  $scope.selectedNumbers[4] != null ? $scope.selectedNumbers[4]  : 0 ,
+                          'betNumber6'   :  $scope.selectedNumbers[5] != null ? $scope.selectedNumbers[5]  : 0 ,
+                          'betNumber7'   :  $scope.selectedNumbers[6] != null ? $scope.selectedNumbers[6]  : 0 ,
+                          'betNumber8'   :  $scope.selectedNumbers[7] != null ? $scope.selectedNumbers[7]  : 0 ,
+                          'betNumber9'   :  $scope.selectedNumbers[8] != null ? $scope.selectedNumbers[8]  : 0 ,
+                          'betNumber10'  :  $scope.selectedNumbers[9] != null ? $scope.selectedNumbers[9]  : 0 ,
+                          'betNumber11'  :  $scope.selectedNumbers[10] != null ? $scope.selectedNumbers[10]  : 0 ,
+                          'betNumber12'  :  $scope.selectedNumbers[11] != null ? $scope.selectedNumbers[11]  : 0
                   }
               })
               .then(function(response) {
@@ -154,8 +154,13 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
                                   HorizontalPosition : 'right',
                                   VerticalPosition : 'top',
                                   onCompleted : function(){ // added in v2.0
+                                    $scope.selectedNumbers = [];
+                                    $scope.multiplier = 1;
+                                    $scope.repeatedDraws = 1;
+                                    $scope.gameType = 1;
                                     window.setTimeout(function(){
-                                        window.location = 'playNow.html';
+//                                        window.location = 'playNow.html';
+
                                     }, 3000)
                                 }
                               });

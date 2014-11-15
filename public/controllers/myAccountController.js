@@ -1,6 +1,6 @@
-kimoApp.controller("MyAccountController",  function myAccountController($scope, $http, $cookieStore){
+kimoApp.controller("MyAccountController",  ['$scope', '$http', '$cookieStore', function myAccountController($scope, $http, $cookieStore){
 
-     console.log($cookieStore.get("user"));
+     $scope.title = "Kimo -  My account";
      $scope.formHeader = "My account";
 
      $scope.userNameGroup = ["form-group"];
@@ -59,7 +59,7 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
                                    VerticalPosition : 'top',
                                    onCompleted : function(){ // added in v2.0
                                      window.setTimeout(function(){
-                                         window.location = 'index.html';
+                                         window.location = '/#';
                                      }, 3000)
                                  }
                             });
@@ -137,7 +137,7 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
 
         return isError;
      };
-});
+}]);
 
 
 

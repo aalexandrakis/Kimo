@@ -1,4 +1,5 @@
 kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scope, $http, $cookieStore){
+    $scope.title = "Kimo - View Old Bets";
     $scope.header = "View Old Bets";
     $scope.tableStyle = {"display" : "none"};
     $scope.numHeaders = [];

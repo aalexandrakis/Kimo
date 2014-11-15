@@ -1,44 +1,13 @@
-<!DOCTYPE html>
-<html ng-app="kimoApp">
-<head>
-  <title>Kimo View My Active Bets</title>
-  <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
-  <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
-  <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap-datetimepicker.css' />
-  <script src="/javascripts/jquery.js"></script>
-  <script src="/javascripts/angular.js"></script>
-  <script src="/javascripts/angular-route.js"></script>
-  <script src="/javascripts/angular-cookies.js"></script>
-  <script src="/javascripts/cryptoJs.js"></script>
-  <script src="/sb-admin/js/bootstrap.js"></script>
-  <script src="/sb-admin/js/sb-admin-2.js"></script>
-  <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
-  <script src="/kimoApp.js"></script>
-  <script src="/controllers/viewActiveBetsController.js"></script>
-  <script src="/controllers/headersController.js"></script>
-  <script src="/controllers/infoController.js"></script>
-  <script src="/javascripts/bootstrap-datetimepicker.js"></script>
-  <link rel='stylesheet' href='/stylesheets/bootstrap-datetimepicker.css' />
-
-</head>
-
-<body>
-    <div id="wrapper" ng-controller="ViewActiveBetsController">
-      <div header-directive></div>
-      <div id="page-wrapper" style="min-height: 369px;width:100%">
-        <div info-directive></div>
-
           <div class="bs-docs-section">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       {{header}}
                     </div>
                     <div class="panel-body">
                       <div class="container">
-                        <div class="col-sm-6" style="height:75px;">
+                        <div class="col-md-6" style="height:75px;">
                           <div class="col-md-5">
                             <div class="form-group">
                               <div class="input-group date" id="datetimepickerfrom" >
@@ -57,8 +26,8 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-lg-2">
-                            <input type="button" class="btn btn-primary" value="Search" ng-click="getActiveBets()"/>
+                          <div class="col-md-2">
+                            <input type="button" class="btn btn-primary" value="Search" ng-click="getOldBets()"/>
                           </div>
                         </div>
                         <script type="text/javascript">
@@ -93,10 +62,11 @@
                           <th>No11</th>
                           <th>No12</th>
                           <th>Game Type</th>
-                          <th>Multiplier</th>
-                          <th>Repeat</th>
-                          <th>Coins</th>
-                          <th>Rem. Draws</th>
+                          <th><span class="glyphicon glyphicon-asterisk"></span></th>
+                          <th><span class="glyphicon glyphicon-repeat"></span></th>
+                          <th><span class="glyphicon glyphicon-ok"></span></th>
+                          <th><span class="glyphicon glyphicon-euro"></span></th>
+                          <th><span class="glyphicon glyphicon-plus"></span></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -118,14 +88,15 @@
                           <td style="text-align: center">{{bet.gameType}}</td>
                           <td style="text-align: center">{{bet.multiplier}}</td>
                           <td style="text-align: center">{{bet.repeatedDraws}}</td>
-                          <td style="text-align: center">{{bet.betCoins}}</td>
-                          <td>{{bet.repeatedDraws - bet.draws}}</td>
+                          <td style="text-align: center">{{bet.matches}}</td>
+                          <td style="text-align: right">{{bet.betCoins}}</td>
+                          <td style="text-align: right">{{bet.multiplier * bet.betCoins * bet.returnRate}}</td>
                         </tr>
                         </tbody>
                       </table>
                       <br/><br/>
                       <div class="row" ng-style="errorStyle">
-                        <div class="col-lg-12">
+                        <div class="col-md-12">
                           <div class="alert alert-danger">
                             {{errorMessage}}
                           </div>
@@ -136,10 +107,5 @@
                     </div>
                   </div>
                 </div>
+            </div>
           </div>
-          </div>
-
-      </div>
-    </div>
-</body>
-</html>

@@ -1,44 +1,13 @@
-<!DOCTYPE html>
-<html ng-app="kimoApp">
-<head>
-  <title>Kimo View My Old Bets</title>
-  <link rel='stylesheet' href='/sb-admin/css/bootstrap.css' />
-  <link rel='stylesheet' href='/sb-admin/css/sb-admin-2.css' />
-  <link rel='stylesheet' href='/sb-admin/css/plugins/metisMenu/metisMenu.css' />
-  <link rel='stylesheet' href='/stylesheets/bootstrap-datetimepicker.css' />
-  <script src="/javascripts/jquery.js"></script>
-  <script src="/javascripts/angular.js"></script>
-  <script src="/javascripts/angular-route.js"></script>
-  <script src="/javascripts/angular-cookies.js"></script>
-  <script src="/javascripts/cryptoJs.js"></script>
-  <script src="/sb-admin/js/bootstrap.js"></script>
-  <script src="/sb-admin/js/sb-admin-2.js"></script>
-  <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
-  <script src="/kimoApp.js"></script>
-  <script src="/controllers/viewOldBetsController.js"></script>
-  <script src="/controllers/headersController.js"></script>
-  <script src="/controllers/infoController.js"></script>
-  <script src="/javascripts/bootstrap-datetimepicker.js"></script>
-  <link rel='stylesheet' href='/stylesheets/bootstrap-datetimepicker.css' />
-
-</head>
-
-<body>
-    <div id="wrapper" ng-controller="ViewOldBetsController">
-      <div header-directive></div>
-      <div id="page-wrapper" style="min-height: 369px;width:100%">
-        <div info-directive></div>
-
           <div class="bs-docs-section">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       {{header}}
                     </div>
                     <div class="panel-body">
                       <div class="container">
-                        <div class="col-sm-6" style="height:75px;">
+                        <div class="col-md-6" style="height:75px;">
                           <div class="col-md-5">
                             <div class="form-group">
                               <div class="input-group date" id="datetimepickerfrom" >
@@ -57,8 +26,8 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-lg-2">
-                            <input type="button" class="btn btn-primary" value="Search" ng-click="getOldBets()"/>
+                          <div class="col-md-2">
+                            <input type="button" class="btn btn-primary" value="Search" ng-click="getActiveBets()"/>
                           </div>
                         </div>
                         <script type="text/javascript">
@@ -95,9 +64,8 @@
                           <th>Game Type</th>
                           <th>Multiplier</th>
                           <th>Repeat</th>
-                          <th>Matches</th>
                           <th>Coins</th>
-                          <th>Earnings</th>
+                          <th>Rem. Draws</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -119,15 +87,14 @@
                           <td style="text-align: center">{{bet.gameType}}</td>
                           <td style="text-align: center">{{bet.multiplier}}</td>
                           <td style="text-align: center">{{bet.repeatedDraws}}</td>
-                          <td style="text-align: center">{{bet.matches}}</td>
                           <td style="text-align: center">{{bet.betCoins}}</td>
-                          <td>{{bet.multiplier * bet.betCoins * bet.returnRate}}</td>
+                          <td>{{bet.repeatedDraws - bet.draws}}</td>
                         </tr>
                         </tbody>
                       </table>
                       <br/><br/>
                       <div class="row" ng-style="errorStyle">
-                        <div class="col-lg-12">
+                        <div class="col-md-12">
                           <div class="alert alert-danger">
                             {{errorMessage}}
                           </div>
@@ -140,8 +107,3 @@
                 </div>
           </div>
           </div>
-
-      </div>
-    </div>
-</body>
-</html>

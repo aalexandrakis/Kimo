@@ -1,4 +1,5 @@
 kimoApp.controller("SignInController", function signInController($scope, $cookieStore, $window, $http){
+     $scope.title = "Kimo -  Sign In";
      $scope.formHeader = "Sign In";
 
      $scope.userNameGroup = ["form-group"];
@@ -31,7 +32,7 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                         } else {
                             $scope.errorMessageGroup = {"display":"none"};
                             $cookieStore.put("user" , response.data);
-                             $window.location.href = '/index';
+                            $window.location.href = '#/index';
                         }
 
                   },

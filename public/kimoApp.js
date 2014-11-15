@@ -1,67 +1,79 @@
 var kimoApp = angular.module("kimoApp", ['ngRoute', 'ngCookies']);
 
-//kimoApp.factory('http', function($http){
-//
-//       getHttpResult =  function(method, route, data) {
-//                         return $http({
-//                          url: route,
-//                          method: method,
-//                          data: data
-//                        })
-//                    };
-//
-//       return getHttpResult;
-//});
 
 kimoApp.directive('headerDirective', function() {
                   return {
-                    templateUrl: "header.html",
+                    templateUrl: "partials/header.html",
                     controller: 'HeadersController'
                   };
        }).directive('infoDirective', function() {
                   return {
-                    templateUrl: "info.html",
+                    templateUrl: "partials/info.html",
                     controller: 'InfoController'
                   };
        });
 
+kimoApp.run(function($rootScope, $location, $cookieStore){
+    $rootScope.$on('$routeChangeStart', function(event, route){
+        if (route.mustBeLoggedOn && angular.isUndefined($cookieStore.get("user"))) {
+            // reload the login route
+            jError(
+                 'You must be logged on to visit this page',
+                 {
+                   autoHide : true, // added in v2.0
+                   TimeShown : 3000,
+                   HorizontalPosition : 'right',
+                   VerticalPosition : 'top',
+                   onCompleted : function(){ // added in v2.0
+                   window.location = '#/signIn';
+                     window.setTimeout(function(){
 
+                     }, 3000)
+                 }
+            });
+        }
+
+    });
+});
 //Do configuration and routing here
 kimoApp.config(function($routeProvider){
     $routeProvider
         .when("/signIn",{
             controller: "SignInController",
-            templateUrl: "signIn.html"
+            templateUrl: "partials/signIn.html",
+            mustBeLoggedOn: false
         })
         .when("/signUp",{
             controller: "SignUpController",
-            templateUrl: "signUp.html"
+            templateUrl: "partials/signUp.html",
+            mustBeLoggedOn: false
         })
         .when("/myAccount",{
-                    controller: "MyAccountController",
-                    templateUrl: "myAccount.html"
-                })
+            controller: "MyAccountController",
+            templateUrl: "partials/myAccount.html",
+            mustBeLoggedOn: true
+        })
         .when("/viewDraws",{
             controller: "ViewDrawsController",
-            templateUrl: "viewDraws.html"
+            templateUrl: "partials/viewDraws.html",
+            mustBeLoggedOn: true
         })
         .when("/viewOldBets",{
             controller: "ViewOldBetsController",
-            templateUrl: "viewOldBets.html"
+            templateUrl: "partials/viewOldBets.html",
+            mustBeLoggedOn: true
         })
         .when("/playNow",{
             controller: "PlayNowController",
-            templateUrl: "playNow.html"
+            templateUrl: "partials/playNow.html",
+            mustBeLoggedOn: true
         })
         .when("/viewActiveBets",{
             controller: "ViewActiveBetsController",
-            templateUrl: "viewActiveBets.html"
-        })
-        .when("/test",{
-            controller: "MainController",
-            templateUrl: "test.html"
-        });
+            templateUrl: "partials/viewActiveBets.html",
+            mustBeLoggedOn: true
+        }).otherwise("/#");
 
-    $routeProvider.otherwise({"redirectTo": "/index"});  //.otherwise("/"); //does not work
+//    $routeProvider.otherwise({"redirectTo": "/index"});  //.otherwise("/"); //does not work
 });
 

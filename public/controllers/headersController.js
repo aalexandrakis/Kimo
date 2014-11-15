@@ -14,7 +14,7 @@ kimoApp.controller("HeadersController", function headersController($scope, $http
                method: "POST"
            }).then(function(response){
                $cookieStore.remove("user");
-               $window.location.href="/index.html";
+               $window.location.href="#/index";
            }, function(response){
                 console.log("log out failed");
            });

@@ -1,8 +1,6 @@
 kimoApp.controller("IndexController", function indexController($scope, $http, $cookieStore){
-    $scope.title = "Home Page";
-
-
-
+  //TODO refresh info every 2-5 minutes
+    $scope.title = "KiMo";
 });
 
 
