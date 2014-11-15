@@ -16,8 +16,6 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
     $scope.gameTypeError = "";
     $scope.errorMessage = "";
     $scope.errorMessageGroup = {"display":"none"};
-    $scope.successMessage = "";
-    $scope.successMessageGroup = {"display":"none"};
     $scope.cost = 0.5;
 
     errorExists = false;
@@ -84,8 +82,6 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
     $scope.play = function(){
         $scope.errorMessage = "";
         $scope.errorMessageGroup = {"display":"none"};
-        $scope.successMessage = "";
-        $scope.successMessageGroup = {"display":"none"};
         errorExists = false;
         $scope.calculateCost();
 
@@ -150,12 +146,19 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
                         } else {
-                            $scope.successMessageGroup = {"display":"block"};
-                            $scope.successMessage = "Your bet saved successfully. Good Luck";
-                            $scope.successMessageGroup = {"display":"block"};
-                            //TODO change this ungly alert with a nice notification
-                            alert('Your bet saved successfully. Good Luck');
-                            $window.location.href = 'playNow.html';
+                            jSuccess(
+                                'Your bet saved successfully. Good Luck',
+                                {
+                                  autoHide : true, // added in v2.0
+                                  TimeShown : 3000,
+                                  HorizontalPosition : 'right',
+                                  VerticalPosition : 'top',
+                                  onCompleted : function(){ // added in v2.0
+                                    window.setTimeout(function(){
+                                        window.location = 'playNow.html';
+                                    }, 3000)
+                                }
+                              });
                         }
 
 

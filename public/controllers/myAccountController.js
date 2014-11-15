@@ -25,7 +25,6 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
 
 
      $scope.errorMessageGroup = {"display":"none"};
-     $scope.successMessageGroup = {"display":"none"};
 
      $scope.update = function(){
           $scope.errorMessageGroup = {"display":"none"};
@@ -49,12 +48,21 @@ kimoApp.controller("MyAccountController",  function myAccountController($scope, 
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
                         } else {
-                            $scope.successMessageGroup = {"display":"block"};
                             $cookieStore.remove("user");
                             $cookieStore.put("user", response.data.user);
-                            $scope.oldPassword = "";
-                            $scope.newPassword = "";
-                            $scope.confirmPassword = "";
+                            jSuccess(
+                                 'Your account updated successfully',
+                                 {
+                                   autoHide : true, // added in v2.0
+                                   TimeShown : 3000,
+                                   HorizontalPosition : 'right',
+                                   VerticalPosition : 'top',
+                                   onCompleted : function(){ // added in v2.0
+                                     window.setTimeout(function(){
+                                         window.location = 'index.html';
+                                     }, 3000)
+                                 }
+                            });
                         }
 
                   },

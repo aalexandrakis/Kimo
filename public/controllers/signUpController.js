@@ -39,7 +39,20 @@ kimoApp.controller("SignUpController", function signUpController($scope, $http){
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
                         } else {
-                            $scope.successMessageGroup = {"display":"block"};
+                            jSuccess(
+                                 'Your registration completed successfully',
+                                 {
+                                   autoHide : true, // added in v2.0
+                                   TimeShown : 3000,
+                                   HorizontalPosition : 'right',
+                                   VerticalPosition : 'top',
+                                   onCompleted : function(){ // added in v2.0
+                                     window.setTimeout(function(){
+                                         window.location = 'index.html';
+                                     }, 3000)
+                                 }
+                            });
+
                         }
 
                   },

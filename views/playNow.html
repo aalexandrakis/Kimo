@@ -18,6 +18,8 @@
   <script src="/controllers/playNowController.js"></script>
   <script src="/controllers/headersController.js"></script>
   <script src="/controllers/infoController.js"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/jNotify.jquery.css" media="screen" />
+  <script type="text/javascript" src="/javascripts/jNotify.jquery.js"></script>
 </head>
 
 <body>
@@ -75,16 +77,6 @@
                     <div class="bs-component">
                       <div class="alert alert-dismissable alert-danger">
                         <strong>{{errorMessage}}</strong>
-                      </div>
-                      <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row" ng-style="successMessageGroup">
-                  <div class="col-lg-12">
-                    <div class="bs-component">
-                      <div class="alert alert-dismissable alert-success">
-                        <strong>{{successMessage}}</strong>
                       </div>
                       <div style="display: none;" id="source-button" class="btn btn-primary btn-xs">&lt; &gt;</div>
                     </div>
