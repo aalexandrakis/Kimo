@@ -62,7 +62,7 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
                     $scope.alerts = [];
                   }, 3000, 1);
               } else {
-                $rootScope.$broadcast('unNotifiedBets', {});
+                $rootScope.$broadcast('unNotifiedBets', []);
               }
        });
   }

@@ -1,5 +1,7 @@
 var kimoApp = angular.module("kimoApp", ['ngRoute', 'ngCookies']);
 
+//TODO implement forgot password
+//TODO implement buy coins
 
 kimoApp.directive('headerDirective', function() {
                   return {
@@ -71,7 +73,14 @@ kimoApp.config(function($routeProvider){
         .when("/viewBet/:betId",{
             controller: "ViewBetController",
             templateUrl: "partials/viewBet.html",
-            mustBeLoggedOn: true
+            mustBeLoggedOn: true,
+            activeBet: false
+        })
+        .when("/viewActiveBet/:betId",{
+            controller: "ViewBetController",
+            templateUrl: "partials/viewBet.html",
+            mustBeLoggedOn: true,
+            activeBet: true
         })
         .when("/playNow",{
             controller: "PlayNowController",
@@ -81,6 +90,11 @@ kimoApp.config(function($routeProvider){
         .when("/viewActiveBets",{
             controller: "ViewActiveBetsController",
             templateUrl: "partials/viewActiveBets.html",
+            mustBeLoggedOn: true
+        })
+        .when("/viewActiveBet",{
+            controller: "ViewBetController",
+            templateUrl: "partials/viewBet.html",
             mustBeLoggedOn: true
         }).otherwise("/#");
 

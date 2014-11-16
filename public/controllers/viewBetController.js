@@ -1,4 +1,4 @@
-kimoApp.controller("ViewBetController", function viewBetController($scope, $http, $cookieStore, $window, $routeParams){
+kimoApp.controller("ViewBetController", function viewBetController($scope, $http, $cookieStore, $window, $routeParams, $route){
     $scope.title = "Kimo - Play Now";
     $scope.numbers = [];
     $scope.selectedNumbers = [];
@@ -26,11 +26,13 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
     drawNumbers = [];
 
     $scope.getCSSClass = function(number){
-
         isInBet = betNumbers.indexOf(number) > -1
         isInDraw = drawNumbers.indexOf(number) > -1
-
-        if (isInBet && isInDraw){
+        if ($scope.isActive() && isInBet){
+            return drawNumberClass;
+        } else if  ($scope.isActive() && !isInBet){
+            return defaultClass;
+        } else if (isInBet && isInDraw){
             return matchedClass;
         } else if (isInBet){
             return unMatchedClass;
@@ -40,11 +42,23 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
             return defaultClass;
         }
     }
-
+    $scope.isActive = function(){
+        if ($route.current.$$route.activeBet){
+            return true;
+        } else {
+            return false;
+        }
+    }
     function getBet(betId){
-
+            if ($scope.isActive()){
+                console.log("active");
+                url = '/viewActiveBets/' + betId;
+            } else {
+                console.log("old");
+                url = '/viewOldBets/' + betId;
+            }
             $http({
-                  url: '/viewOldBets/' + betId,
+                  url: url,
                   method: "GET"
               })
               .then(function(response) {
@@ -68,9 +82,11 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
                         $scope.multiplier = response.data.multiplier;
                         $scope.gameType = response.data.gameType;
                         $scope.cost = response.data.betCoins;
-                        drawNumbers = response.data.drawNumbers;
-                        $scope.matches = response.data.matches;
-                        $scope.earnings = response.data.matches * response.data.betCoins;
+                        if (!$scope.isActive()){
+                            drawNumbers = response.data.drawNumbers;
+                            $scope.matches = response.data.matches;
+                            $scope.earnings = response.data.matches * response.data.betCoins;
+                        }
                },
               function(response) { // optional
                       // failed

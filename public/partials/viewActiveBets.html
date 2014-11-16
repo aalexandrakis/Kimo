@@ -6,43 +6,6 @@
                       {{header}}
                     </div>
                     <div class="panel-body">
-                      <div class="container">
-                        <div class="col-md-6" style="height:75px;">
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <div class="input-group date" id="datetimepickerfrom" >
-                                <!--<label >Date From</label>-->
-                                <input name="dateFrom" placeholder="Date From" class="form-control" type="text"  ng-model="dateFrom" readonly>
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-5">
-                            <div class="form-group">
-                              <div class=" input-group date" id="datetimepickerto">
-                                <!--<label>Date To</label>-->
-                                <input name="dateTo" placeholder="Date To" class="form-control" type="text" ng-model="dateTo" readonly>
-                                <span class="input-group-addon"><i class="glyphicon  glyphicon-calendar"></i></span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <input type="button" class="btn btn-primary" value="Search" ng-click="getActiveBets()"/>
-                          </div>
-                        </div>
-                        <script type="text/javascript">
-                              $('#datetimepickerfrom').datetimepicker({
-                                  format: "dd-mm-yyyy hh:ii",
-                                  todayBtn: true,
-                                  autoclose: true
-                              });
-                              $('#datetimepickerto').datetimepicker({
-                                  format: "dd-mm-yyyy hh:ii",
-                                  todayBtn: true,
-                                  autoclose: true
-                              });
-                        </script>
-                      </div>
                       <img src="/images/lazy-loading-image.gif" ng-style="lazyLoadStyle"/>
                       <table class="table table-striped" ng-style="tableStyle">
                         <thead>
@@ -70,7 +33,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="bet in bets">
-                          <td style="text-align: center">{{bet.betDateTime.replace("T", " ").replace("Z", " ").replace(".000", " ")}}</td>
+                          <td style="text-align: center"><a href="#/viewActiveBet/{{bet.betId}}">{{bet.betDateTime.replace("T", " ").replace("Z", " ").replace(".000", " ")}}</a></td>
                           <td style="text-align: center">{{bet.betId}}</td>
                           <td ng-style="matched(bet.betNumber1, bet.drawNumbers)">{{bet.betNumber1}}</td>
                           <td ng-style="matched(bet.betNumber2, bet.drawNumbers)">{{bet.betNumber2}}</td>
