@@ -1,11 +1,14 @@
-kimoApp.controller("InfoController", function infoController($scope, $http, $cookieStore, $interval, $q){
+kimoApp.controller("InfoController", function infoController($rootScope, $scope, $http, $cookieStore, $interval, $q){
+  $scope.nextDraw = "";
+  $scope.lastDrawDate = "";
+  $scope.alerts=[];
+
   if($cookieStore.get("user")){
       $scope.userCoins = $cookieStore.get("user").userCoins;
   } else {
       $scope.userCoins = 0;
   }
-  $scope.nextDraw = "";
-  $scope.lastDrawDate = "";
+
 
   function parseData(response) {
         if (!angular.isUndefined(response.data.message)){
@@ -40,11 +43,10 @@ kimoApp.controller("InfoController", function infoController($scope, $http, $coo
             $scope.nextDraw = $scope.nextDraw.replace("T", " ").replace("Z", " ").replace(".000", "");
             if ($cookieStore.get("user")){
                 $cookieStore.get("user").userCoins = response.data.userCoins;
-                console.log($cookieStore.get("user"));
             }
         }
   }
-
+  counter = 0;
   getInfoData = function(){
       $scope.lastDrawNumbers = [];
       $http({
@@ -53,6 +55,15 @@ kimoApp.controller("InfoController", function infoController($scope, $http, $coo
        })
        .then(function (response){
               parseData(response);
+              if (Array.isArray(response.data.unNotifiedBets)){
+                  $scope.alerts.push(response.data.unNotifiedBets.length);
+                  $rootScope.$broadcast('unNotifiedBets', response.data.unNotifiedBets);
+                  interval1 = $interval(function(){
+                    $scope.alerts = [];
+                  }, 3000, 1);
+              } else {
+                $rootScope.$broadcast('unNotifiedBets', {});
+              }
        });
   }
 

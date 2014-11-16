@@ -3,7 +3,7 @@ var kimoApp = angular.module("kimoApp", ['ngRoute', 'ngCookies']);
 
 kimoApp.directive('headerDirective', function() {
                   return {
-                    templateUrl: "partials/header.html",
+                    templateUrl: "partials/headers.html",
                     controller: 'HeadersController'
                   };
        }).directive('infoDirective', function() {

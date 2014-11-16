@@ -1,4 +1,4 @@
-kimoApp.controller("HeadersController", function headersController($scope, $http, $cookieStore, $window){
+kimoApp.controller("HeadersController", function headersController($rootScope, $scope, $http, $cookieStore, $window){
       $scope.isLoggedOn = function(){
           if ($cookieStore.get("user")){
              return true;
@@ -7,6 +7,16 @@ kimoApp.controller("HeadersController", function headersController($scope, $http
           }
       };
 
+      $scope.$on('unNotifiedBets', function(event, unNotifiedBets){
+        $scope.unNotifiedBets = unNotifiedBets;
+      });
+      $scope.noNotifications = function(){
+        if (angular.isUndefined($scope.unNotifiedBets) || $scope.unNotifiedBets.length > 0){
+            return false;
+        } else {
+            return true;
+        }
+      }
       $scope.signOut = function(){
           if ($scope.isLoggedOn()){
              $http({
@@ -20,8 +30,6 @@ kimoApp.controller("HeadersController", function headersController($scope, $http
            });
           }
       };
-
-
 });
 
 
