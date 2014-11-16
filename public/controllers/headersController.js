@@ -1,4 +1,5 @@
 kimoApp.controller("HeadersController", function headersController($rootScope, $scope, $http, $cookieStore, $window){
+      $scope.unNotifiedBets = [];
       $scope.isLoggedOn = function(){
           if ($cookieStore.get("user")){
              return true;
@@ -9,7 +10,19 @@ kimoApp.controller("HeadersController", function headersController($rootScope, $
 
       $scope.$on('unNotifiedBets', function(event, unNotifiedBets){
         $scope.unNotifiedBets = unNotifiedBets;
+        $scope.unNotifiedBets.forEach(function (bet){
+            bet.betDateTime = fromIsoToEuro(bet.betDateTime);
+        });
       });
+
+      $scope.removeNotification = function(index){
+        $scope.unNotifiedBets.splice(index, 1);
+      }
+
+      $scope.clearAllNotifications = function(){
+        $scope.unNotifiedBets = [];
+      }
+
       $scope.noNotifications = function(){
         if (angular.isUndefined($scope.unNotifiedBets) || $scope.unNotifiedBets.length > 0){
             return false;

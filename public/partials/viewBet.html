@@ -1,0 +1,36 @@
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <strong>Bet Date & time</strong>  {{betDateTime}}    <strong>BetId</strong>  {{betId}}
+                    </div>
+                    <div class="panel-body">
+                      <div class="col-md-offset-1">
+                         <button ng-repeat="number in numbers" ng-class="getCSSClass(number)">
+                           {{number}}
+                         </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    Bet Details
+                  </div>
+                  <div class="panel-body">
+                    <p class="text-muted" >Repeated Draws : <span style="margin-right:1%"> {{repeatedDraws}}</span></p>
+                    <p class="text-muted">Multiplier : <span style="margin-right:1%"> {{multiplier}}</span></p>
+                    <p class="text-muted">Game Type : <span style="margin-right:1%"> {{gameType}}</span></p>
+                    <p class="text-muted">Cost : <span style="margin-right:1%"> {{cost}}</span></p>
+                    <p class="text-muted">Matches : <span style="margin-right:1%"> {{matches}}</span></p>
+                    <p class="text-muted">Earnings : <span style="margin-right:1%"> {{earnings}}</span></p>
+                  </div>
+                  <!-- /.panel-body -->
+                  <p class="text-success"> <span class="btn btn-success btn-circle"></span> Matched number</p>
+                  <p class="text-danger">  <span class="btn btn-danger btn-circle"></span> Unmatched number</p>
+                  <p class="text-primary"> <span class="btn btn-primary btn-circle"></span> Number in draw</p>
+                </div>
+              </div>
+          </div>

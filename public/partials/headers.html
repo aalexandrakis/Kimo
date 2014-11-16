@@ -18,23 +18,24 @@
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
-                    <li ng-repeat="unNotifiedBet in unNotifiedBets">
-                            <a>
+                    <li ng-repeat="unNotifiedBet in unNotifiedBets" ng-click="removeNotification($index)">
+                            <a href="#/viewBet/{{unNotifiedBet.betId}}">
                                 <div>
                                     <strong>{{unNotifiedBet.betDateTime}}</strong>
                                     <span class="pull-right text-muted">
                                         <em>{{unNotifiedBet.returnRate * unNotifiedBet.betCoins}}</em>
                                     </span>
                                 </div>
-                                <div>You have {{unNotifiedBet.matches}} in this bet.</div>
+                                <div>You have {{unNotifiedBet.matches}} matches in this bet.</div>
                             </a>
                             <span class="divider"></span>
                         </li>
                     <li>
-                        <a class="text-center">
+                        <a ng-hide="noNotifications()" class="text-center" href="#/viewUnNotifiedBets" ng-click="clearAllNotifications()">
                             <strong>View all your earning bets</strong>
                             <i class="glyphicon glyphicon-arrow-right"></i>
                         </a>
+                        <a ng-hide="!noNotifications()">You have none pending notifications</a>
                     </li>
                 </ul>
             </li>

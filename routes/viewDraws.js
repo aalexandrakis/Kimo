@@ -8,8 +8,8 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
 
     req.getConnection(function(err,connection){
         query = 'SELECT * FROM draw where drawDateTime between \"'+
-                functions.fromEuroToIso(req.params["dateFrom"])+':00\" and \"'+
-                functions.fromEuroToIso(req.params["dateTo"])+':59\"';
+                functions.fromEuroToIsoWithDelimiters(req.params["dateFrom"])+':00\" and \"'+
+                functions.fromEuroToIsoWithDelimiters(req.params["dateTo"])+':59\"';
         console.log(query);
         connection.query(query ,function(err,rows)     {
 

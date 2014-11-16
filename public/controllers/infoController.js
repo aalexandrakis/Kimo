@@ -15,9 +15,9 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
             console.log(response.data);
         } else if (!angular.isUndefined(response.data.nextDraw)){
             console.log(response.data);
-            $scope.nextDraw = response.data.nextDraw;
+            $scope.nextDraw = fromIsoToEuro(response.data.nextDraw);
             $scope.userCoins = response.data.userCoins;
-            $scope.lastDrawDate = response.data.lastDraw.drawDateTime;
+            $scope.lastDrawDate = fromIsoToEuro(response.data.lastDraw.drawDateTime);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber1);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber2);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber3);
@@ -55,7 +55,7 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
        })
        .then(function (response){
               parseData(response);
-              if (Array.isArray(response.data.unNotifiedBets)){
+              if (Array.isArray(response.data.unNotifiedBets) && response.data.unNotifiedBets.length > 0){
                   $scope.alerts.push(response.data.unNotifiedBets.length);
                   $rootScope.$broadcast('unNotifiedBets', response.data.unNotifiedBets);
                   interval1 = $interval(function(){
