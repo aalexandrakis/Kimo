@@ -21,7 +21,4 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
     });
 });
 
-router.get('/', function(req, res) {
-    res.redirect('viewActiveBets.html');
-});
 module.exports = router;

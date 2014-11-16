@@ -22,9 +22,5 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
 
 });
 
-router.get('/', function(req, res){
-    res.redirect('viewDraws.html');
-});
-
 module.exports = router;
 

@@ -7,7 +7,6 @@ module.exports = function(app) {
     var info = require('./info');
     var viewDraws = require('./viewDraws');
     var viewOldBets = require('./viewOldBets');
-    var forgotPassword = require('./forgotPassword');
     var playNow = require('./playNow');
     var viewActiveBets = require('./viewActiveBets');
 
@@ -21,7 +20,6 @@ module.exports = function(app) {
     app.use('/info', info);
     app.use('/viewDraws', viewDraws);
     app.use('/viewOldBets', viewOldBets);
-    app.use('/forgotPassword', forgotPassword);
     app.use('/playNow', playNow);
     app.use('/viewActiveBets', viewActiveBets);
 
