@@ -18,8 +18,5 @@ router.post('/', function(req, res) {
 	});
 });
 
-router.get('/', function(req, res){
-    res.redirect('signIn.html');
-});
 
 module.exports = router;

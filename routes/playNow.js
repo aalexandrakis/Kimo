@@ -100,8 +100,4 @@ router.post('/', function(req, res) {
 });
 
 
-router.get('/', function(req, res){
-    res.redirect('playNow.html');
-});
-
 module.exports = router;

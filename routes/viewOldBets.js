@@ -27,7 +27,4 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
     });
 });
 
-router.get('/', function(req, res) {
-    res.redirect('viewOldBets.html');
-});
 module.exports = router;

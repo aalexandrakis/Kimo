@@ -104,11 +104,4 @@ router.put('/', function(req, res) {
 });
 
 
-
-
-
-router.get('/', function(req, res){
-    res.redirect('myAccount.html');
-});
-
 module.exports = router;
