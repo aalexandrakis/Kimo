@@ -23,7 +23,8 @@ router.post('/', function(req, res) {
         betNumber9  : req.body.betNumber9,
         betNumber10  : req.body.betNumber10,
         betNumber11  : req.body.betNumber11,
-        betNumber12  : req.body.betNumber12
+        betNumber12  : req.body.betNumber12,
+        drawTimeStamp : null
     };
     req.getConnection(function(err,connection){
         if(err){
