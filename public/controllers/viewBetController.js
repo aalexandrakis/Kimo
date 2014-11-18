@@ -49,13 +49,13 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
             return false;
         }
     }
-    function getBet(betId){
+    function getBet(betId, drawNum){
             if ($scope.isActive()){
                 console.log("active");
                 url = '/viewActiveBets/' + betId;
             } else {
                 console.log("old");
-                url = '/viewOldBets/' + betId;
+                url = '/viewOldBets/bet/' + betId + "/" + drawNum;
             }
             $http({
                   url: url,
@@ -66,6 +66,7 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
                         console.log(response.data);
                         $scope.betDateTime = fromIsoToEuro(response.data.betDateTime);
                         $scope.betId = response.data.betId;
+                        $scope.drawNum = response.data.draws;
                         betNumbers.push(response.data.betNumber1);
                         betNumbers.push(response.data.betNumber2);
                         betNumbers.push(response.data.betNumber3);
@@ -96,7 +97,12 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
               );
         }
 
-        getBet($routeParams.betId);
+        if (angular.isUndefined($routeParams.drawNum)){
+            getBet($routeParams.betId, null);
+        } else {
+            getBet($routeParams.betId, $routeParams.drawNum);
+        }
+
 });
 
 

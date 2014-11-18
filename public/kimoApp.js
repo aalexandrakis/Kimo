@@ -70,7 +70,7 @@ kimoApp.config(function($routeProvider){
             templateUrl: "partials/viewUnNotifiedBets.html",
             mustBeLoggedOn: true
         })
-        .when("/viewBet/:betId",{
+        .when("/viewBet/:betId/:drawNum",{
             controller: "ViewBetController",
             templateUrl: "partials/viewBet.html",
             mustBeLoggedOn: true,

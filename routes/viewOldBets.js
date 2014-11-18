@@ -30,7 +30,7 @@ router.get(/\/unNotifiedBets/, function(req, res) {
     });
 });
 
-router.get('/:betId', function(req, res) {
+router.get('/bet/:betId/:drawNum', function(req, res) {
     req.getConnection(function(err,connection){
         query = "SELECT bets_archive.*, CONCAT(\"[\", " +
                       "draw.drawNumber1,\",\", draw.drawNumber2,\",\", draw.drawNumber3,\",\", draw.drawNumber4,\",\"," +
@@ -39,6 +39,7 @@ router.get('/:betId', function(req, res) {
                       "draw.drawNumber13,\",\", draw.drawNumber14,\",\", draw.drawNumber15,\",\", draw.drawNumber16,\",\"," +
                       "draw.drawNumber17,\",\", draw.drawNumber18,\",\", draw.drawNumber19,\",\", draw.drawNumber20,\"]\") as drawNumbers" +
                       " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where betId = " + req.params["betId"] +
+                      " and draws = " + req.params["drawNum"] +
                       " and userId = " + req.session.user.userId;
         connection.query(query ,function(err,rowsBets)     {
 
