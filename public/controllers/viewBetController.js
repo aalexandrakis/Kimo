@@ -23,11 +23,11 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
     }
 
     betNumbers = [];
-    drawNumbers = [];
+    $scope.drawNumbers = [];
 
     $scope.getCSSClass = function(number){
         isInBet = betNumbers.indexOf(number) > -1
-        isInDraw = drawNumbers.indexOf(number) > -1
+        isInDraw = $scope.drawNumbers.indexOf(number) > -1
         if ($scope.isActive() && isInBet){
             return drawNumberClass;
         } else if  ($scope.isActive() && !isInBet){
@@ -66,7 +66,7 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
                         console.log(response.data);
                         $scope.betDateTime = fromIsoToEuro(response.data.betDateTime);
                         $scope.betId = response.data.betId;
-                        $scope.drawNum = response.data.draws;
+                        $scope.drawNum = response.data.draws
                         betNumbers.push(response.data.betNumber1);
                         betNumbers.push(response.data.betNumber2);
                         betNumbers.push(response.data.betNumber3);
@@ -84,7 +84,10 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
                         $scope.gameType = response.data.gameType;
                         $scope.cost = response.data.betCoins;
                         if (!$scope.isActive()){
-                            drawNumbers = response.data.drawNumbers;
+                            $scope.drawNumbers = response.data.drawNumbers.split(",");
+                            $scope.drawNumbers.forEach(function(number, index){
+                                   $scope.drawNumbers[index] = +number;
+                            });
                             $scope.matches = response.data.matches;
                             $scope.earnings = response.data.matches * response.data.betCoins;
                         }

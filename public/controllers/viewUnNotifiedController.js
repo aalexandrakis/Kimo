@@ -11,6 +11,7 @@ kimoApp.controller("ViewUnNotifiedController", function viewUnNotifiedController
          if (betNumber == 0){
             return {};
          }
+         drawNumbers = drawNumbers.split(",");
          for (i = 0; i < drawNumbers.length; i++){
             if (betNumber == drawNumbers[i]){
                 return {'background-color': 'green', 'color': 'white'};
