@@ -89,7 +89,7 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
                                    $scope.drawNumbers[index] = +number;
                             });
                             $scope.matches = response.data.matches;
-                            $scope.earnings = response.data.matches * response.data.betCoins;
+                            $scope.earnings = response.data.returnRate * response.data.betCoins;
                         }
                },
               function(response) { // optional
