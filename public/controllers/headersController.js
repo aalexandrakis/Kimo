@@ -1,5 +1,5 @@
 kimoApp.controller("HeadersController", function headersController($rootScope, $scope, $http, $cookieStore, $window){
-      $scope.unNotifiedBets = [];
+//      $scope.unNotifiedBets = [];
       $scope.isLoggedOn = function(){
           if ($cookieStore.get("user")){
              return true;
@@ -11,7 +11,7 @@ kimoApp.controller("HeadersController", function headersController($rootScope, $
       $scope.$on('unNotifiedBets', function(event, unNotifiedBets){
         $scope.unNotifiedBets = unNotifiedBets;
         $scope.unNotifiedBets.forEach(function (bet){
-            bet.betDateTime = fromIsoToEuro(bet.betDateTime);
+            bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));
         });
       });
 
