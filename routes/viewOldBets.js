@@ -5,7 +5,7 @@ var functions = require('../public/javascripts/functions');
 
 router.get(/\/unNotifiedBets/, function(req, res) {
     req.getConnection(function(err,connection){
-        query = "SELECT bets_archive.*, CONCAT(, " +
+        query = "SELECT bets_archive.*, CONCAT( " +
                       "draw.drawNumber1,\",\", draw.drawNumber2,\",\", draw.drawNumber3,\",\", draw.drawNumber4,\",\"," +
                       "draw.drawNumber5,\",\", draw.drawNumber6,\",\", draw.drawNumber7,\",\", draw.drawNumber8,\",\"," +
                       "draw.drawNumber9,\",\", draw.drawNumber10,\",\", draw.drawNumber11,\",\", draw.drawNumber12,\",\"," +
