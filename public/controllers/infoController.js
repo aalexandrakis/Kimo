@@ -2,7 +2,6 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
   $scope.nextDraw = "";
   $scope.lastDrawDate = "";
   $scope.alerts=[];
-
   if($cookieStore.get("user")){
       $scope.userCoins = $cookieStore.get("user").userCoins;
   } else {
@@ -15,9 +14,9 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
             console.log(response.data);
         } else if (!angular.isUndefined(response.data.nextDraw)){
             console.log(response.data);
-            $scope.nextDraw = fromIsoToEuro(response.data.nextDraw);
+            $scope.nextDraw = fromIsoToEuro(new Date(response.data.nextDraw));
             $scope.userCoins = response.data.userCoins;
-            $scope.lastDrawDate = fromIsoToEuro(response.data.lastDraw.drawDateTime);
+            $scope.lastDrawDate = fromIsoToEuro(new Date(response.data.lastDraw.drawDateTime));
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber1);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber2);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber3);
