@@ -13,18 +13,15 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
     check = function(){
             console.log("in check function");
             if ($scope.dateFrom && $scope.dateTo){
-                console.log("check function return true");
                 return true;
             } else {
                 $scope.errorStyle = {"display":"block"};
                 $scope.errorMessage = "You must fill both dates";
-                console.log("check function return false");
                 return false;
             }
     };
 
     $scope.getDraws = function(){
-        console.log("in getdraws function" + $scope.dateFrom + " - " + $scope.dateTo);
         $scope.tableStyle = {"display":"none"};
         $scope.errorStyle = {"display":"none"};
 
@@ -45,6 +42,10 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
                             $scope.tableStyle = {"display":"block"};
                             console.log(response.data);
                             $scope.draws = response.data;
+                            $scope.draws.forEach(function(draw){
+                                draw.drawDateTime = fromIsoToEuro(new Date(draw.drawDateTime));
+                            });
+
                         }
 
                   },

@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="bet in bets">
-                          <td style="text-align: center"><a href="#/viewActiveBet/{{bet.betId}}">{{bet.betDateTime.replace("T", " ").replace("Z", " ").replace(".000", " ")}}</a></td>
+                          <td style="text-align: center"><a href="#/viewActiveBet/{{bet.betId}}">{{bet.betDateTime}}</a></td>
                           <td style="text-align: center">{{bet.betId}}</td>
                           <td ng-style="matched(bet.betNumber1, bet.drawNumbers)">{{bet.betNumber1}}</td>
                           <td ng-style="matched(bet.betNumber2, bet.drawNumbers)">{{bet.betNumber2}}</td>
