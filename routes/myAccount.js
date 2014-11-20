@@ -4,6 +4,8 @@ var Q = require('q');
 
 router.put('/', function(req, res) {
 	   errorExists = false;
+	   userId = req.body.userId == null ? req.session.user.userId : req.body.userId;
+
 	   req.getConnection(function(err,connection){
 	   		if(err){
 	   			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
@@ -18,7 +20,7 @@ router.put('/', function(req, res) {
                 			error.status = "DB-ERROR";
                 			error.message = "Error Selecting user name for duplicates: %s " + err ;
                 			df.reject(error);
-                		} else if(userRow.length > 0 && userRow[0].userId != req.session.user.userId){
+                		} else if(userRow.length > 0 && userRow[0].userId != userId){
                 			error = new Error();
                 			error.status = "900";
                 			error.message = "User Name already exists. Please try another.";
@@ -40,7 +42,7 @@ router.put('/', function(req, res) {
 							error.status = "DB-ERROR";
 							error.message = "Error Selecting : %s " + err;
 							df.reject(error);
-						} else if(userRow.length > 0 && userRow[0].userId != req.session.user.userId){
+						} else if(userRow.length > 0 && userRow[0].userId != userId){
 							error = new Error();
 							error.status = "900";
 							error.message = "User Email already exists. Please try another";
@@ -63,7 +65,7 @@ router.put('/', function(req, res) {
 					if (req.body.regId) {
 						newValuePairs.regId= req.body.regId;
 					}
-					query = "UPDATE users SET ? where userId = " + req.session.user.userId;
+					query = "UPDATE users SET ? where userId = " + userId;
 					connection.query(query , newValuePairs, function(err,userRow)     {
 						if(err) {
 							error = new Error();
@@ -71,7 +73,7 @@ router.put('/', function(req, res) {
 							error.message = "Error Selecting : %s " + err ;
 							df.reject(error);
 						} else {
-							query = "select * from users where userId = " + req.session.user.userId;
+							query = "select * from users where userId = " + userId;
 									connection.query(query, function(err,userRow)     {
 										if(err) {
 											error = new Error();

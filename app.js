@@ -40,15 +40,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
 //if the route needs authorization and is not authorized redirects him to signIn route
-app.use(function (req, res, next) {
-    console.log("In check authorization middlewre " + (!req.session.user ? "NOT AUTHORIZED" : "AUTHORIZED USER " + req.session.user.userName))
-    if (noNeedsAutorization(req.url) == false && !req.session.user) {
-        res.render('error', {status: "401", message: "You do not have the authority to visit this page."});
-  	} else {
-  	     console.log("In check authorization middlewre next");
-         next();
-  	}
-});
+//remove this validation for android app
+//app.use(function (req, res, next) {
+//    console.log("In check authorization middlewre " + (!req.session.user ? "NOT AUTHORIZED" : "AUTHORIZED USER " + req.session.user.userName))
+//    if (noNeedsAutorization(req.url) == false && !req.session.user) {
+//        res.render('error', {status: "401", message: "You do not have the authority to visit this page."});
+//  	} else {
+//  	     console.log("In check authorization middlewre next");
+//         next();
+//  	}
+//});
 
 app.use(
 

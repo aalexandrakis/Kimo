@@ -32,4 +32,19 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/userId/:userId', function(req, res) {
+    req.getConnection(function(err,connection){
+        query = "SELECT *  FROM active_bets where userId = " + req.params['userId'];
+        console.log(query);
+        connection.query(query ,function(err,rowsBets)     {
+
+        if(err)
+            res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+
+            res.send(rowsBets);
+
+        });
+    });
+});
+
 module.exports = router;
