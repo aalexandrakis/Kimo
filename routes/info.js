@@ -17,7 +17,11 @@ router.get('/', function(req, res) {
 					result.nextDraw = "could not retrieve next draw date";
 					df.resolve(result);
 				} else {
-					result.nextDraw = nextDrawRow[0].nextDraw;
+					if (nextDrawRow.length > 0){
+						result.nextDraw = nextDrawRow[0].nextDraw;
+					} else {
+						result.nextDraw = "";
+					}
 					df.resolve(result);
 				}
 			});

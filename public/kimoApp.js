@@ -96,6 +96,10 @@ kimoApp.config(function($routeProvider){
             controller: "ViewBetController",
             templateUrl: "partials/viewBet.html",
             mustBeLoggedOn: true
+        }).when("/resetPassword",{
+            controller: "ResetPasswordController",
+            templateUrl: "partials/resetPassword.html",
+            mustBeLoggedOn: false
         }).otherwise("/#");
 
 //    $routeProvider.otherwise({"redirectTo": "/index"});  //.otherwise("/"); //does not work

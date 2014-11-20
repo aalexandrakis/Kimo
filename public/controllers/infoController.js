@@ -8,7 +8,9 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
       $scope.userCoins = 0;
   }
 
-
+  $scope.removeAlert = function(index){
+    $scope.alerts.splice(index, 1);
+  }
   function parseData(response) {
         if (!angular.isUndefined(response.data.message)){
             console.log(response.data);

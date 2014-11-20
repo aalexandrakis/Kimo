@@ -9,6 +9,7 @@ module.exports = function(app) {
     var viewOldBets = require('./viewOldBets');
     var playNow = require('./playNow');
     var viewActiveBets = require('./viewActiveBets');
+    var resetPassword = require('./resetPassword');
 
 
 
@@ -22,6 +23,7 @@ module.exports = function(app) {
     app.use('/viewOldBets', viewOldBets);
     app.use('/playNow', playNow);
     app.use('/viewActiveBets', viewActiveBets);
+    app.use('/resetPassword', resetPassword);
 
 
 
