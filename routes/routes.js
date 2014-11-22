@@ -43,6 +43,16 @@ module.exports = function(app) {
         });
     });
 
+    function checkAuthenticated(req, res, next){
+        if (req.isAuthenticated()){
+            return next();
+        } else {
+            error = new Error();
+            error.status=401;
+            error.message = "You are not authorized to visit the page";
+            next(error);
+        }
+    }
     var signIn = require('./signIn');
     var signUp = require('./signUp');
     var myAccount = require('./myAccount');
@@ -59,14 +69,14 @@ module.exports = function(app) {
 
     app.use('/signIn', passport.authenticate('local'), signIn);
     app.use('/signUp', signUp);
-    app.use('/myAccount', myAccount);
+    app.use('/myAccount', checkAuthenticated, myAccount);
     app.use('/index', index);
-    app.use('/signOut', signOut);
+    app.use('/signOut', checkAuthenticated, signOut);
     app.use('/info', info);
-    app.use('/viewDraws', viewDraws);
-    app.use('/viewOldBets', viewOldBets);
-    app.use('/playNow', playNow);
-    app.use('/viewActiveBets', viewActiveBets);
+    app.use('/viewDraws', checkAuthenticated, viewDraws);
+    app.use('/viewOldBets', checkAuthenticated, viewOldBets);
+    app.use('/playNow', checkAuthenticated, playNow);
+    app.use('/viewActiveBets', checkAuthenticated, viewActiveBets);
     app.use('/resetPassword', resetPassword);
 
 
