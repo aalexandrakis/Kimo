@@ -31,15 +31,15 @@ router.get('/', function(req, res) {
 		//get user info if user is logged in
 		getUserInfo = function(connection, result){
 			df = new Q.defer();
-			if (req.session.user){
-				query = "SELECT * from users where userId = " + req.session.user.userId;
+			if (req.user){
+				query = "SELECT * from users where userId = " + req.user.userId;
 				connection.query(query ,function(err,userRow)     {
 				if(err){
 						console.error("Error Selecting user info: %s " + err );
 						result.userCoins = "could not retrieve user coins";
 						df.resolve(result);
 					} else {
-						req.session.user = userRow[0];
+						req.user = userRow[0];
 						result.userCoins = userRow[0].userCoins;
 						df.resolve(result);
 					}
@@ -91,7 +91,7 @@ router.get('/', function(req, res) {
 		}).then(function(result){
 			return getLastDraw(connection, result);
 		}).then(function(result){
-			return getUnNotifiedBets(connection, result, req.session.user ? req.session.user.userId : 0);
+			return getUnNotifiedBets(connection, result, req.user ? req.user.userId : 0);
 		}).then(function(result){
 			res.send(result);
 		}).catch( function(error){
@@ -144,7 +144,7 @@ router.get('/:userId', function(req, res) {
 						result.userCoins = "could not retrieve user coins";
 						df.resolve(result);
 					} else {
-						req.session.user = userRow[0];
+						req.user = userRow[0];
 						result.userCoins = userRow[0].userCoins;
 						df.resolve(result);
 					}
@@ -196,7 +196,7 @@ router.get('/:userId', function(req, res) {
 		}).then(function(result){
 			return getLastDraw(connection, result);
 		}).then(function(result){
-			return getUnNotifiedBets(connection, result, req.session.user ? req.session.user.userId : 0);
+			return getUnNotifiedBets(connection, result, req.user ? req.user.userId : 0);
 		}).then(function(result){
 			res.send(result);
 		}).catch( function(error){

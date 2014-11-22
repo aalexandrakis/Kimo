@@ -11,7 +11,7 @@ router.get(/\/unNotifiedBets/, function(req, res) {
                       "draw.drawNumber9,\",\", draw.drawNumber10,\",\", draw.drawNumber11,\",\", draw.drawNumber12,\",\"," +
                       "draw.drawNumber13,\",\", draw.drawNumber14,\",\", draw.drawNumber15,\",\", draw.drawNumber16,\",\"," +
                       "draw.drawNumber17,\",\", draw.drawNumber18,\",\", draw.drawNumber19,\",\", draw.drawNumber20) as drawNumbers" +
-                      " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where notified = 0 and userId = " + req.session.user.userId;
+                      " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where notified = 0 and userId = " + req.user.userId;
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)
@@ -19,7 +19,7 @@ router.get(/\/unNotifiedBets/, function(req, res) {
 
             if (rowsBets.length > 0){
                 setValues = {notified : "1"};
-                query = "Update bets_archive set ? where notified = 0 and userId = " + req.session.user.userId;
+                query = "Update bets_archive set ? where notified = 0 and userId = " + req.user.userId;
                 connection.query(query ,setValues, function(err, result)     {
                     if(err)
                        console.log(err);
@@ -40,7 +40,7 @@ router.get('/bet/:betId/:drawNum', function(req, res) {
                       "draw.drawNumber17,\",\", draw.drawNumber18,\",\", draw.drawNumber19,\",\", draw.drawNumber20) as drawNumbers" +
                       " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where betId = " + req.params["betId"] +
                       " and draws = " + req.params["drawNum"] +
-                      " and userId = " + req.session.user.userId;
+                      " and userId = " + req.user.userId;
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)
@@ -48,7 +48,7 @@ router.get('/bet/:betId/:drawNum', function(req, res) {
 
             if (rowsBets[0].notified == "0"){
                 setValues = {notified : "1"};
-                query = "Update bets_archive set ? where betId = " + req.params["betId"] + " and userId = " + req.session.user.userId;
+                query = "Update bets_archive set ? where betId = " + req.params["betId"] + " and userId = " + req.user.userId;
                 connection.query(query ,setValues, function(err, result)     {
                     if(err)
                        console.log(err);
@@ -72,7 +72,7 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
                       "draw.drawNumber17,\",\", draw.drawNumber18,\",\", draw.drawNumber19,\",\", draw.drawNumber20) as drawNumbers" +
                       " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where betDateTime between \""+
                 functions.fromEuroToIsoWithDelimiters(req.params["dateFrom"])+":00\" and \""+
-                functions.fromEuroToIsoWithDelimiters(req.params["dateTo"])+":59\"  and userId = " + req.session.user.userId;
+                functions.fromEuroToIsoWithDelimiters(req.params["dateTo"])+":59\"  and userId = " + req.user.userId;
                 console.log(query);
                 console.log(query);
                 console.log(query);

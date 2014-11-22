@@ -6,7 +6,7 @@ var functions = require('../public/javascripts/functions');
 router.get('/:betId', function(req, res) {
     req.getConnection(function(err,connection){
         query = "SELECT * FROM active_bets  where betId = " + req.params["betId"] +
-                      " and userId = " + req.session.user.userId;
+                      " and userId = " + req.user.userId;
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)
@@ -19,7 +19,7 @@ router.get('/:betId', function(req, res) {
 
 router.get('/', function(req, res) {
     req.getConnection(function(err,connection){
-        query = "SELECT *  FROM active_bets where userId = " + req.session.user.userId;
+        query = "SELECT *  FROM active_bets where userId = " + req.user.userId;
         console.log(query);
         connection.query(query ,function(err,rowsBets)     {
 

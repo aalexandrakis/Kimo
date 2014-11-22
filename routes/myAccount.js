@@ -4,7 +4,7 @@ var Q = require('q');
 
 router.put('/', function(req, res) {
 	   errorExists = false;
-	   userId = req.body.userId == null ? req.session.user.userId : req.body.userId;
+	   userId = req.body.userId == null ? req.user.userId : req.body.userId;
 
 	   req.getConnection(function(err,connection){
 	   		if(err){

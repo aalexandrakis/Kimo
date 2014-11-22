@@ -89,8 +89,8 @@ router.post('/', function(req, res) {
                     }).then(function(user){
                         return commitTransaction(user);
                     }).then(function(user){
-//                        req.session.user = user;
-                        res.send({status:"00", user: req.session.user});
+//                        req.user = user;
+                        res.send({status:"00", user: req.user});
                     }).catch(function(error){
                         res.send({status: error.status, message: error.message});
                     });
