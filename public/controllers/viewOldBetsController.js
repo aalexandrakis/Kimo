@@ -21,14 +21,11 @@ kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scop
     }
 
     check = function(){
-            console.log("in check function");
             if ($scope.dateFrom && $scope.dateTo){
-                console.log("check function return true");
                 return true;
             } else {
                 $scope.errorStyle = {"display":"block"};
                 $scope.errorMessage = "You must fill both dates";
-                console.log("check function return false");
                 return false;
             }
     };
@@ -40,10 +37,10 @@ kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scop
         if (check()){
             $scope.lazyLoadStyle = {"display" : "block"};
             url = '/viewOldBets/' + $scope.dateFrom.replace(/-/g, "").replace(/:/g, "").replace(/ /g, "") + "/" + $scope.dateTo.replace(/-/g, "").replace(/:/g, "").replace(/ /, "");
-            console.log(url);
             $http({
                  url: url,
-                 method: "GET"
+                 method: "GET",
+                 headers: {Authorization: $cookieStore.get("user").token},
                })
                .then(
                   function(response) {
@@ -53,7 +50,6 @@ kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scop
                             $scope.errorMessage = response.data.message;
                         } else {
                             $scope.tableStyle = {"display":"block"};
-                            console.log(response.data);
                             $scope.bets = response.data;
                             $scope.bets.forEach(function(bet){
                                 bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));

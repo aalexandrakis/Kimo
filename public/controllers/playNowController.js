@@ -117,6 +117,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
             $http({
                   url: '/playNow',
                   method: "POST",
+                  headers: {Authorization: $cookieStore.get("user").token},
                   data: { 'userId'       : $cookieStore.get("user").userId ,
                           'betDateTime'  : moment().format("YYYY-MM-DD hh:mm:ss"),
                           'repeatedDraws':  $scope.repeatedDraws,
@@ -180,7 +181,6 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
 
     $scope.calculateCost = function (){
         $scope.cost =  $scope.repeatedDraws * $scope.multiplier * 0.50;
-        console.log($scope.cost);
     }
 });
 

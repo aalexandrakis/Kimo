@@ -27,7 +27,7 @@ router.post('/', function(req, res) {
 
 	//check if email exists
     function checkUserEmail(connection, userEmail){
-    	console.log("check email " + userEmail);
+//    	console.log("check email " + userEmail);
     	df = Q.defer();
     	query = "SELECT * from users where userEmail = '" + userEmail + "'";
     	connection.query(query ,function(err,userRow)     {
@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
 				error = new Error();
 				error.status = "900";
 				error.message = "User Email already exists";
-				console.log(error);
+//				console.log(error);
 				df.reject(error);
     		} else {
     			df.resolve("User Email does not exists");

@@ -11,22 +11,28 @@ module.exports = function(app) {
     });
 
 
+
     var passport = require('passport')
-      , LocalStrategy = require('passport-local').Strategy;
+      , LocalStrategy = require('passport-local').Strategy
+      , HttpBasicStrategy = require('passport-http').BasicStrategy;
     app.use(passport.initialize());
-    app.use(passport.session());
-    passport.use(new LocalStrategy(
-      function(username, password, done) {
-            connection.query("Select * from users where userName = '" + username + "' and userPassword = '" + password + "'", function(err, user){
-                if (err)
-                    done(err, null);
-                if (user.length == 0)
-                    done(null, {userId:0, message: "Your username or your password is not correct. Please try again."});
-                if (user.length > 0)
-                    done(null, user[0]);
-            });
-      }
-    ));
+//    app.use(passport.session());
+
+    passport.use(new LocalStrategy(verifyCredentials));
+
+    passport.use(new HttpBasicStrategy(verifyCredentials));
+
+    function verifyCredentials(username, password, done) {
+//        console.log("test", username, password);
+        connection.query("Select * from users where userName = '" + username + "' and userPassword = '" + password + "'", function(err, user){
+            if (err)
+                done(err, null);
+            if (user.length == 0)
+                done(null, {userId:0, message: "Your username or your password is not correct. Please try again."});
+            if (user.length > 0)
+                done(null, user[0]);
+        });
+    }
 
     passport.serializeUser(function(user, done){
         done(null, user.userId);
@@ -43,12 +49,13 @@ module.exports = function(app) {
         });
     });
 
+
     function checkAuthenticated(req, res, next){
         if (req.isAuthenticated()){
             return next();
         } else {
             error = new Error();
-            error.status=401;
+            error.status=403;
             error.message = "You are not authorized to visit the page";
             next(error);
         }
@@ -66,17 +73,16 @@ module.exports = function(app) {
     var resetPassword = require('./resetPassword');
 
 
-
-    app.use('/signIn', passport.authenticate('local'), signIn);
+    app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
     app.use('/signUp', signUp);
-    app.use('/myAccount', checkAuthenticated, myAccount);
+    app.use('/myAccount', passport.authenticate('basic', {session: false}), myAccount);
     app.use('/index', index);
-    app.use('/signOut', checkAuthenticated, signOut);
+    app.use('/signOut', signOut);
     app.use('/info', info);
-    app.use('/viewDraws', checkAuthenticated, viewDraws);
-    app.use('/viewOldBets', checkAuthenticated, viewOldBets);
-    app.use('/playNow', checkAuthenticated, playNow);
-    app.use('/viewActiveBets', checkAuthenticated, viewActiveBets);
+    app.use('/viewDraws', passport.authenticate('basic', {session: false}), viewDraws);
+    app.use('/viewOldBets', passport.authenticate('basic', {session: false}), viewOldBets);
+    app.use('/playNow', passport.authenticate('basic', {session: false}), playNow);
+    app.use('/viewActiveBets', passport.authenticate('basic', {session: false}), viewActiveBets);
     app.use('/resetPassword', resetPassword);
 
 

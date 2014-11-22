@@ -11,7 +11,6 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
 //    };
 
     check = function(){
-            console.log("in check function");
             if ($scope.dateFrom && $scope.dateTo){
                 return true;
             } else {
@@ -30,7 +29,8 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
             url = '/viewDraws/' + $scope.dateFrom.replace(/-/g, "").replace(/:/g, "").replace(/ /g, "") + "/" + $scope.dateTo.replace(/-/g, "").replace(/:/g, "").replace(/ /, "");
             $http({
                  url: url,
-                 method: "GET"
+                 method: "GET",
+                 headers: {Authorization: $cookieStore.get("user").token},
                })
                .then(
                   function(response) {
@@ -40,7 +40,6 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
                             $scope.errorMessage = response.data.message;
                         } else {
                             $scope.tableStyle = {"display":"block"};
-                            console.log(response.data);
                             $scope.draws = response.data;
                             $scope.draws.forEach(function(draw){
                                 draw.drawDateTime = fromIsoToEuro(new Date(draw.drawDateTime));

@@ -30,7 +30,8 @@ kimoApp.controller("ViewUnNotifiedController", function viewUnNotifiedController
             url = '/viewOldBets/unNotifiedBets';
             $http({
                  url: url,
-                 method: "GET"
+                 method: "GET",
+                 headers: {Authorization: $cookieStore.get("user").token},
                })
                .then(
                   function(response) {
@@ -39,7 +40,6 @@ kimoApp.controller("ViewUnNotifiedController", function viewUnNotifiedController
                             $scope.errorStyle = {"display":"block"};
                         } else {
                             $scope.tableStyle = {"display":"block"};
-                            console.log(response.data);
                             $scope.bets = response.data;
                             $scope.bets.forEach(function(bet){
                                 bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));

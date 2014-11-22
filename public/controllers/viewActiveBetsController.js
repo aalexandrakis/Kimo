@@ -7,7 +7,6 @@ kimoApp.controller("ViewActiveBetsController", function viewActiveBetsController
     $scope.numHeaders = [];
     $scope.lazyLoadStyle = {"display" : "none"};
 
-    console.log($route);
     getActiveBets();
     function getActiveBets(){
         $scope.tableStyle = {"display":"none"};
@@ -17,7 +16,8 @@ kimoApp.controller("ViewActiveBetsController", function viewActiveBetsController
         url = '/viewActiveBets' ;
         $http({
              url: url,
-             method: "GET"
+             method: "GET",
+             headers: {Authorization: $cookieStore.get("user").token},
            })
            .then(
               function(response) {
@@ -27,7 +27,6 @@ kimoApp.controller("ViewActiveBetsController", function viewActiveBetsController
                         $scope.errorMessage = response.data.message;
                     } else {
                         $scope.tableStyle = {"display":"block"};
-                        console.log(response.data);
                         $scope.bets = response.data;
                         $scope.bets.forEach(function(bet){
                             bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));

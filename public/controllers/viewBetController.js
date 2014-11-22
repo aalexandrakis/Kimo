@@ -51,19 +51,17 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
     }
     function getBet(betId, drawNum){
             if ($scope.isActive()){
-                console.log("active");
                 url = '/viewActiveBets/' + betId;
             } else {
-                console.log("old");
                 url = '/viewOldBets/bet/' + betId + "/" + drawNum;
             }
             $http({
                   url: url,
-                  method: "GET"
+                  method: "GET",
+                  headers: {Authorization: $cookieStore.get("user").token},
               })
               .then(function(response) {
                         //parse the bet
-                        console.log(response.data);
                         $scope.betDateTime = fromIsoToEuro(new Date(response.data.betDateTime));
                         $scope.betId = response.data.betId;
                         $scope.drawNum = response.data.draws

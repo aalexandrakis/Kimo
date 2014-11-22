@@ -20,7 +20,7 @@ router.get('/:betId', function(req, res) {
 router.get('/', function(req, res) {
     req.getConnection(function(err,connection){
         query = "SELECT *  FROM active_bets where userId = " + req.user.userId;
-        console.log(query);
+//        console.log(query);
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)
@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 router.get('/userId/:userId', function(req, res) {
     req.getConnection(function(err,connection){
         query = "SELECT *  FROM active_bets where userId = " + req.params['userId'];
-        console.log(query);
+//        console.log(query);
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)

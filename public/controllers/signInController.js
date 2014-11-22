@@ -16,11 +16,13 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
 
           $scope.errorMessageGroup = {"display":"none"};
           if(!check()){
-
+               userNamePassword = CryptoJS.enc.Utf8.parse($scope.userName + ":" + CryptoJS.SHA1($scope.password).toString());
+               encrypted = CryptoJS.enc.Base64.stringify(userNamePassword);
                $http({
                  url: '/signIn',
                  method: "POST",
-                 data: {'username' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
+                 headers: {'Authorization': 'Basic ' + encrypted}
+//                 data: {'username' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
                })
                .then(function(response) {
                         if (response.data.message){
@@ -32,6 +34,19 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                         } else {
                             $scope.errorMessageGroup = {"display":"none"};
                             $cookieStore.put("user" , response.data);
+                            jSuccess(
+                                 'Welcome ' + response.data.userName,
+                                 {
+                                   autoHide : true, // added in v2.0
+                                   TimeShown : 3000,
+                                   HorizontalPosition : 'right',
+                                   VerticalPosition : 'top',
+                                   onCompleted : function(){ // added in v2.0
+                                     window.setTimeout(function(){
+                                         window.location = '/#';
+                                     }, 3000)
+                                 }
+                            });
                             $window.location.href = '#/index';
                         }
 

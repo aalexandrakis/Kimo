@@ -15,7 +15,6 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
         if (!angular.isUndefined(response.data.message)){
             console.log(response.data);
         } else if (!angular.isUndefined(response.data.nextDraw)){
-            console.log(response.data);
             $scope.nextDraw = fromIsoToEuro(new Date(response.data.nextDraw));
             $scope.userCoins = response.data.userCoins;
             $scope.lastDrawDate = fromIsoToEuro(new Date(response.data.lastDraw.drawDateTime));

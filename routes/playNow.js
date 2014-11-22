@@ -44,7 +44,6 @@ router.post('/', function(req, res) {
                                 error.message = "Error trying to save the bet :" + err;
                                 df.reject(error);
                             } else {
-                                console.log("Bet Saved " + results);
                                 df.resolve(results);
                             }
                        });
@@ -53,7 +52,6 @@ router.post('/', function(req, res) {
                    function subCoins(betCoins, userId){
                        df = Q.defer();
                        query = "UPDATE users set userCoins = userCoins - " + betCoins + " where userId = " + userId;
-                       console.log(query);
                        connection.query(query, function(err, results){
                             if (err){
                                 error = new Error();
@@ -61,7 +59,6 @@ router.post('/', function(req, res) {
                                 error.message = "Error trying to subtract betCoins from user account:" + err;
                                 df.reject(error);
                             } else {
-                                console.log("Bet Coins subtracked " + JSON.stringify(results));
                                 df.resolve(results);
                             }
                        });
@@ -75,7 +72,6 @@ router.post('/', function(req, res) {
                                   df.reject(err);
                                });
                            } else {
-                              console.log('success! ' + user);
                               df.resolve(user);
                            }
                          });

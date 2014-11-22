@@ -61,7 +61,7 @@ router.get('/bet/:betId/:drawNum', function(req, res) {
 
 
 router.get('/:dateFrom/:dateTo', function(req, res) {
-    console.log("From ", req.params["dateFrom"], " To ", req.params["dateTo"]);
+//    console.log("From ", req.params["dateFrom"], " To ", req.params["dateTo"]);
 
     req.getConnection(function(err,connection){
         query = "SELECT bets_archive.*, CONCAT(" +
@@ -73,10 +73,6 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
                       " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where betDateTime between \""+
                 functions.fromEuroToIsoWithDelimiters(req.params["dateFrom"])+":00\" and \""+
                 functions.fromEuroToIsoWithDelimiters(req.params["dateTo"])+":59\"  and userId = " + req.user.userId;
-                console.log(query);
-                console.log(query);
-                console.log(query);
-                console.log(query);
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)

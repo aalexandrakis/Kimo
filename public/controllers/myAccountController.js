@@ -35,9 +35,12 @@ kimoApp.controller("MyAccountController",  ['$scope', '$http', '$cookieStore', f
               } else {
                 password = CryptoJS.SHA1($scope.oldPassword).toString();
               }
+              userNamePassword = CryptoJS.enc.Utf8.parse($scope.userName + ":" + password);
+              encrypted = CryptoJS.enc.Base64.stringify(userNamePassword);
               $http({
                   url: '/myAccount',
                   method: "PUT",
+                  headers: {Authorization: $cookieStore.get("user").token},
                   data: { 'userId': $cookieStore.get("user").userId ,'userName' : $scope.userName , "email": $scope.email, "password": password}
               })
               .then(function(response) {
@@ -49,6 +52,7 @@ kimoApp.controller("MyAccountController",  ['$scope', '$http', '$cookieStore', f
                             $scope.errorMessage = response.data.message;
                         } else {
                             $cookieStore.remove("user");
+                            response.data.user.token = "Basic " + encrypted;
                             $cookieStore.put("user", response.data.user);
                             jSuccess(
                                  'Your account updated successfully',
