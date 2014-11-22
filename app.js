@@ -11,20 +11,6 @@ var mysql = require('mysql');
 
 var app = express();
 
-//check if the route needs authorization
-var noNeedsAutorization = function(url){
-	var noNeedAuthotizationUrls = ['/signIn', '/signUp', '/signOut', '/resetPassword', '/error', '/index', '/info', '/favicon.ico'];
-	    //test routes
-	    noNeedAuthotizationUrls +=  ['/callback', '/promise', '/test', '/nested_chained_promises'];
-	for (var i = 0; i < noNeedAuthotizationUrls.length ; i++) {
-        if (url.slice(0, noNeedAuthotizationUrls[i].length) == noNeedAuthotizationUrls[i]){
-     	  return true;
-        }
-    }
-    return false;
-};
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -39,30 +25,17 @@ app.use(cookieSession({secret: '9834306712alexik'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
-//if the route needs authorization and is not authorized redirects him to signIn route
-//remove this validation for android app
-//app.use(function (req, res, next) {
-//    console.log("In check authorization middlewre " + (!req.session.user ? "NOT AUTHORIZED" : "AUTHORIZED USER " + req.session.user.userName))
-//    if (noNeedsAutorization(req.url) == false && !req.session.user) {
-//        res.render('error', {status: "401", message: "You do not have the authority to visit this page."});
-//  	} else {
-//  	     console.log("In check authorization middlewre next");
-//         next();
-//  	}
-//});
-
 app.use(
-
     connection(mysql,{
-
         host: 'localhost',
         user: 'kimo',
         password : 'kimo',
         port : 3306, //port mysql
         database:'kimo'
     },'request')
-);//route index, hello world
+);
 
+//route index, hello world
 require('./routes/routes.js')(app);
 
 app.get('/', function(req, res){

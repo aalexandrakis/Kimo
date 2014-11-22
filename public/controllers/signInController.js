@@ -20,7 +20,7 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                $http({
                  url: '/signIn',
                  method: "POST",
-                 data: {'userName' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
+                 data: {'username' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
                })
                .then(function(response) {
                         if (response.data.message){

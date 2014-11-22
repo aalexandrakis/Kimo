@@ -1,4 +1,48 @@
 module.exports = function(app) {
+
+    var mysql = require('mysql');
+
+    var connection = mysql.createConnection({
+      host     : 'localhost',
+      user     : 'kimo',
+      password : 'kimo',
+      port : 3306, //port mysql
+      database:'kimo'
+    });
+
+
+    var passport = require('passport')
+      , LocalStrategy = require('passport-local').Strategy;
+    app.use(passport.initialize());
+    app.use(passport.session());
+    passport.use(new LocalStrategy(
+      function(username, password, done) {
+            connection.query("Select * from users where userName = '" + username + "' and userPassword = '" + password + "'", function(err, user){
+                if (err)
+                    done(err, null);
+                if (user.length == 0)
+                    done(null, {userId:0, message: "Your username or your password is not correct. Please try again."});
+                if (user.length > 0)
+                    done(null, user[0]);
+            });
+      }
+    ));
+
+    passport.serializeUser(function(user, done){
+        done(null, user.userId);
+    });
+
+    passport.deserializeUser(function(id, done){
+        connection.query("Select * from users where userId = " + id, function(err, user){
+            if (err)
+                done(err, null);
+            if (user.length == 0)
+                done(null, null);
+            if (user.length > 0)
+                done(null, user[0]);
+        });
+    });
+
     var signIn = require('./signIn');
     var signUp = require('./signUp');
     var myAccount = require('./myAccount');
@@ -13,7 +57,7 @@ module.exports = function(app) {
 
 
 
-    app.use('/signIn', signIn);
+    app.use('/signIn', passport.authenticate('local'), signIn);
     app.use('/signUp', signUp);
     app.use('/myAccount', myAccount);
     app.use('/index', index);
@@ -24,7 +68,6 @@ module.exports = function(app) {
     app.use('/playNow', playNow);
     app.use('/viewActiveBets', viewActiveBets);
     app.use('/resetPassword', resetPassword);
-
 
 
     //tests && examples
