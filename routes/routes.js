@@ -23,31 +23,38 @@ module.exports = function(app) {
     passport.use(new HttpBasicStrategy(verifyCredentials));
 
     function verifyCredentials(username, password, done) {
-//        console.log("test", username, password);
+        console.log("test", username, password);
         connection.query("Select * from users where userName = '" + username + "' and userPassword = '" + password + "'", function(err, user){
-            if (err)
+            if (err){
+                console.log(err);
                 done(err, null);
-            if (user.length == 0)
+            }
+            if (user.length == 0){
+                console.log("no matches");
                 done(null, {userId:0, message: "Your username or your password is not correct. Please try again."});
-            if (user.length > 0)
+            }
+            if (user.length > 0){
+                console.log("user ok");
                 done(null, user[0]);
+            }
+
         });
     }
 
-    passport.serializeUser(function(user, done){
-        done(null, user.userId);
-    });
-
-    passport.deserializeUser(function(id, done){
-        connection.query("Select * from users where userId = " + id, function(err, user){
-            if (err)
-                done(err, null);
-            if (user.length == 0)
-                done(null, null);
-            if (user.length > 0)
-                done(null, user[0]);
-        });
-    });
+//    passport.serializeUser(function(user, done){
+//        done(null, user.userId);
+//    });
+//
+//    passport.deserializeUser(function(id, done){
+//        connection.query("Select * from users where userId = " + id, function(err, user){
+//            if (err)
+//                done(err, null);
+//            if (user.length == 0)
+//                done(null, null);
+//            if (user.length > 0)
+//                done(null, user[0]);
+//        });
+//    });
 
 
     function checkAuthenticated(req, res, next){
@@ -73,6 +80,7 @@ module.exports = function(app) {
     var resetPassword = require('./resetPassword');
 
 
+    app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
     app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
     app.use('/signUp', signUp);
     app.use('/myAccount', passport.authenticate('basic', {session: false}), myAccount);
