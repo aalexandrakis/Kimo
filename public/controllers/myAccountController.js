@@ -44,10 +44,7 @@ kimoApp.controller("MyAccountController",  ['$scope', '$http', '$cookieStore', f
                   data: { 'userId': $cookieStore.get("user").userId ,'userName' : $scope.userName , "email": $scope.email, "password": password}
               })
               .then(function(response) {
-                        if (!response.data.status){
-                            $scope.errorMessageGroup = {"display":"block"};
-                            $scope.errorMessage = response.data;
-                        } else if (response.data.status != "00"){
+                        if (response.data.message){
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
                         } else {
