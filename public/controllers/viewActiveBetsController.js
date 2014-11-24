@@ -27,7 +27,7 @@ kimoApp.controller("ViewActiveBetsController", function viewActiveBetsController
                         $scope.errorMessage = response.data.message;
                     } else {
                         $scope.tableStyle = {"display":"block"};
-                        $scope.bets = response.data;
+                        $scope.bets = response.data.bets;
                         $scope.bets.forEach(function(bet){
                             bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));
                         });
