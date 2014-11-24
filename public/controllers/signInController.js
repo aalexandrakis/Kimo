@@ -21,8 +21,7 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                $http({
                  url: '/signIn',
                  method: "POST",
-                 headers: {'Authorization': 'Basic ' + encrypted},
-                 data: {'regId':'i came here from a browser'}
+                 headers: {'Authorization': 'Basic ' + encrypted}
 //                 data: {'username' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
                })
                .then(function(response) {
