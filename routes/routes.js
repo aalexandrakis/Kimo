@@ -23,7 +23,6 @@ module.exports = function(app) {
     passport.use(new HttpBasicStrategy(verifyCredentials));
 
     function verifyCredentials(username, password, done) {
-        console.log("test", username, password);
         connection.query("Select * from users where userName = '" + username + "' and userPassword = '" + password + "'", function(err, user){
             if (err){
                 done(err, null);
