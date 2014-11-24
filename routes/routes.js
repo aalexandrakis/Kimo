@@ -26,15 +26,12 @@ module.exports = function(app) {
         console.log("test", username, password);
         connection.query("Select * from users where userName = '" + username + "' and userPassword = '" + password + "'", function(err, user){
             if (err){
-                console.log(err);
                 done(err, null);
             }
             if (user.length == 0){
-                console.log("no matches");
                 done(null, {userId:0, message: "Your username or your password is not correct. Please try again."});
             }
             if (user.length > 0){
-                console.log("user ok");
                 done(null, user[0]);
             }
 

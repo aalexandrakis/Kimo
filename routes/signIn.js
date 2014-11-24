@@ -4,7 +4,6 @@ var functions = require('../public/javascripts/functions');
 
 /* POST login. */
 router.post('/',  function(req, res) {
-//	req.body = req.body.replace(/\r\n/, "");
 	req.user.token = req.headers.authorization;
 	if (req.body.regId){
 		req.getConnection(function(err, connection){
@@ -13,16 +12,10 @@ router.post('/',  function(req, res) {
 			connection.query("update users set regId = '" + req.body.regId + "' where userId = " + req.user.userId, function(err, result){
 			if (err)
 				res.status(500).send({message:"Could not connect to the database due to the following error : " +  err});
-			console.log("body: ", req.body);
-			console.log("headers: ", req.headers);
-			console.log(req.user);
 			res.status(200).send(req.user).end();
 			});
 		});
 	} else {
-		console.log("body: ", req.body);
-		console.log("headers: ", req.headers);
-		console.log(req.user);
 		res.status(200).send(req.user).end();
 	}
 });
