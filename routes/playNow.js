@@ -28,11 +28,11 @@ router.post('/', function(req, res) {
     };
     req.getConnection(function(err,connection){
         if(err){
-            res.send({status:"950", message:"You cannot connect to kimo right now. Please tyr later."});
+            res.status(500).send({status:"500", message:"You cannot connect to kimo right now. Please tyr later."});
         } else {
            connection.beginTransaction(function(err){
                 if (err){
-                    res.send({status:"950", message:"Save transaction cannot began"});
+                    res.status(500).send({status:"500", message:"Save transaction cannot begin"});
                 } else {
                    function saveBet(bet){
                        df = Q.defer();
@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
                        connection.query(query, bet, function(err, results){
                             if (err){
                                 error = new Error();
-                                error.status = "960";
+                                error.status = "500";
                                 error.message = "Error trying to save the bet :" + err;
                                 df.reject(error);
                             } else {
@@ -55,7 +55,7 @@ router.post('/', function(req, res) {
                        connection.query(query, function(err, results){
                             if (err){
                                 error = new Error();
-                                error.status = "960";
+                                error.status = "500";
                                 error.message = "Error trying to subtract betCoins from user account:" + err;
                                 df.reject(error);
                             } else {
@@ -86,9 +86,10 @@ router.post('/', function(req, res) {
                         return commitTransaction(user);
                     }).then(function(user){
 //                        req.user = user;
-                        res.send({status:"00", user: req.user});
+                        res.status(200).send({status:"00", user: req.user});
                     }).catch(function(error){
-                        res.send({status: error.status, message: error.message});
+                        console.log(error);
+                        res.status(error.status).send({status: error.status, message: error.message});
                     });
                 }
            });
