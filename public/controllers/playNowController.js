@@ -119,7 +119,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
                   method: "POST",
                   headers: {Authorization: $cookieStore.get("user").token},
                   data: { 'userId'       : $cookieStore.get("user").userId ,
-                          'betDateTime'  : new Date(),
+                          'betDateTime'  : moment().format("YYYY-MM-DD hh:mm:ss"),
                           'repeatedDraws':  $scope.repeatedDraws,
                           'randomChoice' :  0,
                           'gameType'     :  $scope.gameType,
