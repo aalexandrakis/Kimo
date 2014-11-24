@@ -1,0 +1,17 @@
+test aalexand e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98
+user ok
+body:  { regId: 'i came here from a browser' }
+headers:  { host: 'localhost:3000',
+  connection: 'keep-alive',
+  'content-length': '38',
+  accept: 'application/json, text/plain, */*',
+  origin: 'http://localhost:3000',
+  'user-agent': 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.65 Safari/537.36',
+  authorization: 'Basic YWFsZXhhbmQ6ZTlkNzFmNWVlN2M5MmQ2ZGM5ZTkyZmZkYWQxN2I4YmQ0OTQxOGY5OA==',
+  'content-type': 'application/json;charset=UTF-8',
+  referer: 'http://localhost:3000/',
+  'accept-encoding': 'gzip, deflate',
+  'accept-language': 'en-US,en;q=0.8' }
+params:  {}
+POST /signIn 200 753.451 ms - 288
+

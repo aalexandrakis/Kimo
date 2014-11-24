@@ -9,7 +9,16 @@ var bodyParser = require('body-parser');
 var connection  = require('express-myconnection');
 var mysql = require('mysql');
 
+var fs = require('fs');
+var https = require('https');
+
 var app = express();
+
+
+server = https.createServer({
+    cert: fs.readFileSync(__dirname + '/my.crt'),
+    key: fs.readFileSync(__dirname + '/my.key')
+    }, app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +44,20 @@ app.use(
     },'request')
 );
 
+//app.use(function (req, res, next){
+//        console.log("in the middleware");
+//        var body = "";
+//        req.on('data', function(chunk){
+//            console.log("on data " + chunk);
+//            body += chunk;
+//        });
+//        req.on('end', function(result){
+//            req.body = body;
+//            console.log("on end " + body);
+//            console.log(result);
+//            return next();
+//        });
+//});
 //route index, hello world
 require('./routes/routes.js')(app);
 
@@ -46,7 +69,8 @@ app.get('/', function(req, res){
 app.get('*', function(req, res, next) {
   var err = new Error();
   err.status = 404;
-  err.message = "The requested url '" + req.url + "' not found";
+  err.message
+= "The requested url '" + req.url + "' not found";
   next(err);
 });
 
