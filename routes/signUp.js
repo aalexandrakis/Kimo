@@ -10,12 +10,12 @@ router.post('/', function(req, res) {
     	connection.query(query ,function(err,userRow)     {
     		if(err) {
     			error = new Error();
-    			error.status="DB-ERROR";
+    			error.status="500";
     			error.message="Error checking user name for duplicates : %s " + err
     			df.reject(error);
     		} else if(userRow.length > 0){
     			error = new Error();
-    			error.status = "900";
+    			error.status = "200";
     			error.message = "User Name already exists. Please try again";
     			df.reject(error);
     		} else {
@@ -33,12 +33,12 @@ router.post('/', function(req, res) {
     	connection.query(query ,function(err,userRow)     {
     		if(err) {
     			error = new Error();
-				error.status = "DB-ERROR";
+				error.status = "500";
 				error.message = "Error Checking for Email duplicates : %s " + err;
 				df.reject(error);
     		} else if(userRow.length > 0){
 				error = new Error();
-				error.status = "900";
+				error.status = "200";
 				error.message = "User Email already exists";
 //				console.log(error);
 				df.reject(error);
@@ -56,7 +56,7 @@ router.post('/', function(req, res) {
 		connection.query(query , newValuePairs, function(err,userRow)     {
 			if(err) {
 				error = new Error();
-				error.status = "DB-ERROR";
+				error.status = "500";
 				error.message = "Error Inserting User : %s " + err;
 				df.reject(error);
 			} else {
@@ -78,7 +78,7 @@ router.post('/', function(req, res) {
 
     req.getConnection(function(err,connection){
 		if(err){
-			res.send({"status":"DB-ERROR", "message":"Error Selecting : %s " + err });
+			res.status(500).send({"status":"500", "message":"Error Opening : %s " + err });
 		} else {
 			Q().then(function(result){
 					return checkUserName(connection, req.body.userName);
@@ -87,9 +87,9 @@ router.post('/', function(req, res) {
 				}).then(function(result){
 					return insertUser(connection, newValuePairs);
 				}).then(function(result){
-					res.send(result);
+					res.status(200).send(result);
 				}).catch(function(error){
-					res.send({status: error.status, message: error.message});
+					res.status(error.status).send({status: error.status, message: error.message});
 				});
 		}
     });
