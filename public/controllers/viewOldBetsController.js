@@ -7,8 +7,6 @@ kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scop
     $scope.errorStyle = {"display" : "none"};
     $scope.lazyLoadStyle = {"display" : "none"};
 
-    //TODO this method not working properly
-    //TODO remove replace from betDateTime
     $scope.matched = function(betNumber, drawNumbers){
          if (betNumber == 0){
             return {};

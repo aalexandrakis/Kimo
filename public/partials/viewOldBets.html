@@ -71,7 +71,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="bet in bets">
-                          <td style="text-align: center"><a href="#/viewBet/{{bet.betId}}/{{bet.draws}}">{{bet.betDateTime.replace("T", " ").replace("Z", " ").replace(".000", " ")}}</a></td>
+                          <td style="text-align: center"><a href="#/viewBet/{{bet.betId}}/{{bet.draws}}">{{bet.betDateTime}}</a></td>
                           <td style="text-align: center">{{bet.betId}}/{{bet.draws}}</td>
                           <td ng-style="matched(bet.betNumber1, bet.drawNumbers)">{{bet.betNumber1}}</td>
                           <td ng-style="matched(bet.betNumber2, bet.drawNumbers)">{{bet.betNumber2}}</td>
@@ -80,8 +80,8 @@
                           <td ng-style="matched(bet.betNumber5, bet.drawNumbers)">{{bet.betNumber5}}</td>
                           <td ng-style="matched(bet.betNumber6, bet.drawNumbers)">{{bet.betNumber6}}</td>
                           <td ng-style="matched(bet.betNumber7, bet.drawNumbers)">{{bet.betNumber7}}</td>
-                          <td ng-style="matched(bet.betNumber8, bet.drawNumbers)">{{bet.betNumber9}}</td>
-                          <td ng-style="matched(bet.betNumber9, bet.drawNumbers)">{{bet.betNumber8}}</td>
+                          <td ng-style="matched(bet.betNumber8, bet.drawNumbers)">{{bet.betNumber8}}</td>
+                          <td ng-style="matched(bet.betNumber9, bet.drawNumbers)">{{bet.betNumber9}}</td>
                           <td ng-style="matched(bet.betNumber10, bet.drawNumbers)">{{bet.betNumber10}}</td>
                           <td ng-style="matched(bet.betNumber11, bet.drawNumbers)">{{bet.betNumber11}}</td>
                           <td ng-style="matched(bet.betNumber12, bet.drawNumbers)">{{bet.betNumber12}}</td>
