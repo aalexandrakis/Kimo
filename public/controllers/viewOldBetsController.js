@@ -7,6 +7,8 @@ kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scop
     $scope.errorStyle = {"display" : "none"};
     $scope.lazyLoadStyle = {"display" : "none"};
 
+    //TODO this method not working properly
+    //TODO remove replace from betDateTime
     $scope.matched = function(betNumber, drawNumbers){
          if (betNumber == 0){
             return {};
@@ -50,7 +52,7 @@ kimoApp.controller("ViewOldBetsController", function viewOldBetsController($scop
                             $scope.errorMessage = response.data.message;
                         } else {
                             $scope.tableStyle = {"display":"block"};
-                            $scope.bets = response.data;
+                            $scope.bets = response.data.bets;
                             $scope.bets.forEach(function(bet){
                                 bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));
                             });
