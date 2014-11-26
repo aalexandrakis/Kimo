@@ -10,15 +10,16 @@ var connection  = require('express-myconnection');
 var mysql = require('mysql');
 
 var fs = require('fs');
-var https = require('https');
+//var https = require('https');
+var http = require('http');
 
 var app = express();
 
-
-server = https.createServer({
-    cert: fs.readFileSync(__dirname + '/my.crt'),
-    key: fs.readFileSync(__dirname + '/my.key')
-    }, app);
+server = http.createServer();
+//server = https.createServer({
+//    cert: fs.readFileSync(__dirname + '/my.crt'),
+//    key: fs.readFileSync(__dirname + '/my.key')
+//    }, app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
