@@ -2,6 +2,7 @@ module.exports = function(app) {
 
     var mysql = require('mysql');
 
+    //TODO this must be change connection must be declared only in one place
     var connection = mysql.createConnection({
       host     : '127.3.55.130',
       user     : 'kimo',
