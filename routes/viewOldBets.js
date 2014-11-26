@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var functions = require('../public/javascripts/functions');
 
-
 router.get(/\/unNotifiedBets/, function(req, res) {
     req.getConnection(function(err,connection){
         query = "SELECT bets_archive.*, CONCAT( " +
@@ -25,7 +24,7 @@ router.get(/\/unNotifiedBets/, function(req, res) {
                        console.log(err);
                 });
             }
-            res.send(rowsBets);
+            res.send({bets: rowsBets});
         });
     });
 });
