@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 app.use(
     connection(mysql,{
-        host: 'localhost',
+        host: '127.3.55.130:3306',
         user: 'kimo',
         password : 'kimo',
         port : 3306, //port mysql
