@@ -11,11 +11,9 @@ var mysql = require('mysql');
 
 var fs = require('fs');
 //var https = require('https');
-var http = require('http');
 
 var app = express();
 
-server = http.createServer();
 //server = https.createServer({
 //    cert: fs.readFileSync(__dirname + '/my.crt'),
 //    key: fs.readFileSync(__dirname + '/my.key')
