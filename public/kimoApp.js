@@ -1,8 +1,6 @@
 var kimoApp = angular.module("kimoApp", ['ngRoute', 'ngCookies']);
 
-//TODO implement forgot password
 //TODO implement buy coins
-//TODO recheck query return draw numbers as array
 kimoApp.directive('headerDirective', function() {
                   return {
                     templateUrl: "partials/headers.html",
