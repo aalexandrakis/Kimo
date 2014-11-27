@@ -78,7 +78,6 @@ module.exports = function(app) {
 
 
     app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
-    app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
     app.use('/signUp', signUp);
     app.use('/myAccount', passport.authenticate('basic', {session: false}), myAccount);
     app.use('/index', index);
