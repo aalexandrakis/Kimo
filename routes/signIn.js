@@ -12,7 +12,7 @@ router.post('/',  function(req, res) {
 			connection.query("update users set regId = '" + req.body.regId + "' where userId = " + req.user.userId, function(err, result){
 			if (err)
 				res.status(500).send({message:"Could not connect to the database due to the following error : " +  err});
-			res.setHeader("Content-Type", "application/json;charset=utf-8");
+//			res.setHeader("Content-Type", "application/json;charset=utf-8");
 			res.status(200).send(req.user).end();
 			});
 		});
