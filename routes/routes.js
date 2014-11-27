@@ -4,11 +4,11 @@ module.exports = function(app) {
 
     //TODO this must be change connection must be declared only in one place
     var connection = mysql.createConnection({
-      host     : '127.3.55.130',
-      user     : 'kimo',
-      password : 'kimo',
-      port : 3306, //port mysql
-      database:'kimo'
+          host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
+          user: process.env.MYSQL_USERNAME,
+          password : process.env.MYSQL_PASSWORD,
+          port : process.env.OPENSHIFT_MYSQL_DB_PORT || 3306, //port mysql
+          database:'kimo'
     });
 
 
