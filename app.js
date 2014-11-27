@@ -43,11 +43,6 @@ app.use(
     },'request')
 );
 
-console.log("mysql url ",process.env.OPENSHIFT_MYSQL_DB_URL);
-console.log("mysql host ",process.env.OPENSHIFT_MYSQL_DB_HOST);
-console.log("mysql username ", process.env.MYSQL_USERNAME);
-console.log("mysql password ",process.env.MYSQL_PASSWORD);
-
 //app.use(function (req, res, next){
 //        console.log("in the middleware");
 //        var body = "";
