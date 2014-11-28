@@ -14,6 +14,27 @@ var fs = require('fs');
 
 var app = express();
 
+//// Add headers
+var allowCORS = function (req, res, next) {
+    console.log(req.headers);
+    // Website you wish to allow to connect
+    console.log(process.env.ALLOWED_ORIGINS);
+    res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGINS);
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Request-With, Accept, Content-Type, Authorization');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+}
+
 //server = https.createServer({
 //    cert: fs.readFileSync(__dirname + '/my.crt'),
 //    key: fs.readFileSync(__dirname + '/my.key')
@@ -57,27 +78,10 @@ app.use(
 //            return next();
 //        });
 //});
-
-// Add headers
-app.use(function (req, res, next) {
-    console.log(req.headers);
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'accept,Content-Type,Authorization');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
+app.use(allowCORS);
+app.options('/*', function(req, res, next){
+    res.status(200).send();
 });
-
 //route index, hello world
 require('./routes/routes.js')(app);
 
@@ -89,8 +93,7 @@ app.get('/', function(req, res){
 app.get('*', function(req, res, next) {
   var err = new Error();
   err.status = 404;
-  err.message
-= "The requested url '" + req.url + "' not found";
+  err.message = "The requested url '" + req.url + "' not found";
   next(err);
 });
 
