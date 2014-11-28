@@ -16,7 +16,6 @@ var app = express();
 
 //// Add headers
 var allowCORS = function (req, res, next) {
-    console.log(req.headers);
     // Website you wish to allow to connect
     console.log(process.env.ALLOWED_ORIGINS);
     res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGINS);
