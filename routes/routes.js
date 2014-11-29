@@ -75,6 +75,7 @@ module.exports = function(app) {
     var playNow = require('./playNow');
     var viewActiveBets = require('./viewActiveBets');
     var resetPassword = require('./resetPassword');
+    var drawer = require('./drawer');
 
 
     app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
@@ -88,6 +89,7 @@ module.exports = function(app) {
     app.use('/playNow', passport.authenticate('basic', {session: false}), playNow);
     app.use('/viewActiveBets', passport.authenticate('basic', {session: false}), viewActiveBets);
     app.use('/resetPassword', resetPassword);
+    app.use('/drawer', drawer);
 
 
     //tests && examples
