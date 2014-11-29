@@ -131,4 +131,18 @@ function sendPushNotification(data, regId){
 	   });
 }
 
+router.put('/saveBets',  function(req, res) {
+	req.getConnection(function(err, connection){
+		if(err)
+			res.status(500).send(err);
+		req.body.bets.forEach(function(bet, index){
+			query = "insert into active_bets set ?";
+			connection.query(query, bet, function(err, result){
+				if (err)
+					res.status(500).send(err);
+			});
+		});
+		res.status(200).send("Bets saved successfully");
+	});
+});
 module.exports = router;
