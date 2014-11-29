@@ -71,7 +71,7 @@ router.get('/:userId', function(req, res) {
 		//get unNotified draws
 		getUnNotifiedBets = function(connection, result, userId){
 			df = new Q.defer();
-			query = "SELECT * from bets_archive where notified = 0 and userId = " + userId + " order by betDateTime DESC";
+			query = "SELECT * from bets_archive where returnRate > 0 and notified = 0 and userId = " + userId + " order by betDateTime DESC";
 			connection.query(query ,function(err,unNotifiedBets)     {
 				if(err){
 					console.error("Error Selecting unnotified draws : %s " + err );
