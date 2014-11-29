@@ -71,20 +71,22 @@ router.put('/updateBets',  function(req, res) {
 							connection.query(query, function(err, user)     {
 								if(err)
 									console.log("Could not select user coins for user" + bet.userId + " " + err);
-									earnings = bet.betCoins * bet.returnRate;
-									userCoins = user[0].userCoins + earnings;
-									query="update users set userCoins = " + userCoins + " where userId = " + bet.userId;
-									connection.query(query, function(err, userResult)     {
-										if(err)
-											console.log("Could not update user coins for user" + bet.userId + " " + err);
-										data = {
-											   "Type" : "WIN_NOTIFICATION",
-											   "Draw" : req.body.drawDateTime,
-											   "Matches" : bet.matches,
-											   "Earnings" : earnings
-										}
-										sendPushNotification(data, user[0].regId);
-									});
+								console.log("push not ",  user);
+								earnings = bet.betCoins * bet.returnRate;
+								userCoins = user[0].userCoins + earnings;
+								query="update users set userCoins = " + userCoins + " where userId = " + bet.userId;
+								connection.query(query, function(err, userResult)     {
+									if(err)
+										console.log("Could not update user coins for user" + bet.userId + " " + err);
+									data = {
+										   "Type" : "WIN_NOTIFICATION",
+										   "Draw" : req.body.drawDateTime,
+										   "Matches" : bet.matches,
+										   "Earnings" : earnings
+									}
+
+									sendPushNotification(data, user[0].regId);
+								});
 							});
 						}
 						if (bet.repeatedDraws == bet.draws){
@@ -132,17 +134,22 @@ function sendPushNotification(data, regId){
 }
 
 router.put('/saveBets',  function(req, res) {
-	req.getConnection(function(err, connection){
-		if(err)
-			res.status(500).send(err);
-		req.body.bets.forEach(function(bet, index){
-			query = "insert into active_bets set ?";
-			connection.query(query, bet, function(err, result){
-				if (err)
-					res.status(500).send(err);
+	//TODO this validation in all routers
+	if (req.user.userId == 0){
+		res.status(401).send("Unauthorized");
+	} else {
+		req.getConnection(function(err, connection){
+			if(err)
+				res.status(500).send(err);
+			req.body.bets.forEach(function(bet, index){
+				query = "insert into active_bets set ?";
+				connection.query(query, bet, function(err, result){
+					if (err)
+						res.status(500).send(err);
+				});
 			});
+			res.status(200).send("Bets saved successfully");
 		});
-		res.status(200).send("Bets saved successfully");
-	});
+	}
 });
 module.exports = router;
