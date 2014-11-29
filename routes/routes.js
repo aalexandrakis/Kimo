@@ -89,7 +89,7 @@ module.exports = function(app) {
     app.use('/playNow', passport.authenticate('basic', {session: false}), playNow);
     app.use('/viewActiveBets', passport.authenticate('basic', {session: false}), viewActiveBets);
     app.use('/resetPassword', resetPassword);
-    app.use('/drawer', drawer);
+    app.use('/drawer', passport.authenticate('basic', {session: false}), drawer);
 
 
     //tests && examples
