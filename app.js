@@ -62,8 +62,6 @@ app.use(
     },'request')
 );
 
-console.log(process.env);
-
 //app.use(function (req, res, next){
 //        console.log("in the middleware");
 //        var body = "";
