@@ -62,6 +62,9 @@ app.use(
     },'request')
 );
 
+console.log(process.env.OPENSHIFT_KIMO_IP);
+console.log(process.env.OPENSHIFT_KIMO_PORT);
+
 //app.use(function (req, res, next){
 //        console.log("in the middleware");
 //        var body = "";
