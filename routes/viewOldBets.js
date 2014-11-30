@@ -72,7 +72,6 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
                       " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where betDateTime between \""+
                 functions.fromEuroToIsoWithDelimiters(req.params["dateFrom"]).trim()+":00\" and \""+
                 functions.fromEuroToIsoWithDelimiters(req.params["dateTo"]).trim()+":59\"  and userId = " + req.user.userId;
-                console.log(query);
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)
