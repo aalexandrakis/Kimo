@@ -61,7 +61,6 @@ router.put('/updateBets',  function(req, res) {
 			   res.status(500).send(err);
 			req.body.bets.forEach(function(bet, index){
 				delete bet.id;
-				bet.drawTimeStamp = req.body.drawDateTime;
 				query="insert into bets_archive set ?";
 				connection.query(query, bet, function(err, insertResult)     {
 					if(err)
