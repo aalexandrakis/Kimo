@@ -62,7 +62,7 @@ kimoApp.controller("ViewBetController", function viewBetController($scope, $http
               })
               .then(function(response) {
                         //parse the bet
-                        $scope.betDateTime = fromIsoToEuro(new Date(response.data.betDateTime));
+                        $scope.betDateTime = fromIsoToEuro(response.data.betDateTime);
                         $scope.betId = response.data.betId;
                         $scope.drawNum = response.data.draws
                         betNumbers.push(response.data.betNumber1);
