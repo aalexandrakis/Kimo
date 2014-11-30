@@ -71,7 +71,6 @@ router.put('/updateBets',  function(req, res) {
 							connection.query(query, function(err, user)     {
 								if(err)
 									console.log("Could not select user coins for user" + bet.userId + " " + err);
-								console.log("push not ",  user);
 								earnings = bet.betCoins * bet.returnRate;
 								userCoins = user[0].userCoins + earnings;
 								query="update users set userCoins = " + userCoins + " where userId = " + bet.userId;
