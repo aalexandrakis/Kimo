@@ -1,4 +1,4 @@
-kimoApp.controller("InfoController", function infoController($rootScope, $scope, $http, $cookieStore, $interval, $q){
+kimoApp.controller("InfoController", function infoController($rootScope, $scope, $http, $cookieStore, $interval, $q, socket){
   $scope.nextDraw = "";
   $scope.lastDrawDate = "";
   $scope.alerts=[];
@@ -72,9 +72,14 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
   }
 
   getInfoData();
-  interval1 = $interval(function(){
-    getInfoData();
-  }, 180000, 0);
+//  interval1 = $interval(function(){
+//    getInfoData();
+//  }, 180000, 0);
+
+    socket.on('new:draw', function (data) {
+        $scope.alerts.push(data);
+    });
+
 
 });
 
