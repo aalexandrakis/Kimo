@@ -6,7 +6,7 @@ var gcm = require('node-gcm');
 router.put('/saveNextDrawDate',  function(req, res) {
 		console.log("=====saving next draw date========");
 		req.getConnection(function(err, connection){
-			query = "UPDATE next_draw set nextDraw = '" + req.params['nextDrawString'] + "'";
+			query = "UPDATE next_draw set nextDraw = '" + req.body['nextDrawString'] + "'";
 			connection.query(query, function(err,nextDrawRow)     {
 				if(err){
 					res.status(500).send({message:err});
