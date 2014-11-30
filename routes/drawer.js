@@ -48,6 +48,7 @@ router.get('/retrieveActiveBets/:drawDateTime',  function(req, res) {
 					  res.status(500).send(err);
 				  } else {
 //				  	  res.writeHead(200, { 'Content-Type': 'application/json', 'connection': 'keep-alive'});
+					  res.setEncoding("UTF-8");
  					  res.status(200).send({bets:activeBets});
 				  }
 			});
