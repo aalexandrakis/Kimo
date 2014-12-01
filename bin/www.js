@@ -17,12 +17,13 @@ var server = app.listen(server_port, server_ip_address, function() {
 global.io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket){
 
-    socket.on('login', function(data){
+    socket.on('changeSocketId', function(data){
         socket.id = data.userName;
         global.clients[socket.id] = socket;
     });
     socket.on('disconnect', function(data){
-        global.clients.remove[socket.id];
+        if (global.clients[socket.id])
+            delete global.clients[socket.id];
     });
 });
 

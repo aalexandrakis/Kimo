@@ -34,7 +34,7 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                         } else {
                             $scope.errorMessageGroup = {"display":"none"};
                             $cookieStore.put("user" , response.data);
-                            socket.emit("login", {userName: $scope.userName});
+                            socket.emit("changeSocketId", {userName: $scope.userName});
                             jSuccess(
                                  'Welcome ' + response.data.userName,
                                  {
