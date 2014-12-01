@@ -69,6 +69,9 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
        });
   }
 
+  $scope.$on('getUserInfo', function(event, data){
+        getInfoData();
+  });
   getInfoData();
 //  interval1 = $interval(function(){
 //    getInfoData();

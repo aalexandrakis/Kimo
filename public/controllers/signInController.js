@@ -1,4 +1,4 @@
-kimoApp.controller("SignInController", function signInController($scope, $cookieStore, $window, $http, socket){
+kimoApp.controller("SignInController", function signInController($scope, $cookieStore, $window, $http, socket, $rootScope){
      $scope.title = "Kimo -  Sign In";
      $scope.formHeader = "Sign In";
 
@@ -34,6 +34,7 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                         } else {
                             $scope.errorMessageGroup = {"display":"none"};
                             $cookieStore.put("user" , response.data);
+                            $rootScope.$broadcast('getUserInfo', {});
                             socket.emit("changeSocketId", {userName: $scope.userName});
                             jSuccess(
                                  'Welcome ' + response.data.userName,

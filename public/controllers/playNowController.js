@@ -1,4 +1,4 @@
-kimoApp.controller("PlayNowController", function playController($scope, $http, $cookieStore, $window){
+kimoApp.controller("PlayNowController", function playController($scope, $http, $cookieStore, $window, $rootScope){
     $scope.title = "Kimo - Play Now";
     $scope.numbers = [];
     $scope.selectedNumbers = [];
@@ -147,6 +147,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
                         } else {
+                            $rootScope.$broadcast('getUserInfo', {});
                             jSuccess(
                                 'Your bet saved successfully. Good Luck',
                                 {
