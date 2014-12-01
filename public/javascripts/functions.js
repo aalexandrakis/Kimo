@@ -82,7 +82,7 @@ httpGet: function(req, res, url, data, dataCallBack, endCallBack){
 
     fromEuroToIsoWithDelimiters: function(dateString){
 			  return  dateString.substring(4, 8) + "-" + dateString.substring(2, 4) + "-" + dateString.substring(0, 2) + " " +
-			  dateString.substring(8, 10) + ":" + dateString.substring(10, 12) + " " + dateString.substring(12, 14) + (dateString.length > 14 ? dateString.substring(14, 16) : '');
+			  dateString.substring(8, 10) + ":" + dateString.substring(10, 12) + (dateString.length > 12 ? ":" + dateString.substring(12, 14) : '');
     },
 
 
