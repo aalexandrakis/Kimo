@@ -13,7 +13,8 @@ var fs = require('fs');
 //var https = require('https');
 
 var app = express();
-
+global.io="";
+global.clients={};
 //// Add headers
 var allowCORS = function (req, res, next) {
     // Website you wish to allow to connect

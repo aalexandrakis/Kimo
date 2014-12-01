@@ -15,6 +15,12 @@ kimoApp.controller("HeadersController", function headersController($rootScope, $
         });
       });
 
+      $scope.$on('earnings', function(event, bet){
+        console.log("on earnings ", bet);
+        bet.betDateTime = fromIsoToEuro(bet.betDateTime);
+        $scope.unNotifiedBets.push(bet);
+      });
+
       $scope.removeNotification = function(index){
         $scope.unNotifiedBets.splice(index, 1);
       }

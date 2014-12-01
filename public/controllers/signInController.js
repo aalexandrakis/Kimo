@@ -1,4 +1,4 @@
-kimoApp.controller("SignInController", function signInController($scope, $cookieStore, $window, $http){
+kimoApp.controller("SignInController", function signInController($scope, $cookieStore, $window, $http, socket){
      $scope.title = "Kimo -  Sign In";
      $scope.formHeader = "Sign In";
 
@@ -22,7 +22,7 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                  url: '/signIn',
                  method: "POST",
                  headers: {'Authorization': 'Basic ' + encrypted}
-//                 data: {'username' : $scope.userName , "password": CryptoJS.SHA1($scope.password).toString()}
+//                 data: {'username' : $scope.userName}
                })
                .then(function(response) {
                         if (response.data.message){
@@ -34,6 +34,7 @@ kimoApp.controller("SignInController", function signInController($scope, $cookie
                         } else {
                             $scope.errorMessageGroup = {"display":"none"};
                             $cookieStore.put("user" , response.data);
+                            socket.emit("login", {userName: $scope.userName});
                             jSuccess(
                                  'Welcome ' + response.data.userName,
                                  {

@@ -11,6 +11,7 @@ router.put('/saveNextDrawDate',  function(req, res) {
 				if(err){
 					res.status(500).send({message:err});
 				} else {
+					global.io.emit("nextDraw", {nextDraw: req.body.nextDrawString});
 					res.status(200).send({result:"ok"});
 				}
 
@@ -28,6 +29,7 @@ router.post('/saveDraw',  function(req, res) {
 				  if(err){
 					  res.status(500).send(err);
 				  } else {
+				  	  global.io.emit("newDraw", req.body);
 					  res.status(200).send({message:'draw saved successfully'});
 				  }
 			});
@@ -67,7 +69,7 @@ router.put('/updateBets',  function(req, res) {
 					if(err)
 						console.log("Could not insert betId " + bet.betId + " " + err);
 						if (bet.returnRate != 0){
-							query="select userCoins, regId from users where userId = " + bet.userId;
+							query="select userName, userCoins, regId from users where userId = " + bet.userId;
 							connection.query(query, function(err, user)     {
 								if(err)
 									console.log("Could not select user coins for user" + bet.userId + " " + err);
@@ -83,7 +85,9 @@ router.put('/updateBets',  function(req, res) {
 										   "Matches" : bet.matches,
 										   "Earnings" : earnings
 									}
-
+									socket = global.clients[user[0].userName];
+									if (socket != null)
+										socket.emit('earnings', {userCoins: userCoins, bet: bet});
 									sendPushNotification(data, user[0].regId);
 								});
 							});

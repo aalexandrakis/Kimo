@@ -3,9 +3,10 @@ var router = express.Router();
 var Q = require('q');
 var connection;
 
-
 router.get('/', function(req, res) {
-    res.send("you are in test page");
+//    global.io.emit("newDraw", "new draw");
+    console.log(global.clients);
+    res.status(200).send();
 });
 
 router.get('/:paramvalue', function(req, res) {

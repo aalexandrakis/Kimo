@@ -14,10 +14,19 @@ var server = app.listen(server_port, server_ip_address, function() {
   debug('Express server listening on port ' + server.address().port);
 });
 
-var io = require('socket.io').listen(server);
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-      console.log('user disconnected');
+global.io = require('socket.io').listen(server);
+io.sockets.on('connection', function(socket){
+
+    socket.on('login', function(data){
+        socket.id = data.userName;
+        global.clients[socket.id] = socket;
+    });
+    socket.on('disconnect', function(data){
+        global.clients.remove[socket.id];
     });
 });
+
+
+
+
+
