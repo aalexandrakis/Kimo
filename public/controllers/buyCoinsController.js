@@ -23,6 +23,9 @@ kimoApp.controller("BuyCoinsController",  ['$scope', '$http', '$cookieStore', '$
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
                         } else {
+                            user = $cookieStore.get("user")
+                            user.userCoins = $scope.coins;
+                            $cookieStore.put("user", user);
                             $rootScope.$broadcast('getUserInfo', {});
                             jSuccess(
                                  'Your coins updated successfully',
