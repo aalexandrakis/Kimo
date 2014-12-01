@@ -1,6 +1,6 @@
 var kimoApp = angular.module("kimoApp", ['ngRoute', 'ngCookies']);
 
-//TODO implement buy coins
+//TODO implement buy coins with paypal
 kimoApp.directive('headerDirective', function() {
                   return {
                     templateUrl: "partials/headers.html",
@@ -123,6 +123,10 @@ kimoApp.config(function($routeProvider){
         }).when("/resetPassword",{
             controller: "ResetPasswordController",
             templateUrl: "partials/resetPassword.html",
+            mustBeLoggedOn: false
+        }).when("/buyCoins",{
+            controller: "BuyCoinsController",
+            templateUrl: "partials/buyCoins.html",
             mustBeLoggedOn: false
         }).otherwise("/#");
 

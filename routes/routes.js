@@ -77,6 +77,7 @@ module.exports = function(app) {
     var resetPassword = require('./resetPassword');
     var drawer = require('./drawer');
     var downloadApk = require('./downloadApk');
+    var addCoins = require('./addCoins');
 
 
     app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
@@ -92,6 +93,7 @@ module.exports = function(app) {
     app.use('/resetPassword', resetPassword);
     app.use('/drawer', passport.authenticate('basic', {session: false}), drawer);
     app.use('/downloadApk', downloadApk);
+    app.use('/addCoins', passport.authenticate('basic', {session: false}), addCoins);
 
 
     //tests && examples
