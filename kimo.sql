@@ -253,7 +253,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPassword`, `userCoins`, `userLevel`, `regId`) VALUES
-(10, 'aalexand', 'aalexandrakis@hotmail.com', 'e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98', 1853.3, 0, 'APA91bGRb3Ad70sqWSUlNl4Jp2_EFLv8wXKW5dwUay3rSfsLPPbqD_XQQofWtw2q27e8bjz5ZEYAC5zL-uaD3UofiplnrJBNp8IL888XveAByZdOA63A9zoktgOTurcaBkow40bnZKMN6lZZzvuVGAZ0L3UOraSVYRJ1qSb6kQhFL7BglCSmM8o'),
 (38, 'kimodrawer', 'kimo@kimo.com', 'f8df04fa43781a7dbb062a6cc4d38739f9117648', 0, 0, '');
 
 -- --------------------------------------------------------
