@@ -1,8 +1,6 @@
 var kimoApp = angular.module("kimoApp", ['ngRoute', 'ngCookies']);
 
-//TODO implement forgot password
-//TODO implement buy coins
-//TODO recheck query return draw numbers as array
+//TODO implement buy coins with paypal
 kimoApp.directive('headerDirective', function() {
                   return {
                     templateUrl: "partials/headers.html",
@@ -37,6 +35,32 @@ kimoApp.run(function($rootScope, $location, $cookieStore){
 
     });
 });
+
+kimoApp.factory('socket', function ($rootScope) {
+  var socket = io.connect();
+  return {
+    on: function (eventName, callback) {
+      socket.on(eventName, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      })
+    }
+  };
+});
+
+
 //Do configuration and routing here
 kimoApp.config(function($routeProvider){
     $routeProvider
@@ -99,6 +123,10 @@ kimoApp.config(function($routeProvider){
         }).when("/resetPassword",{
             controller: "ResetPasswordController",
             templateUrl: "partials/resetPassword.html",
+            mustBeLoggedOn: false
+        }).when("/buyCoins",{
+            controller: "BuyCoinsController",
+            templateUrl: "partials/buyCoins.html",
             mustBeLoggedOn: false
         }).otherwise("/#");
 

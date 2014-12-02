@@ -10,15 +10,34 @@ var connection  = require('express-myconnection');
 var mysql = require('mysql');
 
 var fs = require('fs');
-var https = require('https');
+//var https = require('https');
 
 var app = express();
+global.io="";
+global.clients={};
+//// Add headers
+var allowCORS = function (req, res, next) {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGINS);
 
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT');
 
-server = https.createServer({
-    cert: fs.readFileSync(__dirname + '/my.crt'),
-    key: fs.readFileSync(__dirname + '/my.key')
-    }, app);
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Request-With, Accept, Content-Type, Authorization');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+}
+
+//server = https.createServer({
+//    cert: fs.readFileSync(__dirname + '/my.crt'),
+//    key: fs.readFileSync(__dirname + '/my.key')
+//    }, app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,10 +55,10 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 app.use(
     connection(mysql,{
-        host: 'localhost',
-        user: 'kimo',
-        password : 'kimo',
-        port : 3306, //port mysql
+        host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
+        user: process.env.MYSQL_USERNAME,
+        password : process.env.MYSQL_PASSWORD,
+        port : process.env.OPENSHIFT_MYSQL_DB_PORT || 3306, //port mysql
         database:'kimo'
     },'request')
 );
@@ -58,7 +77,10 @@ app.use(
 //            return next();
 //        });
 //});
-
+app.use(allowCORS);
+app.options('/*', function(req, res, next){
+    res.status(200).send();
+});
 //route index, hello world
 require('./routes/routes.js')(app);
 
@@ -70,8 +92,7 @@ app.get('/', function(req, res){
 app.get('*', function(req, res, next) {
   var err = new Error();
   err.status = 404;
-  err.message
-= "The requested url '" + req.url + "' not found";
+  err.message = "The requested url '" + req.url + "' not found";
   next(err);
 });
 

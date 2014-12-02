@@ -70,8 +70,8 @@ router.get('/:dateFrom/:dateTo', function(req, res) {
                       "draw.drawNumber13,\",\", draw.drawNumber14,\",\", draw.drawNumber15,\",\", draw.drawNumber16,\",\"," +
                       "draw.drawNumber17,\",\", draw.drawNumber18,\",\", draw.drawNumber19,\",\", draw.drawNumber20) as drawNumbers" +
                       " FROM bets_archive inner join draw on drawDateTime = drawTimeStamp where betDateTime between \""+
-                functions.fromEuroToIsoWithDelimiters(req.params["dateFrom"])+":00\" and \""+
-                functions.fromEuroToIsoWithDelimiters(req.params["dateTo"])+":59\"  and userId = " + req.user.userId;
+                functions.fromEuroToIsoWithDelimiters(req.params["dateFrom"]).trim()+":00\" and \""+
+                functions.fromEuroToIsoWithDelimiters(req.params["dateTo"]).trim()+":59\"  and userId = " + req.user.userId;
         connection.query(query ,function(err,rowsBets)     {
 
         if(err)

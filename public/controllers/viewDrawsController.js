@@ -42,7 +42,7 @@ kimoApp.controller("ViewDrawsController", function viewDrawsController($scope, $
                             $scope.tableStyle = {"display":"block"};
                             $scope.draws = response.data.draws;
                             $scope.draws.forEach(function(draw){
-                                draw.drawDateTime = fromIsoToEuro(new Date(draw.drawDateTime));
+                                draw.drawDateTime = fromIsoToEuro(draw.drawDateTime);
                             });
 
                         }

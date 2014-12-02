@@ -1,4 +1,4 @@
-kimoApp.controller("InfoController", function infoController($rootScope, $scope, $http, $cookieStore, $interval, $q){
+kimoApp.controller("InfoController", function infoController($rootScope, $scope, $http, $cookieStore, $interval, $q, socket){
   $scope.nextDraw = "";
   $scope.lastDrawDate = "";
   $scope.alerts=[];
@@ -15,9 +15,9 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
         if (!angular.isUndefined(response.data.message)){
             console.log(response.data);
         } else if (!angular.isUndefined(response.data.nextDraw)){
-            $scope.nextDraw = fromIsoToEuro(new Date(response.data.nextDraw));
+            $scope.nextDraw = fromIsoToEuro(response.data.nextDraw);
             $scope.userCoins = response.data.userCoins;
-            $scope.lastDrawDate = fromIsoToEuro(new Date(response.data.lastDraw.drawDateTime));
+            $scope.lastDrawDate = fromIsoToEuro(response.data.lastDraw.drawDateTime);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber1);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber2);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber3);
@@ -39,8 +39,6 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber19);
             $scope.lastDrawNumbers.push(response.data.lastDraw.drawNumber20);
 
-            $scope.lastDrawDate = $scope.lastDrawDate;
-            $scope.nextDraw = $scope.nextDraw;
             if ($cookieStore.get("user")){
                 $cookieStore.get("user").userCoins = response.data.userCoins;
             }
@@ -60,7 +58,7 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
        .then(function (response){
               parseData(response);
               if (Array.isArray(response.data.unNotifiedBets) && response.data.unNotifiedBets.length > 0){
-                  $scope.alerts.push(response.data.unNotifiedBets.length);
+//                  $scope.alerts.push(response.data.unNotifiedBets.length);
                   $rootScope.$broadcast('unNotifiedBets', response.data.unNotifiedBets);
                   interval1 = $interval(function(){
                     $scope.alerts = [];
@@ -71,10 +69,46 @@ kimoApp.controller("InfoController", function infoController($rootScope, $scope,
        });
   }
 
+  $scope.$on('getUserInfo', function(event, data){
+        getInfoData();
+  });
   getInfoData();
-  interval1 = $interval(function(){
-    getInfoData();
-  }, 180000, 0);
+//  interval1 = $interval(function(){
+//    getInfoData();
+//  }, 180000, 0);
+
+    socket.on('newDraw', function(data){
+        $scope.lastDrawDate = fromIsoToEuro(data.drawDateTime);
+        $scope.lastDrawNumbers.push(data.drawNumber1);
+        $scope.lastDrawNumbers.push(data.drawNumber2);
+        $scope.lastDrawNumbers.push(data.drawNumber3);
+        $scope.lastDrawNumbers.push(data.drawNumber4);
+        $scope.lastDrawNumbers.push(data.drawNumber5);
+        $scope.lastDrawNumbers.push(data.drawNumber6);
+        $scope.lastDrawNumbers.push(data.drawNumber7);
+        $scope.lastDrawNumbers.push(data.drawNumber8);
+        $scope.lastDrawNumbers.push(data.drawNumber9);
+        $scope.lastDrawNumbers.push(data.drawNumber10);
+        $scope.lastDrawNumbers.push(data.drawNumber11);
+        $scope.lastDrawNumbers.push(data.drawNumber12);
+        $scope.lastDrawNumbers.push(data.drawNumber13);
+        $scope.lastDrawNumbers.push(data.drawNumber14);
+        $scope.lastDrawNumbers.push(data.drawNumber15);
+        $scope.lastDrawNumbers.push(data.drawNumber16);
+        $scope.lastDrawNumbers.push(data.drawNumber17);
+        $scope.lastDrawNumbers.push(data.drawNumber18);
+        $scope.lastDrawNumbers.push(data.drawNumber19);
+        $scope.lastDrawNumbers.push(data.drawNumber20);
+    });
+
+    socket.on('nextDraw', function(data){
+        $scope.nextDraw = fromIsoToEuro(data.nextDraw);
+    });
+
+    socket.on('earnings', function(data){
+        $scope.userCoins = data.userCoins;
+        $rootScope.$broadcast('earnings', data.bet);
+    });
 
 });
 

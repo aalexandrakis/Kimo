@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
         betNumber10  : req.body.betNumber10,
         betNumber11  : req.body.betNumber11,
         betNumber12  : req.body.betNumber12,
-        drawTimeStamp : null
+        drawTimeStamp : ""
     };
     req.getConnection(function(err,connection){
         if(err){

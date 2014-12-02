@@ -1,4 +1,4 @@
-kimoApp.controller("PlayNowController", function playController($scope, $http, $cookieStore, $window){
+kimoApp.controller("PlayNowController", function playController($scope, $http, $cookieStore, $window, $rootScope){
     $scope.title = "Kimo - Play Now";
     $scope.numbers = [];
     $scope.selectedNumbers = [];
@@ -119,7 +119,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
                   method: "POST",
                   headers: {Authorization: $cookieStore.get("user").token},
                   data: { 'userId'       : $cookieStore.get("user").userId ,
-                          'betDateTime'  : moment().format("YYYY-MM-DD hh:mm:ss"),
+                          'betDateTime'  : moment().format("YYYY-MM-DD HH:mm:ss"),
                           'repeatedDraws':  $scope.repeatedDraws,
                           'randomChoice' :  0,
                           'gameType'     :  $scope.gameType,
@@ -147,6 +147,7 @@ kimoApp.controller("PlayNowController", function playController($scope, $http, $
                             $scope.errorMessageGroup = {"display":"block"};
                             $scope.errorMessage = response.data.message;
                         } else {
+                            $rootScope.$broadcast('getUserInfo', {});
                             jSuccess(
                                 'Your bet saved successfully. Good Luck',
                                 {

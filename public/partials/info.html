@@ -23,8 +23,9 @@
         <div ng-repeat="alert in alerts">
             <div class="alert alert-success alert-dismissable" >
                 <!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
-                <!--<button type="button" class="close" ng-click="removeAlert($index)">×</button>-->
-                    Congratulations you have just earned in {{alert}} bets click <a href="#/viewUnNotifiedBets" class="alert-link">here</a> to view your bets.
+                <button type="button" class="close" ng-click="removeAlert($index)">×</button>
+                    <!--Congratulations you have just earned in {{alert}} bets click <a href="#/viewUnNotifiedBets" class="alert-link">here</a> to view your bets.-->
+                    {{alert}}
             </div>
         </div>
     </div>

@@ -2,12 +2,13 @@ module.exports = function(app) {
 
     var mysql = require('mysql');
 
+    //TODO this must be change connection must be declared only in one place
     var connection = mysql.createConnection({
-      host     : 'localhost',
-      user     : 'kimo',
-      password : 'kimo',
-      port : 3306, //port mysql
-      database:'kimo'
+          host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
+          user: process.env.MYSQL_USERNAME,
+          password : process.env.MYSQL_PASSWORD,
+          port : process.env.OPENSHIFT_MYSQL_DB_PORT || 3306, //port mysql
+          database:'kimo'
     });
 
 
@@ -74,9 +75,11 @@ module.exports = function(app) {
     var playNow = require('./playNow');
     var viewActiveBets = require('./viewActiveBets');
     var resetPassword = require('./resetPassword');
+    var drawer = require('./drawer');
+    var downloadApk = require('./downloadApk');
+    var addCoins = require('./addCoins');
 
 
-    app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
     app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
     app.use('/signUp', signUp);
     app.use('/myAccount', passport.authenticate('basic', {session: false}), myAccount);
@@ -88,6 +91,9 @@ module.exports = function(app) {
     app.use('/playNow', passport.authenticate('basic', {session: false}), playNow);
     app.use('/viewActiveBets', passport.authenticate('basic', {session: false}), viewActiveBets);
     app.use('/resetPassword', resetPassword);
+    app.use('/drawer', passport.authenticate('basic', {session: false}), drawer);
+    app.use('/downloadApk', downloadApk);
+    app.use('/addCoins', passport.authenticate('basic', {session: false}), addCoins);
 
 
     //tests && examples

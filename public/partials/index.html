@@ -21,6 +21,7 @@
   <script src="/javascripts/jNotify.jquery.js"></script>
   <script src="/javascripts/moment.js"></script>
   <script src="/javascripts/general-functions.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="/sb-admin/js/bootstrap.js"></script>
   <script src="/sb-admin/js/sb-admin-2.js"></script>
   <script src="/sb-admin/js/plugins/metisMenu/metisMenu.js"></script>
@@ -39,7 +40,7 @@
   <script src="/controllers/viewBetController.js"></script>
   <script src="/controllers/viewUnNotifiedController.js"></script>
   <script src="/controllers/resetPasswordController.js"></script>
-
+  <script src="/controllers/buyCoinsController.js"></script>
 </head>
 
 <body>
@@ -48,7 +49,22 @@
       <div id="page-wrapper" style="min-height: 369px">
         <div info-directive></div>
         <div class="" ng-view>
-            
+
+        </div>
+        <div class="col-lg-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              Kimo Info
+            </div>
+            <div class="panel-body">
+              <p>This is a game created for practice purposes in nodeJs, expressJs, AngularJs and Android SDK.</p>
+              <p>Gamble as much as you want it's FREE. You don't pay anything, you don't earn anything...</p>
+              <p>aalexandrakis@hotmail.com</p>
+            </div>
+            <div class="panel-footer">
+              <a href="/downloadApk">Download Android App</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

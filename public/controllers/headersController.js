@@ -11,8 +11,14 @@ kimoApp.controller("HeadersController", function headersController($rootScope, $
       $scope.$on('unNotifiedBets', function(event, unNotifiedBets){
         $scope.unNotifiedBets = unNotifiedBets;
         $scope.unNotifiedBets.forEach(function (bet){
-            bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));
+            bet.betDateTime = fromIsoToEuro(bet.betDateTime);
         });
+      });
+
+      $scope.$on('earnings', function(event, bet){
+        console.log("on earnings ", bet);
+        bet.betDateTime = fromIsoToEuro(bet.betDateTime);
+        $scope.unNotifiedBets.push(bet);
       });
 
       $scope.removeNotification = function(index){

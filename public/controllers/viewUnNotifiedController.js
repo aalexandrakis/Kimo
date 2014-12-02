@@ -42,7 +42,7 @@ kimoApp.controller("ViewUnNotifiedController", function viewUnNotifiedController
                             $scope.tableStyle = {"display":"block"};
                             $scope.bets = response.data.bets;
                             $scope.bets.forEach(function(bet){
-                                bet.betDateTime = fromIsoToEuro(new Date(bet.betDateTime));
+                                bet.betDateTime = fromIsoToEuro(bet.betDateTime);
                             });
 
                         }
