@@ -22,11 +22,14 @@ router.put('/saveNextDrawDate',  function(req, res) {
 router.post('/saveDraw',  function(req, res) {
 		console.log("=====saving current draw========");
 		req.getConnection(function(err, connection){
-			if(err)
+			if(err){
+				console.log(err);
 			   res.status(500).send(err);
+			}
 			query = "INSERT into draw set ?";
 			connection.query(query, req.body, function(err, newDrawResult)     {
 				  if(err){
+   					  console.log(err);
 					  res.status(500).send(err);
 				  } else {
 				  	  global.io.emit("newDraw", req.body);
