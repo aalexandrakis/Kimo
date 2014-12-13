@@ -7,6 +7,7 @@ var functions = require('../public/javascripts/functions.js')
 router.get('/', function(req, res) {
 	res.status(200).send();
 //	req, res, url, data, dataCallBack, endCallBack
+	console.log(req);
 	newReq = {};
 	newReq.cmd = "_notify-validate";
 	newReq += req.body;
