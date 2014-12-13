@@ -4,7 +4,7 @@ var functions = require('../public/javascripts/functions.js')
 /* POST reset password. */
 
 
-router.post('/', function(req, res) {
+router.get('/', function(req, res) {
 	res.status(200).send();
 //	req, res, url, data, dataCallBack, endCallBack
 
@@ -15,7 +15,7 @@ router.post('/', function(req, res) {
     }
 	url = "https://www.sandbox.paypal.com/cgi-bin/webscr?" + params;
 	response = "";
-	functions.externalHttpPost(null, null, url, null,
+	functions.externalHttpPost(null, null, url, "",
 
 	function(data){
 		response += data;
