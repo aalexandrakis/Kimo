@@ -4,21 +4,21 @@ var functions = require('../public/javascripts/functions.js')
 var qs = require('querystring');
 /* POST reset password. */
 
-//router.get('/:txnId', function(req, res){
-//	data = {};
-//	data.body = {
-//		txn_id : req.params.txnId,
-//		payment_status : 'COMPLETED',
-//		payment_date : '2014-12-13 19:00:00',
-//		mc_gross : '15.00',
-//		mc_fee : '0.33',
-//		custom : '10'
-//	}
-//	req.getConnection(function(err, connection){
-//		checkAndUpdatePayment(connection, data);
-//	});
-//	res.status(200).send();
-//});
+router.get('/:txnId/:status', function(req, res){
+	data = {};
+	data.body = {
+		txn_id : req.params.txnId,
+		payment_status : req.params.status,
+		payment_date : '2014-12-13 19:00:00',
+		mc_gross : '15.00',
+		mc_fee : '0.33',
+		custom : '10'
+	}
+	req.getConnection(function(err, connection){
+		checkAndUpdatePayment(connection, data);
+	});
+	res.status(200).send();
+});
 
 router.post('/', function(req, res) {
 	res.status(200).send();
@@ -91,13 +91,15 @@ function checkAndUpdatePayment(connection, req){
 			});
 		} else {
 			if (result[0].status != "Completed"){
-				query = "update payments set status = '" + req.body.payment_status + "' where txn_id = '" + req.body.txn_id + "' and userId = " + req.body.custom;
-				connection(query, function(err, result){
+				query = "update payments set status = '" + req.body.payment_status + "' where txnId = '" + req.body.txn_id + "' and userId = " + req.body.custom;
+				connection.query(query, function(err, result){
 					if (err)
 					  console.log("Could not update payment with txn_id ", req.body.txn_id , " for userId ", req.body.custom, " to status ", req.body.payment_status, "because of the following error ", err);
 					updateUserCoins(connection, req, amount);
 
 				});
+			} else {
+				console.log("INVALID paypal ipn. Transaction is already completed. ", req.body);
 			}
 		}
 	});
