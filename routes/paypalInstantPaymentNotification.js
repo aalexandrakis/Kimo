@@ -11,12 +11,7 @@ router.post('/', function(req, res) {
 	newReq1 = {
 		cmd : "_notify-validate"
 	};
-	console.log(JSON.stringify(req.body));
-	if (JSON.stringify(req.body == "{}")){
-		newReq = newReq1;
-	} else {
-		newReq = JSON.parse(JSON.stringify(newReq1)  + JSON.stringify(req.body));
-	}
+	newReq = JSON.parse(JSON.stringify(newReq1)  + JSON.stringify(req.body));
 	response = "";
 	functions.externalHttpPost(null, null, "https://www.sandbox.paypal.com/cgi-bin/webscr", JSON.stringify(newReq),
 
