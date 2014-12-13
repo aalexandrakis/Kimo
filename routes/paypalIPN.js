@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var functions = require('../public/javascripts/functions.js')
 var qs = require('querystring');
-//
+/* POST reset password. */
+
 //router.get('/:txnId', function(req, res){
 //	data = {};
 //	data.body = {
@@ -13,7 +14,9 @@ var qs = require('querystring');
 //		mc_fee : '0.33',
 //		custom : '10'
 //	}
-//		checkAndUpdatePayment(data);
+//	req.getConnection(function(err, connection){
+//		checkAndUpdatePayment(connection, data);
+//	});
 //	res.status(200).send();
 //});
 
@@ -47,7 +50,11 @@ router.post('/', function(req, res) {
 		});
 		newRes.on('end', function (result) {
 			if(req.body.payment_status == "Completed"){
-					checkAndUpdatePayment(req);
+				req.getConnection(function(err, connection){
+					if(err)
+						console.log("Could not complete payment with txn_id ", req.body.txn_id , " because of the following error:", err);
+					checkAndUpdatePayment(connection, req);
+				});
 			}
 			console.log("response: ",response);
 		});
@@ -61,24 +68,13 @@ router.post('/', function(req, res) {
 });
 
 
-function checkAndUpdatePayment(req){
-
-	 var mysql = require('mysql');
-
-	//TODO this must be change connection must be declared only in one place
-	var connection = mysql.createConnection({
-		  host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
-		  user: process.env.MYSQL_USERNAME,
-		  password : process.env.MYSQL_PASSWORD,
-		  port : process.env.OPENSHIFT_MYSQL_DB_PORT || 3306, //port mysql
-		  database:'kimo'
-	});
-
+function checkAndUpdatePayment(connection, req){
 	amount = req.body.mc_gross - req.body.mc_fee;
 	query = "select * from payments where txnId = '" + req.body.txn_id + "' and userId = " + req.body.custom;
+	console.log("query: ", query);
 	connection.query(query, function(err, result){
 		if (err)
-			console.log("Could not complete payment with txn_id ", req.body.txn_id , " because of the following error:" , err);
+			console.log(err);
 		if (result.length == 0){
 			values = {
 				payDateTime : req.body.payment_date,
