@@ -16,7 +16,7 @@ router.post('/', function(req, res) {
     }
 //    params = qs.stringify(params);
     console.log("params : " , params);
-	response = "";
+	response = [];
 	http = require('http');
 	options = {
 		host : "www.sandbox.paypal.com",
@@ -31,10 +31,10 @@ router.post('/', function(req, res) {
 		newRes.setEncoding('utf8');
 		newRes.on('data', function (result) {
 			console.log("data: ", data);
-			response += data;
+			response.push(data);
 		});
 		newRes.on('end', function (result) {
-			console.log("response: ",response);
+			console.log("response: ",JSON.stringify(response));
 		});
 	});
 	newReq.on('error', function(error){
