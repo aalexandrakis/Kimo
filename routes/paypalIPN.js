@@ -5,7 +5,7 @@ var qs = require('querystring');
 /* POST reset password. */
 
 
-router.get('/', function(req, res) {
+router.post('/', function(req, res) {
 	res.status(200).send();
 //	req, res, url, data, dataCallBack, endCallBack
 
@@ -15,6 +15,7 @@ router.get('/', function(req, res) {
         params +="&" +  prop + "=" + req.body[prop];
     }
     params = qs.stringify(params);
+    console.log(params);
 	response = "";
 	http = require('http');
     		options = {
