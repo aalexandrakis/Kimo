@@ -4,7 +4,7 @@ var functions = require('../public/javascripts/functions.js')
 /* POST reset password. */
 
 
-router.get('/', function(req, res) {
+router.post('/', function(req, res) {
 	res.status(200).send();
 //	req, res, url, data, dataCallBack, endCallBack
 	console.log(req);
