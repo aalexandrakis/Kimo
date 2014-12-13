@@ -45,7 +45,6 @@ router.post('/', function(req, res) {
 	newReq = http.request(options, function(newRes) {
 		newRes.setEncoding('utf8');
 		newRes.on('data', function (data) {
-			console.log("data: ", data);
 			response += data;
 		});
 		newRes.on('end', function (result) {
@@ -55,8 +54,9 @@ router.post('/', function(req, res) {
 						console.log("Could not complete payment with txn_id ", req.body.txn_id , " because of the following error:", err);
 					checkAndUpdatePayment(connection, req);
 				});
+			} else {
+				console.log("UNVERIFIED paypal notification " , req.body);
 			}
-			console.log("response: ",response);
 		});
 	});
 	newReq.on('error', function(error){
