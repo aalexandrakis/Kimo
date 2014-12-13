@@ -54,8 +54,8 @@ router.post('/', function(req, res) {
 
 
 function checkAndUpdatePayment(connection, req){
-	amount = req.body.payment.mc_gross - req.body.payment.mc_fee;
-	query = "select * from payments where txnId = '" + req.body.payment.txn_id + "' and userId = " + req.body.payment.custom;
+	amount = req.body.mc_gross - req.body.mc_fee;
+	query = "select * from payments where txnId = '" + req.body.txn_id + "' and userId = " + req.body.custom;
 	connection.query(query, function(err, result){
 		if (result.length=0){
 			values = {
