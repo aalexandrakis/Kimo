@@ -35,12 +35,10 @@ externalHttpPost: function(req, res, url, data, dataCallBack, endCallBack){
 
 		http = require('http');
 		options = {
-		    hostname: url,
-		    port: 80,
-//		    path: url,
+		    url: url,
 		    method: 'POST',
 		    headers: {
-		        'Content-Type': 'application/x-www-form-urlencoded',
+		        'Content-Type': 'application/json',
 		        'Content-Length': Buffer.byteLength(data)
 		    }
 		};
