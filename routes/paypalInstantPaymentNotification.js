@@ -10,11 +10,9 @@ router.post('/', function(req, res) {
 	newReq = {
 		cmd : "_notify-validate"
 	};
-	console.log(req.header);
 	newReq += req.body;
-	console.log(newReq);
 	response = "";
-	functions.externalHttpPost(null, null, newReq, "https://www.sandbox.paypal.com/cgi-bin/webscr",
+	functions.externalHttpPost(null, null, JSON.stringify(newReq), "https://www.sandbox.paypal.com/cgi-bin/webscr",
 
 	function(data){
 		response += data;
