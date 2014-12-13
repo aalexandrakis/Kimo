@@ -30,34 +30,6 @@ module.exports = {
 		newReq.end();
 	},
 
-externalHttpPost: function(req, res, url, data, dataCallBack, endCallBack){
-		console.log('Http Post Function ' + url + ' ' + data);
-
-		http = require('http');
-		options = {
-		    url: url,
-		    method: 'POST',
-		    headers: {
-		        'Content-Type': 'application/x-www-form-urlencoded',
-		        'Content-Length': Buffer.byteLength(data)
-		    }
-		};
-		newReq = http.request(options, function(newRes) {
-			newRes.setEncoding('utf8');
-			newRes.on('data', function (result) {
-				dataCallBack(result);
-		    });
-			newRes.on('end', function (result) {
-				endCallBack(result);
-		    });
-		});
-		newReq.on('error', function(error){
-//			res.redirect('/error/408');
-			endCallBack(error, null);
-		});
-		newReq.write(data);
-		newReq.end();
-	},
 
 httpGet: function(req, res, url, data, dataCallBack, endCallBack){
 		console.log('Http Get Function ' + url );
