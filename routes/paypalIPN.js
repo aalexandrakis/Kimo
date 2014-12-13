@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 	};
 	newReq = http.request(options, function(newRes) {
 		newRes.setEncoding('utf8');
-		newRes.on('data', function (result) {
+		newRes.on('data', function (data) {
 			console.log("data: ", data);
 			response.push(data);
 		});
