@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `status` text COLLATE utf8_unicode_ci NOT NULL,
   `txnId` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`,`userId`),
-  UNIQUE KEY `tranId` (`tranId`)
+  UNIQUE KEY `txnId` (`txnId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 
