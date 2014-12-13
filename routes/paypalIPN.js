@@ -71,7 +71,6 @@ router.post('/', function(req, res) {
 function checkAndUpdatePayment(connection, req){
 	amount = req.body.mc_gross - req.body.mc_fee;
 	query = "select * from payments where txnId = '" + req.body.txn_id + "' and userId = " + req.body.custom;
-	console.log("query: ", query);
 	connection.query(query, function(err, result){
 		if (err)
 			console.log(err);
