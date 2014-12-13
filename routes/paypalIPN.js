@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
 				req.getConnection(function(err, connection){
 					if(err)
 						console.log("Could not complete payment with txn_id ", req.body.txn_id , " because of the following error.");
-					finishThePayment(connection, req);
+					checkAndUpdatePayment(connection, req);
 				});
 			}
 			console.log("response: ",response);
