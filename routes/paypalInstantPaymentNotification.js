@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
 	newReq1 = {
 		cmd : "_notify-validate"
 	};
-
+	console.log(JSON.stringify(req.body));
 	if (JSON.stringify(req.body == "{}")){
 		newReq = newReq1;
 	} else {
