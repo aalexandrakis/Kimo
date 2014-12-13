@@ -6,7 +6,7 @@
                 {{formHeader}}
               </div>
               <div class=panel-body>
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                   <fieldset>
                     <div ng-class="coinsGroup">
                       <label class="col-md-2 control-label"> Coins </label>
@@ -17,8 +17,15 @@
                     </div>
                     <div>
                       <input type="button" class="btn btn-lg btn-block btn-primary"  value="Add coins" ng-click="buyCoins()"/>
+                      <p>Or buy coins via Paypal Sandbox</p>
+                      <input type="hidden" name="cmd" value="_s-xclick">
+                      <input type="hidden" name="price" value={{coins}}>
+                      <input type="hidden" name="hosted_button_id" value="U2E3CCQC3WJ4Y">
+                      <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                      <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                     </div>
                   </fieldset>
+
                 </form>
               </div>
             </div>
