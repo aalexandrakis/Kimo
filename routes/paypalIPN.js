@@ -8,12 +8,14 @@ router.post('/', function(req, res) {
 	res.status(200).send();
 //	req, res, url, data, dataCallBack, endCallBack
 
-	newReq1 = {
-		cmd : "_notify-validate"
-	};
-	newReq = JSON.parse(JSON.stringify(newReq1)  + JSON.stringify(req.body));
+	newReq = "cmd=_notify-validate"
+
+	for (var prop in req.body) {
+        newReq +="&" +  prop + "=" + req.body[prop];
+    }
+
 	response = "";
-	functions.externalHttpPost(null, null, "https://www.sandbox.paypal.com/cgi-bin/webscr", JSON.stringify(newReq),
+	functions.externalHttpPost(null, null, "https://www.sandbox.paypal.com/cgi-bin/webscr", newReq,
 
 	function(data){
 		response += data;

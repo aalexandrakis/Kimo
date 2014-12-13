@@ -38,7 +38,7 @@ externalHttpPost: function(req, res, url, data, dataCallBack, endCallBack){
 		    url: url,
 		    method: 'POST',
 		    headers: {
-		        'Content-Type': 'application/json',
+		        'Content-Type': 'application/x-www-form-urlencoded',
 		        'Content-Length': Buffer.byteLength(data)
 		    }
 		};
