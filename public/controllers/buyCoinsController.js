@@ -8,6 +8,8 @@ kimoApp.controller("BuyCoinsController",  ['$scope', '$http', '$cookieStore', '$
 
      $scope.errorMessageGroup = {"display":"none"};
 
+     $scope.userId = $cookieStore.get("user").userId;
+
      $scope.buyCoins = function(){
           $scope.errorMessageGroup = {"display":"none"};
           if(!check()){
