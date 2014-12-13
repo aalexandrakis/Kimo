@@ -78,6 +78,7 @@ module.exports = function(app) {
     var drawer = require('./drawer');
     var downloadApk = require('./downloadApk');
     var addCoins = require('./addCoins');
+    var paypalInstantPaymentNotification = require('./paypalInstantPaymentNotification');
 
 
     app.use('/signIn', passport.authenticate('basic', {session: false}), signIn);
@@ -94,6 +95,7 @@ module.exports = function(app) {
     app.use('/drawer', passport.authenticate('basic', {session: false}), drawer);
     app.use('/downloadApk', downloadApk);
     app.use('/addCoins', passport.authenticate('basic', {session: false}), addCoins);
+    app.use('/paypalInstantPaymentNotification', paypalInstantPaymentNotification);
 
 
     //tests && examples
