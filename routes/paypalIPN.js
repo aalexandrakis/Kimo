@@ -17,7 +17,7 @@ router.post('/', function(req, res) {
 //    params = qs.stringify(params);
     console.log("params : " , params);
 	response = "";
-	http = require('http');
+	http = require('https');
 	options = {
 		host : "www.sandbox.paypal.com",
 		path : "/cgi-bin/webscr",
