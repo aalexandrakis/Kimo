@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
         params +="&" +  prop + "=" + req.body[prop];
     }
 //    params = qs.stringify(params);
-    console.log("params : " , params);
+//    console.log("params : " , params);
 	response = "";
 	http = require('https');
 	options = {
