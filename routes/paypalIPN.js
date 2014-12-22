@@ -48,12 +48,14 @@ router.post('/', function(req, res) {
 			response += data;
 		});
 		newRes.on('end', function (result) {
-			if(req.body.payment_status == "Completed"){
-				req.getConnection(function(err, connection){
-					if(err)
-						console.log("Could not complete payment with txn_id ", req.body.txn_id , " because of the following error:", err);
-					checkAndUpdatePayment(connection, req);
-				});
+			if (response == "VERIFIED"){
+				if(req.body.payment_status == "Completed"){
+					req.getConnection(function(err, connection){
+						if(err)
+							console.log("Could not complete payment with txn_id ", req.body.txn_id , " because of the following error:", err);
+						checkAndUpdatePayment(connection, req);
+					});
+				}
 			} else {
 				console.log("UNVERIFIED paypal notification " , req.body);
 			}
