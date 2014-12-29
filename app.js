@@ -84,6 +84,10 @@ app.options('/*', function(req, res, next){
 //route index, hello world
 require('./routes/routes.js')(app);
 
+app.get(/google./, function(req, res){
+    res.send("google1898355f0f5f3a7d.html");
+});
+
 app.get('/', function(req, res){
     res.sendFile(path.resolve() +"/public/partials/index.html");
 });
