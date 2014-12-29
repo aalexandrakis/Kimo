@@ -85,7 +85,7 @@ app.options('/*', function(req, res, next){
 require('./routes/routes.js')(app);
 
 app.get(/google./, function(req, res){
-    res.send("google1898355f0f5f3a7d.html");
+    res.sendFile(path.resolve() +"/google1898355f0f5f3a7d.html");
 });
 
 app.get('/', function(req, res){
