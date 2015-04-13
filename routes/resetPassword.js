@@ -50,8 +50,10 @@ router.post('/', function(req, res) {
 							 text: 'Your new password is ' + newPass + ' . For your own safety sign in and change it immediately.'
 						    };
 							transporter.sendMail(mailParams, function(err, result){
-								if(err)
+								if(err) {
+									console.log(err);
 									res.send({"responseCode":"40", "responseDescr":"Your password changed but we couldn't send it to you. Please reset your password one more time"});
+								}
 								res.send({"responseCode":"00", "responseDescr":"Your password changed changed successfully"});
 							});
 						})
